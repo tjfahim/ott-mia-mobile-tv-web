@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 14, 2024 at 09:50 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 7.4.33
+-- Host: localhost:3306
+-- Generation Time: Nov 16, 2024 at 04:13 AM
+-- Server version: 10.11.10-MariaDB
+-- PHP Version: 8.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `new_netsky`
+-- Database: `redail_ott`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE `ads_management` (
   `ad_size` varchar(255) DEFAULT NULL,
   `ad_code` text DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `ads_management`
@@ -91,7 +91,7 @@ CREATE TABLE `channels_list` (
   `seo_description` varchar(500) DEFAULT NULL,
   `seo_keyword` varchar(500) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `channels_list`
@@ -123,7 +123,7 @@ CREATE TABLE `channel_category` (
   `category_name` varchar(255) NOT NULL,
   `category_slug` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `channel_category`
@@ -147,10 +147,22 @@ CREATE TABLE `channel_manages` (
   `title` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `channel_manages`
+--
+
+INSERT INTO `channel_manages` (`id`, `title`, `image`, `url`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'NL 4K-NPO 1', 'channels/PvjZKGtgetH6wbh2Z8QJtEiL7fBhx5NTNnlP7kiO.png', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/963399', 1, '2024-11-12 21:12:02', '2024-11-12 21:50:45'),
+(2, 'NL 4K-NPO 3', 'channels/Q7N8gft3f2HFvtaifuA0IY93keSe78zp2h6UW5pH.png', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/963401', 1, '2024-11-12 21:49:16', '2024-11-12 21:50:59'),
+(3, 'NL 4K-E! ENTERTAINMENT', 'channels/2blDD2tOTI3LXjfjJpFx1qFfVsglJ3WmCizfk5uv.png', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/963435', 1, '2024-11-12 22:00:13', '2024-11-12 22:00:13'),
+(4, 'NL 4K-TLC', 'channels/SAtAkwbbTDAA7VkHSbMPIn8RKNOMiJ7SVgumKVoC.jpeg', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/963411', 1, '2024-11-12 22:38:25', '2024-11-12 22:38:25'),
+(5, 'NL-  ONS', 'channels/g81rYSoA92te7punj9VfERz2VJ0sgWv6MdDDPehc.png', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/11610', 1, '2024-11-12 22:39:13', '2024-11-12 22:39:13'),
+(6, 'NL-  STINGRAY MUSIC', 'channels/MvqeF0OqKDKuUmEWyZMywB4TPDOlwhJb80wRjru0.png', 'http://vip.bestsup.xyz:80/53ttvr6udi/t3q11zlpxp/221371', 1, '2024-11-12 22:40:16', '2024-11-12 22:40:16');
 
 -- --------------------------------------------------------
 
@@ -256,7 +268,7 @@ CREATE TABLE `genres` (
   `genre_slug` varchar(255) NOT NULL,
   `genres_image` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `genres`
@@ -300,7 +312,7 @@ CREATE TABLE `home_section` (
   `section5_title` varchar(255) DEFAULT NULL,
   `section5_type` varchar(255) NOT NULL,
   `section5_lang` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `home_section`
@@ -321,7 +333,7 @@ CREATE TABLE `language` (
   `language_slug` varchar(255) NOT NULL,
   `language_image` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `language`
@@ -357,8 +369,8 @@ CREATE TABLE `live_broadcast_manages` (
 --
 
 INSERT INTO `live_broadcast_manages` (`id`, `user_id`, `title`, `description`, `image`, `rtmp_server`, `stream_key`, `stream_url`, `status`, `created_at`, `updated_at`) VALUES
-(3, 1, 'sad', 'sad', 'upload/source/1730706707_images (3).jpeg', '194.233.65.161:1935/show', 'mialive', 'http://194.233.65.161:8080/hls/mialive.m3u8', 1, '2024-11-03 16:34:20', '2024-11-03 23:51:47'),
-(4, 1, 'omor', 'omor vai', 'upload/source/1730794197_images (1).jpeg', '62.146.170.115:1935/show', 'omor', 'http://62.146.170.115:8080/hls/omor.m3u8', 1, '2024-11-04 03:57:28', '2024-11-05 00:09:57');
+(3, 1, 'sad', 'sad', 'upload/source/1731480464_strategy-icon-2.png', '194.233.65.161:1935/show', 'mialive', 'http://194.233.65.161:8080/hls/mialive.m3u8', 1, '2024-11-03 16:34:20', '2024-11-12 22:47:44'),
+(4, 1, 'omor', 'omor vai', 'upload/source/1731480451_teambg.png', '62.146.170.115:1935/show', 'omor', 'http://62.146.170.115:8080/hls/omor.m3u8', 1, '2024-11-04 03:57:28', '2024-11-12 22:47:31');
 
 -- --------------------------------------------------------
 
@@ -385,8 +397,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2024_11_03_211234_create_live_broadcast_manages_table', 6),
 (10, '2024_11_05_214244_create_user_broadcasts_table', 7),
 (11, '2024_11_05_215107_create_user_broadcast_comments_table', 8),
-(12, '2024_11_07_015459_create_upcoming_movie_series_table', 9),
-(13, '2024_11_12_203644_create_channel_manages_table', 10);
+(12, '2024_11_07_015459_create_upcoming_movie_series_table', 9);
 
 -- --------------------------------------------------------
 
@@ -411,7 +422,8 @@ INSERT INTO `movie_series_favorites` (`id`, `user_id`, `movie_videos_id`, `is_fa
 (1, 472, 4, 1, '2024-11-01 20:33:00', '2024-11-01 20:33:00'),
 (2, 472, 3, 0, '2024-11-01 20:34:22', '2024-11-01 20:34:35'),
 (3, 472, 2, 1, '2024-11-01 20:35:37', '2024-11-01 20:35:37'),
-(4, 473, NULL, 1, '2024-11-05 21:03:40', '2024-11-05 21:03:40');
+(4, 473, NULL, 1, '2024-11-05 21:03:40', '2024-11-05 21:03:40'),
+(5, 472, NULL, 1, '2024-11-13 00:34:02', '2024-11-13 00:34:02');
 
 -- --------------------------------------------------------
 
@@ -473,7 +485,7 @@ INSERT INTO `movie_videos` (`id`, `video_access`, `movie_lang_id`, `movie_genre_
 (12, 'Free', 2, '9,1,11,8,16', 'Meet Joe Black', 910857600, '3h 33s', '<h2 class=\\\"14\\\">Meet Joe Black&nbsp;<span class=\\\"tag release_date\\\">(1998)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">When the grim reaper comes to collect the soul of mega mogul Bill Parrish, he arrives with a proposition: Host him for a \\\"vacation\\\" among the living in trade for a few more days of existence. Parrish agrees, and using the pseudonym Joe Black, Death begins taking part in Parrish\\\'s daily agenda and falls in love with the man\\\'s daughter.</span></p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Fantasy, Drama, Romance</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Brad Pitt, Anthony Hopkins, Claire Forlani, Jake Weber, Marcia Gay Harden</p>', 'meet-joe-black', 'Meet Joe Black mL5Anak61.jpg', 'Meet Joe Black VegAtwwnuzvogJ.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/drama-romance-fantasy/o/Meet%20Joe%20Black%20(1998)%201080p%20HD%20English%2FMeet%20Joe%20Black%201998%201080p%20BrRip.x264.YIFY.mp4?alt=media&token=291865c3-9a96-421a-974f-f5db920107cb', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2023-10-25 04:01:32'),
 (13, 'Free', 2, '15,14,16', 'Scream', 1642147200, '1h 54m 18s', '<h2 class=\\\"6\\\">Scream&nbsp;<span class=\\\"tag release_date\\\">(2022)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">Twenty-five years after a streak of brutal murders shocked the quiet town of Woodsboro, a new killer has donned the Ghostface mask and begins targeting a group of teenagers to resurrect secrets from the town&rsquo;s deadly past.</span></p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Thriller, Horror, Mystery</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Mikey Madison, Jenna Ortega, Neve Campbell, Melissa Barrera, Mason Gooding</p>', 'scream', 'Scream (2022) Perfil wQ2IBJ5w.jpg', 'Scream (2022) RIB7XnFz5ZC.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/movies-horror/o/Scream%20(2022)%201080p%20HD%20BluRay%20(English)%2FScream.2022.1080p.BluRay.x264.AAC5.1-%5BYTS.MX%5D.mp4?alt=media&token=52f9b68a-eb8f-4726-8a9f-56ce63d9e4db', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2023-10-25 03:48:44'),
 (14, 'Free', 2, '3,1,11,16', 'We Are The Night', 1289462400, '1h 39m 43s', '<h2 class=\\\"16\\\">We Are The Night&nbsp;<span class=\\\"tag release_date\\\">(2010)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">One night, 18 year old Lena is bitten by Louise, leader of a female vampire trio that are as deadly as they are beautiful. Her newfound vampiric lifestyle is a blessing and a curse at the same time. At first, she enjoys the limitless freedom, the luxury, the parties.</span></p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Fantasy, Drama, Horror, Romance</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Karoline Herfurth, Nina Hoss, Jennifer Ulrich, Anna Fischer, Max Riemelt</p>', 'we-are-the-night', 'We Are The Night MaxqI.jpg', 'We Are The Night jUrgOa.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/series-and-comedy/o/We%20Are%20The%20Night%20(2010)%201080p%20HD%20BluRay%20(Original%20Audio)%2FWe.Are.The.Night.2010.1080p.BluRay.x264.AAC5.1-%5BYTS.MX%5D.mp4?alt=media&token=8bd7af7a-bb62-46d0-8adf-eed921ca9cd8', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '10', NULL, '', '', '', 1, NULL, '2023-10-25 04:00:37'),
-(15, 'Free', 2, '9,13,8,14,16', 'Home Alone', 658742400, '1h 42m 54s', '<h2 class=\\\"10\\\">Home Alone&nbsp;<span class=\\\"tag release_date\\\">(1990)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">Eight-year-old Kevin McCallister makes the most of the situation after his family unwittingly leaves him behind when they go on Christmas vacation.</span></p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Macaulay Culkin, Joe Pesci, Daniel Stern, Catherine O\\\'Hara, John Heard</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Comedy, Family</p>', 'home-alone', 'Home Alone (1990) 678.jpg', 'Home Alone (1990)28345.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/comedy-and-drama/o/Home%20Alone%20(1990)%201080p%20HD%20BluRay%20English%2FHome%20Alone%201990%201080p%20BluRay.x264.YIFY.mp4?alt=media&token=5d7adab6-6a4f-4eaf-824e-76f954e46d0e', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2023-10-25 04:00:01'),
+(15, 'Free', 2, '9,16,13,8,14', 'Home Alone', 658742400, '1h 42m 54s', '<h2 class=\\\"10\\\"><span style=\\\"color: #999999;\\\"><strong>Home Alone (1990) Eight-year-old Kevin McCallister makes the most of the situation after his family unwittingly leaves him behind when they go on Christmas vacation. Casts: Macaulay Culkin, Joe Pesci, Daniel Stern, Catherine O\\\'Hara, John Heard Genres: Comedy, Family</strong></span></h2>', 'home-alone', 'Home Alone (1990) 678.jpg', 'Home Alone (1990)28345.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/comedy-and-drama/o/Home%20Alone%20(1990)%201080p%20HD%20BluRay%20English%2FHome%20Alone%201990%201080p%20BluRay.x264.YIFY.mp4?alt=media&token=5d7adab6-6a4f-4eaf-824e-76f954e46d0e', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2024-11-13 09:34:59'),
 (16, 'Paid', 2, '2,1,14,16', 'The Bourne Identity', 1024038000, '1h 58m 27s', '<h2 class=\\\"19\\\">The Bourne Identity&nbsp;<span class=\\\"tag release_date\\\">(2002)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">Wounded to the brink of death and suffering from amnesia, Jason Bourne is rescued at sea by a fisherman. With nothing to go on but a Swiss bank account number, he starts to reconstruct his life, but finds that many people he encounters want him dead.</span></p>\r\n<p>&nbsp;</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Matt Damon, Franka Potente, Chris Cooper, Clive Owen</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Directed by:</strong></span>&nbsp;Robert Ludlum</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Action, Drama,&nbsp;Mystery</p>', 'the-bourne-identity', 'The Bourne Identity (2002) Profile.jpg', 'The Bourne Identity (2002) 432.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/action-drama-movies/o/The%20Bourne%20Identity%20(2002)%202160p%204K%20BluRay%20(English)%2FThe%20Bourne%20Identity.2002.2160p.4K.BluRay.x265.10bit.AAC5.1-%5BYTS.MX%5D.mkv?alt=media&token=585a7cff-b377-49a1-9ca2-b90fc5dc7916', NULL, NULL, NULL, 0, NULL, 1, 'English', NULL, NULL, NULL, 'Spanish', NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2023-10-25 03:59:20'),
 (17, 'Paid', 2, '2', 'Netsky TV', -57600, NULL, '<h2 class=\\\"19\\\">The Bourne Identity&nbsp;<span class=\\\"tag release_date\\\">(2002)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">Wounded to the brink of death and suffering from amnesia, Jason Bourne is rescued at sea by a fisherman. With nothing to go on but a Swiss bank account number, he starts to reconstruct his life, but finds that many people he encounters want him dead.</span></p>\r\n<p>&nbsp;</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Doug&nbsp;</p>\r\n<p><span class=\\\"tag release_date\\\"><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Action</span></p>\r\n<p>&nbsp;</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Action</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Directed by:</strong></span>&nbsp;Robert</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Doug&nbsp;</p>', 'netsky-tv', '1 (1).jpg', '1 (1).jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/comedy-and-drama/o/Home%20Alone%20(1990)%201080p%20HD%20BluRay%20English%2FHome%20Alone%201990%201080p%20BluRay.x264.YIFY.mp4?alt=media&token=5d7adab6-6a4f-4eaf-824e-76f954e46d0e', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, NULL, NULL, 'Spanish', 'https://drive.google.com/file/d/1d-7K3hewT7yzDUWfhM8X9OclxyGSm9SD/view?usp=drive_link', NULL, NULL, NULL, '', '', '', 0, NULL, '2023-08-12 18:44:27'),
 (19, 'Free', 2, '2,1,16', 'The Scorpion King', 1019199600, '1h 31m 22s', '<h2 class=\\\"17\\\">The Scorpion King&nbsp;<span class=\\\"tag release_date\\\">(2002)</span></h2>\r\n<p><span class=\\\"tag release_date\\\">In ancient Egypt, peasant Mathayus is hired to exact revenge on the powerful Memnon and the sorceress Cassandra, who are ready to overtake Balthazar\\\'s village. Amid betrayals, thieves, abductions and more, Mathayus strives to bring justice to his complicated world.</span></p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Casts:</strong></span>&nbsp;Dwayne Johnson, Kelly Hu, Steven Brand, Michael Clarke Duncan</p>\r\n<p><span style=\\\"color: #ff0000;\\\"><strong>Genres:&nbsp;</strong></span>Action, Adventure, Fantasy</p>', 'the-scorpion-king', 'The Scorpion King 4Nt5GzBDeTLZIIpm.jpg', 'The Scorpion King UGWMXCtnZx4.jpg', 'URL', 0, 'https://firebasestorage.googleapis.com/v0/b/the-rock-movies/o/The%20Rock%20-%20The%20Scorpion%20King%20(2002)%201080p%20HD%20BluRay%20(English)%2FThe%20Scorpion%20King%202002%201080p%20BluRay.x264.AAC5.1-%5BYTS.MX%5D.mp4?alt=media&token=094f643f-2c2f-49f6-818b-8799ee7d4344', NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', 1, NULL, '2023-10-25 03:58:17'),
@@ -628,7 +640,7 @@ CREATE TABLE `pages` (
   `page_slug` varchar(500) NOT NULL,
   `page_content` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `pages`
@@ -652,7 +664,7 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `password_resets`
@@ -674,7 +686,7 @@ CREATE TABLE `recently_watched` (
   `video_type` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `video_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `recently_watched`
@@ -1966,7 +1978,16 @@ INSERT INTO `recently_watched` (`id`, `video_type`, `user_id`, `video_id`) VALUE
 (1380, 'Movies', 473, 19),
 (1381, 'Movies', 473, 10),
 (1382, 'Movies', 473, 16),
-(1383, 'Movies', 473, 15);
+(1383, 'Movies', 473, 15),
+(1384, 'Movies', 473, 14),
+(1385, 'Movies', 472, 15),
+(1386, 'Movies', 472, 23),
+(1387, 'Movies', 472, 19),
+(1388, 'Movies', 472, 28),
+(1389, 'Movies', 471, 15),
+(1390, 'Movies', 471, 19),
+(1391, 'Movies', 473, 70),
+(1392, 'Movies', 474, 15);
 
 -- --------------------------------------------------------
 
@@ -1991,7 +2012,14 @@ INSERT INTO `recent_watches` (`id`, `user_id`, `movie_videos_id`, `created_at`, 
 (2, 472, 3, '2024-11-01 21:19:54', '2024-11-01 21:19:54'),
 (3, 472, 2, '2024-11-01 21:21:43', '2024-11-01 21:21:43'),
 (4, 472, 6, '2024-11-01 21:21:48', '2024-11-01 21:21:48'),
-(5, 473, 3, '2024-11-03 23:38:11', '2024-11-03 23:38:11');
+(5, 473, 3, '2024-11-03 23:38:11', '2024-11-03 23:38:11'),
+(6, 473, 15, '2024-11-08 20:44:56', '2024-11-08 20:44:56'),
+(7, 472, 15, '2024-11-13 00:29:14', '2024-11-13 00:29:14'),
+(8, 472, 23, '2024-11-13 00:30:27', '2024-11-13 00:30:27'),
+(9, 472, 19, '2024-11-13 00:34:06', '2024-11-13 00:34:06'),
+(10, 473, 14, '2024-11-13 01:36:30', '2024-11-13 01:36:30'),
+(11, 473, 19, '2024-11-13 02:12:50', '2024-11-13 02:12:50'),
+(12, 474, 15, '2024-11-13 21:43:53', '2024-11-13 21:43:53');
 
 -- --------------------------------------------------------
 
@@ -2243,7 +2271,7 @@ CREATE TABLE `season` (
   `seo_description` varchar(500) DEFAULT NULL,
   `seo_keyword` varchar(500) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `season`
@@ -2273,7 +2301,7 @@ CREATE TABLE `series` (
   `seo_description` varchar(500) DEFAULT NULL,
   `seo_keyword` varchar(500) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `series`
@@ -2345,7 +2373,7 @@ CREATE TABLE `settings` (
   `maintenance mode` varchar(255) DEFAULT NULL,
   `envato_buyer_name` varchar(255) DEFAULT NULL,
   `envato_purchase_code` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Dumping data for table `settings`
@@ -2383,7 +2411,7 @@ CREATE TABLE `settings_android_app` (
   `interstitial_ad_type` varchar(255) NOT NULL DEFAULT 'Admob',
   `fb_banner_id` varchar(500) DEFAULT NULL,
   `fb_interstitial_id` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `settings_android_app`
@@ -2415,7 +2443,7 @@ CREATE TABLE `settings_player` (
   `ad_web_url` varchar(255) DEFAULT NULL,
   `ad_video_type` varchar(255) NOT NULL DEFAULT 'Local',
   `ad_video_url` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `settings_player`
@@ -2438,7 +2466,7 @@ CREATE TABLE `slider` (
   `slider_post_id` int(11) DEFAULT NULL,
   `slider_url` text DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `slider`
@@ -2461,7 +2489,7 @@ CREATE TABLE `sports_category` (
   `category_name` varchar(255) NOT NULL,
   `category_slug` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `sports_category`
@@ -2535,7 +2563,7 @@ CREATE TABLE `subscription_plan` (
   `plan_price` decimal(11,2) NOT NULL,
   `finalprice` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `subscription_plan`
@@ -2561,7 +2589,7 @@ CREATE TABLE `transaction` (
   `payment_amount` varchar(255) NOT NULL,
   `payment_id` varchar(255) NOT NULL,
   `date` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `transaction`
@@ -2686,7 +2714,7 @@ CREATE TABLE `users` (
   `session_id` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -2717,7 +2745,7 @@ INSERT INTO `users` (`id`, `usertype`, `login_status`, `google_id`, `facebook_id
 (435, 'User', 0, NULL, NULL, 'Rejve Hassan', NULL, 'rejveee@gmail.com', '$2y$10$YdcXZIBrKKidQsRM6Czoe.JzAZMLS6ejr/rzzcfhv.uVsNyiKxrTW', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2023-10-23 13:30:11', '2023-10-23 13:30:11'),
 (436, 'User', 0, NULL, NULL, 'carlos', NULL, 'carlos@gmail.com', '$2y$10$q8uP6YjrtZNGjEAEJi24u.JpSe4.Yy3quB2VISDOBhaa5InRSfAjm', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2023-10-29 03:50:01', '2023-10-29 03:50:01'),
 (437, 'User', 0, NULL, NULL, 'apache35480', NULL, 'apache35480@laposte.net', '$2y$10$LK6kMeJXtngOti9vZwPjseB8fJom5.zXtjp8EDXhVMtIq55rR5/EK', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2023-12-31 14:43:19', '2023-12-31 14:43:19'),
-(438, 'User', 0, NULL, NULL, 'khaled', NULL, 'khaled9407@gmail.com', '$2y$10$Cym3eSEmsBICYn80mHTa..eRQP62d229.k.m5GSpZQ2iqOoLOumZW', NULL, NULL, 'khaled-ec51bd33b703188a534c9d22b014a9db-b.jpg', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-02-10 19:12:53', '2024-11-06 20:39:24'),
+(438, 'User', 0, NULL, NULL, 'khaled', NULL, 'khaled9407@gmail.com', '$2y$10$Cym3eSEmsBICYn80mHTa..eRQP62d229.k.m5GSpZQ2iqOoLOumZW', NULL, NULL, 'khaled-d990aef2cc367c943ca3e675b9aaf6ee-b.jpg', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-02-10 19:12:53', '2024-11-07 02:41:04'),
 (439, 'User', 0, NULL, NULL, 'fayej', NULL, 'f@gmail.com', '$2y$10$AmN8TRczjTDH5NYQKIsWqewzqS/6NYu.JgElGJ.FFp027wvguJ5IS', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-03-06 05:43:27', '2024-03-06 05:43:27'),
 (440, 'User', 0, NULL, NULL, 'Hariom Awasthi', NULL, 'awasthihariom316@gmail.com', '$2y$10$z5lkDH7Nx4J9L.08X2kAcekiZCWBEFKYvOl917trXD8aLVov91kpi', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-03-09 10:03:07', '2024-03-09 10:03:07'),
 (441, 'User', 0, NULL, NULL, 'joao', NULL, 'joaobicalho022007@gmail.com', '$2y$10$nV8Qw/D6D1GO4Ac0fiVEG.fBpJIQTHcmSBmA.NmJa42J.Utg0Wei6', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-03-14 18:52:45', '2024-03-14 18:56:32'),
@@ -2735,7 +2763,7 @@ INSERT INTO `users` (`id`, `usertype`, `login_status`, `google_id`, `facebook_id
 (454, 'User', 0, NULL, NULL, 'a@a.cm', NULL, 'a@a.cm', 'a@a.cm', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL),
 (455, 'User', 0, NULL, NULL, 'a@a.cm', NULL, 'a@a.cm', 'a@a.cm', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL),
 (457, 'User', 0, NULL, NULL, 'stephen', NULL, 'stephendugan49@gmail.com', '$2y$10$evmz4TGCIncG0/bKv/fBCuoOpppSx4TCd/m7dI03wRpjAQlXKuxAm', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-19 02:32:36', '2024-08-19 02:32:36'),
-(458, 'User', 0, NULL, NULL, 'omor', NULL, 'test@gmail.com', '$2y$10$KhUM3GH2bF6x7zdJfl.up.VoyzpAaqN96bjny8RXSQN.472JtNB1S', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-24 09:50:01', '2024-08-24 09:50:01'),
+(458, 'User', 0, NULL, NULL, 'omor', NULL, 't@t1.com', '$2y$10$KhUM3GH2bF6x7zdJfl.up.VoyzpAaqN96bjny8RXSQN.472JtNB1S', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-24 09:50:01', '2024-11-13 07:45:45'),
 (459, 'User', 0, NULL, NULL, 'Bob', NULL, 'mxbob109@gmail.com', '$2y$10$/YairLIkhAMbdyk/T5Ux4uxY2zmeho0jdWFSnDu.8TeASB0B3PkE.', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-27 16:16:09', '2024-09-24 23:28:07'),
 (460, 'User', 0, NULL, NULL, 'yuri', NULL, 'yuri456236@gmail.com', '$2y$10$9A9AjsHKVfth/D/nG4mlc.4xjeg0B55l/IM4hR1ygUz6kq3/jrZS.', '13992029892', NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-29 23:35:23', '2024-08-29 23:36:41'),
 (461, 'User', 0, NULL, NULL, 'taju', NULL, 'tajuabdella123@gmail.com', '$2y$10$djhQcycxLDu17.us7Egl4Op.NRNQGr0TaACvU4I37gn3I2vrL05OG', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-08-31 14:41:33', '2024-08-31 14:41:33'),
@@ -2748,9 +2776,10 @@ INSERT INTO `users` (`id`, `usertype`, `login_status`, `google_id`, `facebook_id
 (468, 'User', 0, NULL, NULL, 'jabbi kadu', NULL, 'ddrtraditionnelle@gmail.com', '$2y$10$zpE7yzSi4PI7fK7w1ZS71OKUWUn11EenLl3wQaA1NjQsUvBnRVThy', NULL, NULL, NULL, 1, 5, 1727593200, 1730185200, '00000000000', NULL, NULL, NULL, '0.00', NULL, NULL, NULL, '2024-09-30 01:19:58', '2024-09-30 01:22:34'),
 (469, 'User', 0, NULL, NULL, 'chloeoneill', NULL, 'chloeoneill20061@gmail.com', '$2y$10$rSsXgzXVcrdrpEiI9hRwiOreLl3ixN6y.d7Wwr12Yb9Eoi.mse2zi', NULL, NULL, NULL, 1, 5, 1729062000, 1731657600, '00000000000', NULL, NULL, NULL, '0.00', NULL, NULL, NULL, '2024-10-16 15:26:37', '2024-10-16 15:27:35'),
 (470, 'User', 0, NULL, NULL, 'Brent', NULL, 'piercebrent257@gmail.com', '$2y$10$KJYULMno3EaWCOv4.MkTvuqELjG9oEM7ZZ0ltq80N7U6XgYNGP81e', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-10-18 21:58:59', '2024-10-18 21:58:59'),
-(471, 'User', 0, NULL, NULL, 't', NULL, 't@t.com', '$2y$10$oa/8nivWb3HBv/yQ0tYhb.p66sVRs6vuIsyav56wrV2k9O.MNNCAe', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-10-30 22:58:33', '2024-10-30 22:58:33'),
-(472, 'User', 0, NULL, NULL, 't', NULL, 't@t2.com', '$2y$10$7Qvdtd3.6UklPf4HbAO49uKziF1vcdhQexwoNop21uhSffZHSbkni', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-10-30 22:59:00', '2024-10-30 23:45:14'),
-(473, 'User', 0, NULL, NULL, 'Md omar Faruk dfd', 'omarfaruk', 'mohammadomar01312@gmail.com', '$2y$10$CY2P/lkRoEH4/W21VlHvyufvTJ3Ls1.5m4nI24dL6Ajd1L/8c1lQ6', '123124214124', 'mohammadomar01312@gmail.com', NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-11-03 23:35:47', '2024-11-04 01:02:11');
+(471, 'User', 0, NULL, NULL, 't', NULL, 't@t.com', '$2y$10$CY2P/lkRoEH4/W21VlHvyufvTJ3Ls1.5m4nI24dL6Ajd1L/8c1lQ6', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-10-30 22:58:33', '2024-11-13 07:46:54'),
+(472, 'User', 0, NULL, NULL, 'T', NULL, 't@t2.com', '$2y$10$CY2P/lkRoEH4/W21VlHvyufvTJ3Ls1.5m4nI24dL6Ajd1L/8c1lQ6', NULL, 't@t2.com', NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-10-30 22:59:00', '2024-11-13 00:47:42'),
+(473, 'User', 0, NULL, NULL, 'Md omar Faruk dfd', 'omarfaruk', 'mohammadomar01312@gmail.com', '$2y$10$CY2P/lkRoEH4/W21VlHvyufvTJ3Ls1.5m4nI24dL6Ajd1L/8c1lQ6', '123124214124', 'mohammadomar01312@gmail.com', 'md-omar-faruk-dfd-710cdc1de92b32f7451ad31d15f08b14-b.jpg', 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-11-03 23:35:47', '2024-11-13 07:45:50'),
+(474, 'User', 0, NULL, NULL, 'test', 'test123', 'test123@gmail.com', '$2y$10$FksXWNxFa/IRf0aV.d7Qb.eYppPo3OCFRXtuXC/2BuGLJucPnzGyW', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, '2024-11-13 21:42:22', '2024-11-13 21:42:26');
 
 -- --------------------------------------------------------
 
@@ -2783,7 +2812,29 @@ INSERT INTO `user_broadcasts` (`id`, `user_id`, `title`, `description`, `image`,
 (3, 472, 'zdfg', 'description', NULL, 'active', 'Ah0Qs5K1nYPX', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/Ah0Qs5K1nYPX.m3u8', 'rtmp://194.233.65.161/Ah0Qs5K1nYPX', '2024-11-05 16:59:32', '2024-11-05 16:59:32'),
 (4, 472, 'zdfg', 'description', NULL, 'active', 'kPEH8XYgCRBE', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/kPEH8XYgCRBE.m3u8', 'rtmp://194.233.65.161:1935/new/kPEH8XYgCRBE', '2024-11-05 17:01:46', '2024-11-05 17:01:46'),
 (5, 472, 'zdfg', 'description', NULL, 'active', '9CmC71VAIh5I', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/9CmC71VAIh5I.m3u8', 'rtmp://194.233.65.161:1935/new/9CmC71VAIh5I', '2024-11-05 17:10:18', '2024-11-05 17:10:18'),
-(6, 438, 'asdf', 'asf', NULL, 'active', 'kWPem8vVguKe', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/kWPem8vVguKe.m3u8', 'rtmp://194.233.65.161:1935/new/kWPem8vVguKe', '2024-11-06 15:38:25', '2024-11-06 15:38:25');
+(6, 438, 'asdf', 'asf', NULL, 'active', 'kWPem8vVguKe', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/kWPem8vVguKe.m3u8', 'rtmp://194.233.65.161:1935/new/kWPem8vVguKe', '2024-11-06 15:38:25', '2024-11-06 15:38:25'),
+(7, 473, 'sdfsd', 'sfsd', NULL, 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 22:25:47', '2024-11-08 22:25:47'),
+(8, 473, 'sdfsf', 'sfsd', 'uploads/A05clGhMgv2UZN7s4MN0IGX6GRqN04dWNdPkkV2M.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 22:59:25', '2024-11-08 22:59:25'),
+(9, 473, 'sdfsf', 'sfsd', 'uploads/6RrNbOLJCsUbGctmPkPHYmwBTcWZw2doUzOwstyQ.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:02:20', '2024-11-08 23:02:20'),
+(10, 473, 'sdfd', 'sdfs', 'uploads/l74NxXIX9mPAPn5prwbFUdra7yXO1srzEA6eOYpC.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:06:45', '2024-11-08 23:06:45'),
+(11, 473, 'sdfd', 'sdfs', 'uploads/CCetaNrO2dfVuZ2vwapZImpOQHy23CDS30jiaXtG.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:06:50', '2024-11-08 23:06:50'),
+(12, 473, 'sdfd', 'sdfs', 'uploads/6Y2dB8nuJRG8BQyMth4FZwf4Qu6iZHxZvUg5l2Sd.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:06:50', '2024-11-08 23:06:50'),
+(13, 473, 'sdfd', 'sdfs', 'uploads/5MPIJCPaa0A3tboKcEa9yMrQjti2V5gTL4ZCNe2h.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:06:51', '2024-11-08 23:06:51'),
+(14, 473, 'sdfsfs', 'sfsfd', 'uploads/sEFUcdHoaaJE1mNQCds93Ao4CuI0pFDWb2taLb9A.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:08:24', '2024-11-08 23:08:24'),
+(15, 473, 'sdfsf', 'sfsd', 'uploads/5YVZ03lHrQIap9YT4Gum2ysi9MV1lewiFekOg3FN.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:09:10', '2024-11-08 23:09:10'),
+(16, 473, 'dsf', 'dsf', 'uploads/6Bo63XzrujOFaIOzOMKz6wATZbbbPMZdjkMd3LBq.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:09:56', '2024-11-08 23:09:56'),
+(17, 473, 'sdffsf', 'sdfsf', 'uploads/PEbvijZwVLpQ7XMycdK4cjv5S5SiYJkffz98HUpI.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:10:58', '2024-11-08 23:10:58'),
+(18, 473, 'dsfsfs', 'sdfsf', 'uploads/ZkWrgqGXukGC2KM1AoKhIgi2ZziWWBxoksM9qrin.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:13:39', '2024-11-08 23:13:39'),
+(19, 473, 'sdfsdf', 'sdfsdfdsf', 'uploads/gLn1tx9u5RVBBNUfpxvZ33QBe6cWU66HP6nRMqMa.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:16:01', '2024-11-08 23:16:01'),
+(20, 473, 'sdfsdf', 'sdfsdfdsf', 'uploads/w2mOIgzgdJbWTsxk03x81CvXgMuL73CSmziU43Xk.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:16:04', '2024-11-08 23:16:04'),
+(21, 473, 'sdfsdf', 'ssdf', 'uploads/KcYat9Gh0GloOoYAmG7G3yf5wPOBrQqjtFpodEMM.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:20:12', '2024-11-08 23:20:12'),
+(22, 473, 'sdfsdf', 'ssdf', 'uploads/3WXVoAa1w24YKwJbQYdnM6SACdf3JUMe5DkKkLXP.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:20:29', '2024-11-08 23:20:29'),
+(23, 473, 'sdfsdf', 'ssdf', 'uploads/tWOqV0OSCTO5AdjdeePKh272aNXwS93PMJpPisdA.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:20:35', '2024-11-08 23:20:35'),
+(24, 473, 'sdfsf', 'sdfsdf', 'uploads/MnSkNryvleX96B58IriJJxzqcuoXHjHzhOBCkbMP.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:21:39', '2024-11-08 23:21:39'),
+(25, 473, 'sdfsdf', 'sfsdfsf', 'uploads/9Q0znamaSW23extSz8oA6h8oGmVlAkjvIBj5HcZu.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:23:00', '2024-11-08 23:23:00'),
+(26, 473, 'sdfss', 'sdfsdf', 'uploads/RZtPEFxNVjWd2pKq54VasIyMmoQxUPsTJR5uHg5Z.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:25:47', '2024-11-08 23:25:47'),
+(27, 473, 'dfsfs', 'sdfsf', 'uploads/tx1PEpxQiO80WMdUC0MKtmeXv7gxJe4nFUKWe7ZP.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:27:39', '2024-11-08 23:27:39'),
+(28, 473, 'sdfsf', 'sfsd', 'uploads/oBArAOLjp2G4XDr80k0mxABntQVh3W1P6H4hRsng.png', 'active', 'omarfaruk', 'http://194.233.65.161:1935/new', 'http://194.233.65.161:8080/hls/omarfaruk.m3u8', 'rtmp://194.233.65.161:1935/new/omarfaruk', '2024-11-08 23:35:33', '2024-11-08 23:35:33');
 
 -- --------------------------------------------------------
 
@@ -2806,7 +2857,35 @@ CREATE TABLE `user_broadcast_comments` (
 --
 
 INSERT INTO `user_broadcast_comments` (`id`, `user_broadcast_id`, `user_id`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 438, 'dfsg', 'approved', '2024-11-06 15:28:08', '2024-11-06 15:28:08');
+(1, 5, 438, 'dfsg', 'approved', '2024-11-06 15:28:08', '2024-11-06 15:28:08'),
+(2, 28, 473, 'dfsg', 'approved', '2024-11-08 23:35:58', '2024-11-08 23:35:58'),
+(3, 28, 473, 'dfsgdfds', 'approved', '2024-11-08 23:36:08', '2024-11-08 23:36:08'),
+(4, 28, 473, 'dfsgdfds', 'approved', '2024-11-08 23:36:24', '2024-11-08 23:36:24'),
+(5, 28, 473, 'dfsgdfds', 'approved', '2024-11-08 23:36:57', '2024-11-08 23:36:57'),
+(6, 28, 473, 'dfsgdfdssdfsdf', 'approved', '2024-11-08 23:37:01', '2024-11-08 23:37:01'),
+(7, 28, 473, 'dfsg', 'approved', '2024-11-08 23:39:01', '2024-11-08 23:39:01'),
+(8, 28, 473, 'dfsg', 'approved', '2024-11-08 23:53:11', '2024-11-08 23:53:11'),
+(9, 28, 473, 'dfsg', 'approved', '2024-11-08 23:53:38', '2024-11-08 23:53:38'),
+(10, 28, 473, 'dfsg', 'approved', '2024-11-08 23:57:02', '2024-11-08 23:57:02'),
+(11, 28, 473, 'dfsg', 'approved', '2024-11-08 23:57:19', '2024-11-08 23:57:19'),
+(12, 28, 473, 'dfsg', 'approved', '2024-11-09 00:04:11', '2024-11-09 00:04:11'),
+(13, 28, 473, 'dfsg', 'approved', '2024-11-09 00:07:46', '2024-11-09 00:07:46'),
+(14, 28, 473, 'dfsg', 'approved', '2024-11-09 00:15:59', '2024-11-09 00:15:59'),
+(15, 28, 473, 'dfsg', 'approved', '2024-11-09 00:19:48', '2024-11-09 00:19:48'),
+(16, 28, 473, 'dfsg', 'approved', '2024-11-09 00:43:34', '2024-11-09 00:43:34'),
+(17, 28, 473, 'dfsg', 'approved', '2024-11-09 00:45:47', '2024-11-09 00:45:47'),
+(18, 28, 473, 'dfsg', 'approved', '2024-11-09 01:36:54', '2024-11-09 01:36:54'),
+(19, 28, 473, 'dfsg', 'approved', '2024-11-09 01:39:03', '2024-11-09 01:39:03'),
+(20, 28, 473, 'dfsg', 'approved', '2024-11-09 01:42:08', '2024-11-09 01:42:08'),
+(21, 28, 473, 'dfsg', 'approved', '2024-11-09 01:42:57', '2024-11-09 01:42:57'),
+(22, 28, 473, 'dfsg', 'approved', '2024-11-09 01:44:37', '2024-11-09 01:44:37'),
+(23, 28, 473, 'dfsg', 'approved', '2024-11-09 01:45:43', '2024-11-09 01:45:43'),
+(24, 28, 473, 'dfsg', 'approved', '2024-11-09 01:47:09', '2024-11-09 01:47:09'),
+(25, 28, 473, 'dfsg', 'approved', '2024-11-09 01:47:30', '2024-11-09 01:47:30'),
+(26, 28, 473, 'dfsg', 'approved', '2024-11-09 01:50:02', '2024-11-09 01:50:02'),
+(27, 28, 473, 'dfsg', 'approved', '2024-11-09 01:53:56', '2024-11-09 01:53:56'),
+(28, 28, 473, 'dfsg', 'approved', '2024-11-09 01:55:15', '2024-11-09 01:55:15'),
+(29, 28, 473, 'dfsg', 'approved', '2024-11-09 01:57:39', '2024-11-09 01:57:39');
 
 -- --------------------------------------------------------
 
@@ -2848,8 +2927,8 @@ CREATE TABLE `youtube_tiktok_manages` (
 --
 
 INSERT INTO `youtube_tiktok_manages` (`id`, `title`, `description`, `image`, `type`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'sadfsad', 'sdfsad', 'upload/source/1730794479_images (3).jpeg', 'TikTok', 'https://cdn.klowdtv.net/803B48A/n1.klowdtv.net/live1/cine_720p/playlist.m3u8', 1, '2024-11-02 19:37:15', '2024-11-05 00:14:39'),
-(3, 'sadf', 'fgds', 'upload/source/1730794440_1-intro-photo-final.jpg', 'YouTube', 'https://cdn.klowdtv.net/803B48A/n1.klowdtv.net/live1/cine_720p/playlist.m3u8', 1, '2024-11-02 19:38:47', '2024-11-05 00:14:00');
+(4, 'Test', 'test', 'upload/source/1731480288_hero4.png', 'YouTube', 'https://cdn.klowdtv.net/803B48A/n1.klowdtv.net/live1/cine_720p/playlist.m3u8', 1, '2024-11-12 22:44:48', '2024-11-12 22:44:48'),
+(5, 'Test tiktok', 'test', 'upload/source/1731480320_tesntimonialImg.png', 'TikTok', 'https://cdn.klowdtv.net/803B48A/n1.klowdtv.net/live1/cine_720p/playlist.m3u8', 1, '2024-11-12 22:45:20', '2024-11-12 22:45:20');
 
 --
 -- Indexes for dumped tables
@@ -3121,7 +3200,7 @@ ALTER TABLE `channel_category`
 -- AUTO_INCREMENT for table `channel_manages`
 --
 ALTER TABLE `channel_manages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contact_supports`
@@ -3169,13 +3248,13 @@ ALTER TABLE `live_broadcast_manages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `movie_series_favorites`
 --
 ALTER TABLE `movie_series_favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `movie_videos`
@@ -3205,19 +3284,19 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `recently_watched`
 --
 ALTER TABLE `recently_watched`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1384;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1393;
 
 --
 -- AUTO_INCREMENT for table `recent_watches`
 --
 ALTER TABLE `recent_watches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `reels`
@@ -3307,19 +3386,19 @@ ALTER TABLE `upcoming_movie_series`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=474;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=475;
 
 --
 -- AUTO_INCREMENT for table `user_broadcasts`
 --
 ALTER TABLE `user_broadcasts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user_broadcast_comments`
 --
 ALTER TABLE `user_broadcast_comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user_feed_backs`
@@ -3331,7 +3410,7 @@ ALTER TABLE `user_feed_backs`
 -- AUTO_INCREMENT for table `youtube_tiktok_manages`
 --
 ALTER TABLE `youtube_tiktok_manages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
