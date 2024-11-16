@@ -112,9 +112,14 @@
                             </select>
                       </div>
                   </div>
+                  <div class="form-group">
+                    <div class="offset-sm-9 col-sm-9">
+                      <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> {{trans('words.save')}} </button>                      
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6"> 
-                   <h4 class="m-t-0 m-b-30 header-title" style="font-size: 20px;">{{trans('words.seo')}}</h4>
+                   <!--  <h4 class="m-t-0 m-b-30 header-title" style="font-size: 20px;">{{trans('words.seo')}}</h4>
 
                     <div class="form-group row">
                     <label class="col-sm-3 col-form-label">{{trans('words.seo_title')}}</label>
@@ -135,13 +140,9 @@
                       <textarea name="seo_keyword" id="seo_keyword" class="form-control">{{ isset($season_info->seo_keyword) ? stripslashes($season_info->seo_keyword) : old('seo_keyword') }}</textarea>
                       <small id="emailHelp" class="form-text text-muted">{{trans('words.seo_keyword_note')}}</small>
                     </div>
-                  </div> 
+                  </div>  -->
 
-                  <div class="form-group">
-                    <div class="offset-sm-9 col-sm-9">
-                      <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> {{trans('words.save')}} </button>                      
-                    </div>
-                  </div>
+ 
                 </div>
 
                 </div>

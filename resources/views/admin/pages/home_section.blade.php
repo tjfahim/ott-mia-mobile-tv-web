@@ -71,7 +71,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{trans('words.section_2_latest_series')}}*</label>
+                    <label class="col-sm-3 col-form-label">Section 2 Latest Series *</label>
                     <div class="col-sm-8">
                       <select name="section2_latest_series[]" class="select2 select2-multiple" multiple="multiple" multiple data-placeholder="Select Series...">
                                  @foreach($series_list as $series_data)
@@ -82,7 +82,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{trans('words.section_3_polular_movies')}}*</label>
+                    <label class="col-sm-3 col-form-label">Section 3 Polular Movies*</label>
                     <div class="col-sm-8">
                       <select name="section3_popular_movie[]" class="select2 select2-multiple" multiple="multiple" multiple data-placeholder="Select Movies...">
                                  @foreach($movies_list as $movies_data)
@@ -93,7 +93,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{trans('words.section_4_popular_series')}}*</label>
+                    <label class="col-sm-3 col-form-label">Section 4 Popular Series*</label>
                     <div class="col-sm-8">
                       <select name="section3_popular_series[]" class="select2 select2-multiple" multiple="multiple" multiple data-placeholder="Select Series...">
                                  @foreach($series_list as $series_data)
@@ -104,7 +104,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">section3_tranding_movie*</label>
+                    <label class="col-sm-3 col-form-label">Section3 Tranding MOovie*</label>
                     <div class="col-sm-8">
                       <select name="section3_tranding_movie[]" class="select2 select2-multiple" multiple="multiple" multiple data-placeholder="Select Movies...">
                                  @foreach($movies_list as $movies_data)
@@ -116,7 +116,7 @@
                   <hr/>
 
                   <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{trans('words.section_5_title')}}*</label>
+                    <label class="col-sm-3 col-form-label">Section 5 Title*</label>
                     <div class="col-sm-8">
                       <input type="text" name="section3_title" value="{{ isset($home_settings->section3_title) ? $home_settings->section3_title : null }}" class="form-control">
                     </div>

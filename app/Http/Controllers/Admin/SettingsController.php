@@ -71,7 +71,7 @@ class SettingsController extends MainAdminController
 		$settings->site_logo = $inputs['site_logo'];
         $settings->site_favicon = $inputs['site_favicon'];
         $settings->site_email = $inputs['site_email'];  
-        $settings->broadcast_link = $inputs['broadcast_link'];  
+        // $settings->broadcast_link = $inputs['broadcast_link'];  
         $settings->site_description = addslashes($inputs['site_description']);
         $settings->site_keywords = addslashes($inputs['site_keywords']);
 

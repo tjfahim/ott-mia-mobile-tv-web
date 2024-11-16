@@ -6,7 +6,7 @@
           <ul>
             <li><a href="{{ URL::to('admin/dashboard') }}" class="waves-effect {{classActivePath('dashboard')}}"><i class="fa fa-dashboard"></i> <span> {{trans('words.dashboard_text')}}</span></a></li>
 
-            <li><a href="{{ URL::to('admin/language') }}" class="waves-effect {{classActivePath('language')}}"><i class="fa fa-language"></i> <span> {{trans('words.language_text')}}</span></a></li>
+            <!-- <li><a href="{{ URL::to('admin/language') }}" class="waves-effect {{classActivePath('language')}}"><i class="fa fa-language"></i> <span> {{trans('words.language_text')}}</span></a></li> -->
 
             <li><a href="{{ URL::to('admin/genres') }}" class="waves-effect {{classActivePath('genres')}}"><i class="fa fa-list"></i> <span> {{trans('words.genres_text')}}</span></a></li>
 
@@ -25,23 +25,23 @@
               </ul>
             </li>
 
-            <li class="has_sub"> 
+            <!-- <li class="has_sub"> 
               <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-futbol-o"></i><span>{{trans('words.sports_text')}} </span> <span class="menu-arrow"></span></a>
               <ul class="list-unstyled">                 
                 <li class="{{classActivePath('sports_category')}}"><a href="{{ URL::to('admin/sports_category') }}" class="{{classActivePath('sports_category')}}"><i class="fa fa-list"></i> <span> {{trans('words.sports_cat_text')}}</span></a></li>
                 <li class="{{classActivePath('sports')}}"><a href="{{ URL::to('admin/sports') }}" class="{{classActivePath('sports')}}"><i class="fa fa-soccer-ball-o"></i> <span> {{trans('words.sports_video_text')}}</span></a></li>
                </ul>
-            </li>
-            <li class="has_sub"> 
+            </li> -->
+            <!-- <li class="has_sub"> 
               <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-tv"></i><span>{{trans('words.live_tv')}}</span> <span class="menu-arrow"></span></a>
               <ul class="list-unstyled">                 
                 <li class="{{classActivePath('tv_category')}}"><a href="{{ URL::to('admin/tv_category') }}" class="{{classActivePath('tv_category')}}"><i class="fa fa-tags"></i> <span> {{trans('words.live_tv_category')}}</span></a></li>
                 <li class="{{classActivePath('live_tv')}}"><a href="{{ URL::to('admin/live_tv') }}" class="{{classActivePath('live_tv')}}"><i class="fa fa-list"></i> <span> {{trans('words.tv_channel')}}</span></a></li>
                </ul>
-            </li>
+            </li> -->
 
             {{-- <li><a href="{{ URL::to('admin/music') }}" class="waves-effect {{classActivePath('music')}}"><i class="ti-music-alt"></i> <span> {{trans('words.music_text')}}</span></a></li> --}}
-            <li><a href="{{ URL::to('admin/reels') }}" class="waves-effect {{classActivePath('reels')}}"><i class="ti-video-clapper"></i> <span> {{trans('words.reel_text')}}</span></a></li>
+            <!-- <li><a href="{{ URL::to('admin/reels') }}" class="waves-effect {{classActivePath('reels')}}"><i class="ti-video-clapper"></i> <span> {{trans('words.reel_text')}}</span></a></li> -->
 
             <li class="has_sub"> 
               <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-sliders"></i><span>{{trans('words.home')}} </span> <span class="menu-arrow"></span></a>
@@ -54,7 +54,7 @@
               <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i><span>{{trans('words.users')}} </span> <span class="menu-arrow"></span></a>
               <ul class="list-unstyled">                 
                 <li class="{{classActivePath('users')}}"><a href="{{ URL::to('admin/users') }}" class="{{classActivePath('users')}}"><i class="fa fa-users"></i> <span> {{trans('words.users')}}</span></a></li>
-                <li class="{{classActivePath('sub_admin')}}"><a href="{{ URL::to('admin/sub_admin') }}" class="{{classActivePath('sub_admin')}}"><i class="fa fa-users"></i> <span> {{trans('words.admin')}}</span></a></li>
+                <!-- <li class="{{classActivePath('sub_admin')}}"><a href="{{ URL::to('admin/sub_admin') }}" class="{{classActivePath('sub_admin')}}"><i class="fa fa-users"></i> <span> {{trans('words.admin')}}</span></a></li> -->
                </ul>
             </li>
  
@@ -69,7 +69,7 @@
 
                 <li class="{{classActivePath('terms_page')}}"><a href="{{ URL::to('admin/terms_page') }}" class="{{classActivePath('terms_page')}}"><i class="fa fa-file"></i> <span> {{trans('words.terms_of_us')}}</span></a></li>
                 <li class="{{classActivePath('privacy_policy_page')}}"><a href="{{ URL::to('admin/privacy_policy_page') }}" class="{{classActivePath('privacy_policy_page')}}"><i class="fa fa-file"></i> <span> {{trans('words.privacy_policy')}}</span></a></li>
-                <li class="{{classActivePath('faq')}}"><a href="{{ URL::to('admin/faq') }}" class="{{classActivePath('faq')}}"><i class="fa fa-file"></i> <span> FAQ</span></a></li>
+                <li class="{{classActivePath('faq')}}"><a href="{{ URL::to('admin/faq_page') }}" class="{{classActivePath('faq')}}"><i class="fa fa-file"></i> <span> FAQ</span></a></li>
                 <li class="{{classActivePath('contact_page')}}"><a href="{{ URL::to('admin/contact_page') }}" class="{{classActivePath('contact_page')}}"><i class="fa fa-file"></i> <span> {{trans('words.contact_us')}}</span></a></li>
                  
                </ul>
@@ -81,13 +81,13 @@
                 <li class="{{classActivePath('general_settings')}}"><a href="{{ URL::to('admin/general_settings') }}" class="{{classActivePath('general_settings')}}"><i class="fa fa-cog"></i> <span> {{trans('words.general')}}</span></a></li>
                 <li class="{{classActivePath('email_settings')}}"><a href="{{ URL::to('admin/email_settings') }}" class="{{classActivePath('email_settings')}}"><i class="fa fa-send"></i> <span> {{trans('words.smtp_email')}}</span></a></li>
 
-                <li class="{{classActivePath('social_login_settings')}}"><a href="{{ URL::to('admin/social_login_settings') }}" class="{{classActivePath('social_login_settings')}}"><i class="fa fa-usb"></i> <span> {{trans('words.social_login')}}</span></a></li>
+                <!-- <li class="{{classActivePath('social_login_settings')}}"><a href="{{ URL::to('admin/social_login_settings') }}" class="{{classActivePath('social_login_settings')}}"><i class="fa fa-usb"></i> <span> {{trans('words.social_login')}}</span></a></li> -->
 
                 <li class="{{classActivePath('payment_settings')}}"><a href="{{ URL::to('admin/payment_settings') }}" class="{{classActivePath('payment_settings')}}"><i class="fa fa-ticket"></i> <span> {{trans('words.payment')}}</span></a></li>
 
-                <li class="{{classActivePath('ads_list')}} {{classActivePath('ads_edit')}}"><a href="{{ URL::to('admin/ads_list') }}" class="{{classActivePath('ads_list')}} {{classActivePath('ads_edit')}}"><i class="fa fa-buysellads"></i> <span> {{trans('words.ad_management')}}</span></a></li>
+                <!-- <li class="{{classActivePath('ads_list')}} {{classActivePath('ads_edit')}}"><a href="{{ URL::to('admin/ads_list') }}" class="{{classActivePath('ads_list')}} {{classActivePath('ads_edit')}}"><i class="fa fa-buysellads"></i> <span> {{trans('words.ad_management')}}</span></a></li> -->
 
-                <li class="{{classActivePath('player_settings')}}"><a href="{{ URL::to('admin/player_settings') }}" class="{{classActivePath('player_settings')}}"><i class="fa fa-play-circle"></i> <span> {{trans('words.player_settings')}}</span></a></li>
+                <!-- <li class="{{classActivePath('player_settings')}}"><a href="{{ URL::to('admin/player_settings') }}" class="{{classActivePath('player_settings')}}"><i class="fa fa-play-circle"></i> <span> {{trans('words.player_settings')}}</span></a></li> -->
 
                </ul>
             </li> 
@@ -102,9 +102,9 @@
                 <li class="{{classActivePath('android_notification')}}"><a href="{{ URL::to('admin/android_notification') }}" class="{{classActivePath('android_notification')}}"><i class="fa fa-send"></i> <span> {{trans('words.android_app_notification')}}</span></a></li>
                 <li class="{{classActivePath('android_faq')}}"><a href="{{ URL::to('admin/faqs') }}" class="{{classActivePath('android_notification')}}"><i class="fa fa-send"></i> <span>FAQ</span></a></li>
                 <li class="{{classActivePath('youtube-tiktok')}}"><a href="{{ URL::to('admin/youtube-tiktok') }}" class="{{classActivePath('youtube-tiktok')}}"><i class="fa fa-send"></i> <span>Youtube/Tiktok Manage</span></a></li>
-                <li class="{{classActivePath('broadcasts')}}"><a href="{{ URL::to('admin/broadcasts') }}" class="{{classActivePath('broadcasts')}}"><i class="fa fa-send"></i> <span>Broadcasts</span></a></li>
-                <li class="{{classActivePath('upcoming-movie-series')}}"><a href="{{ URL::to('admin/upcoming-movie-series') }}" class="{{classActivePath('upcoming-movie-series')}}"><i class="fa fa-send"></i> <span>upcoming-movie-series</span></a></li>
-                <li class="{{classActivePath('channel-manage')}}"><a href="{{ URL::to('admin/channel-manage') }}" class="{{classActivePath('channel-manage')}}"><i class="fa fa-send"></i> <span>channel-manage</span></a></li>
+                <li class="{{classActivePath('broadcasts')}}"><a href="{{ URL::to('admin/broadcasts') }}" class="{{classActivePath('broadcasts')}}"><i class="fa fa-send"></i> <span>Broadcast Manage</span></a></li>
+                <li class="{{classActivePath('upcoming-movie-series')}}"><a href="{{ URL::to('admin/upcoming-movie-series') }}" class="{{classActivePath('upcoming-movie-series')}}"><i class="fa fa-send"></i> <span>Upcomming Movie Series Manage</span></a></li>
+                <li class="{{classActivePath('channel-manage')}}"><a href="{{ URL::to('admin/channel-manage') }}" class="{{classActivePath('channel-manage')}}"><i class="fa fa-send"></i> <span>Channel Manage</span></a></li>
                </ul>
             </li> 
 

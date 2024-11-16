@@ -182,7 +182,7 @@
                       </div>
                   </div>
 
-                  <hr/>
+                  <!-- <hr/>
                   <h4 class="m-t-0 m-b-30 header-title" style="font-size: 20px;">{{trans('words.seo')}}</h4>
                   
                   <div class="form-group row">
@@ -204,7 +204,7 @@
                       <textarea name="seo_keyword" id="seo_keyword" class="form-control">{{ isset($movie->seo_keyword) ? stripslashes($movie->seo_keyword) : old('seo_keyword') }}</textarea>
                       <small id="emailHelp" class="form-text text-muted">{{trans('words.seo_keyword_note')}}</small>
                     </div>
-                  </div> 
+                  </div>  -->
 
                 </div>
                 <div class="col-md-6"> 

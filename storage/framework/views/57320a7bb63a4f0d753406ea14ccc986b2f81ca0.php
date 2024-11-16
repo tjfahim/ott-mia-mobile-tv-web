@@ -187,6 +187,12 @@
                       <textarea name="site_copyright" class="form-control"><?php echo e(isset($settings->site_copyright) ? stripslashes($settings->site_copyright) : null); ?></textarea>                      
                     </div>
                   </div>
+                  <div class="form-group row" id="omdbapi_id">
+                    <label class="col-sm-3 col-form-label">Default Broadcast Link</label>
+                    <div class="col-sm-8">
+                      <textarea name="broadcast_link" class="form-control"><?php echo e(isset($settings->broadcast_link) ? stripslashes($settings->broadcast_link) : null); ?></textarea>                      
+                    </div>
+                  </div>
 
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">External Libraries From <br/><small id="emailHelp" class="form-text text-muted">LOCAL: Web related libraries call from server <br/> CDN: CDN for web related libraries to speed up your websites! </small></label>
