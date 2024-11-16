@@ -104,6 +104,7 @@
                 <li class="<?php echo e(classActivePath('youtube-tiktok')); ?>"><a href="<?php echo e(URL::to('admin/youtube-tiktok')); ?>" class="<?php echo e(classActivePath('youtube-tiktok')); ?>"><i class="fa fa-send"></i> <span>Youtube/Tiktok Manage</span></a></li>
                 <li class="<?php echo e(classActivePath('broadcasts')); ?>"><a href="<?php echo e(URL::to('admin/broadcasts')); ?>" class="<?php echo e(classActivePath('broadcasts')); ?>"><i class="fa fa-send"></i> <span>Broadcasts</span></a></li>
                 <li class="<?php echo e(classActivePath('upcoming-movie-series')); ?>"><a href="<?php echo e(URL::to('admin/upcoming-movie-series')); ?>" class="<?php echo e(classActivePath('upcoming-movie-series')); ?>"><i class="fa fa-send"></i> <span>upcoming-movie-series</span></a></li>
+                <li class="<?php echo e(classActivePath('channel-manage')); ?>"><a href="<?php echo e(URL::to('admin/channel-manage')); ?>" class="<?php echo e(classActivePath('channel-manage')); ?>"><i class="fa fa-send"></i> <span>channel-manage</span></a></li>
                </ul>
             </li> 
 
@@ -162,4 +163,4 @@
           </ul>
         </div>
       </div>
-    </div><?php /**PATH C:\xampp\htdocs\ott\resources\views/admin/sidebar.blade.php ENDPATH**/ ?>
+    </div><?php /**PATH /home/redail/public_html/ott.redsmail.xyz/resources/views/admin/sidebar.blade.php ENDPATH**/ ?>

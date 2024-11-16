@@ -27,19 +27,17 @@ return [
     | each available type of connection are provided inside this array.
     |
     */
-
-    'connections' => [
-
-      'pusher' => [
-    'driver' => 'pusher',
-    'key' => '0bb1d0215c0158be673b', // Pusher App Key
-    'secret' => '8dae2ec7d0f01a9a881b', // Pusher App Secret
-    'app_id' => '1890174',              // Pusher App ID
-    'options' => [
-        'cluster' => 'ap2',              // Pusher App Cluster
-        'useTLS' => true,
+'connections' => [
+    'pusher' => [
+        'driver' => 'pusher',
+        'key' => '37481fe3e7383bc1f6d6', // Your Pusher App Key
+        'secret' => 'ba42c321cbd825711748', // Your Pusher App Secret
+        'app_id' => '1893286', // Your Pusher App ID
+        'options' => [
+            'cluster' => 'ap2', // Pusher App Cluster
+            'useTLS' => true, // Use TLS for secure communication
+        ],
     ],
-],
 
 
 

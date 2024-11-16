@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -17,21 +16,24 @@ class CommentPosted implements ShouldBroadcast
     public $description;
     public $user_broadcast_id;
 
-    public function __construct($user_broadcast_id, $user_id, $description)
+    public function __construct($user_broadcast_id, $user_id, $description, $comment_id)
     {
+        // Ensure these values are not null
         $this->user_broadcast_id = $user_broadcast_id;
         $this->user_id = $user_id;
         $this->description = $description;
-        $this->comment_id = null;  // Set to null or fetch the actual comment ID if needed
+        $this->comment_id = $comment_id;
     }
 
     public function broadcastOn()
     {
-        return new Channel('comment-channel'); // Channel name should match
+        // Broadcasting on the 'comment-channel'
+        return new Channel('comment-channel');
     }
 
     public function broadcastAs()
     {
-        return 'new-comment'; // Event name that the client will listen for
+        // Event name that the client will listen for
+        return 'new-comment';
     }
 }
