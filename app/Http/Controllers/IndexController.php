@@ -12,6 +12,7 @@ use App\Sports;
 use App\Pages;
 use App\RecentlyWatched;
 use App\LiveTV;
+use App\Genres;
 
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
 use FFMpeg\Filters\AdvancedMedia\ComplexFilters;
 use FFMpeg\Filters\Video\WatermarkFilter;
-
+use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 
 class IndexController extends Controller
 {
@@ -42,44 +43,56 @@ class IndexController extends Controller
         //     return redirect('public/install');
         // }
 
-        $slider = Slider::where('status', 1)->orderby('id', 'DESC')->get();
+        // $slider = Slider::where('status', 1)->orderby('id', 'DESC')->get();
 
-        if (Auth::check()) {
-            $current_user_id = Auth::User()->id;
-            $recently_watched = RecentlyWatched::where('user_id', $current_user_id)->orderby('id', 'DESC')->get();
-        } else {
-            $recently_watched = array();
-        }
+        // if (Auth::check()) {
+        //     $current_user_id = Auth::User()->id;
+        //     $recently_watched = RecentlyWatched::where('user_id', $current_user_id)->orderby('id', 'DESC')->get();
+        // } else {
+        //     $recently_watched = array();
+        // }
 
         $home_sections = HomeSection::findOrFail('1');
 
-        if ($home_sections->section3_type == "Series") {
-            $section3_lang_id = $home_sections->section3_lang;
-            $home_sections_list3 = Series::where('status', 1)->where('series_lang_id', $section3_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        } else {
-            $section3_lang_id = $home_sections->section3_lang;
-            $home_sections_list3 = Movies::where('status', 1)->where('movie_lang_id', $section3_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        }
-
-        if ($home_sections->section4_type == "Series") {
-            $section4_lang_id = $home_sections->section4_lang;
-            $home_sections_list4 = Series::where('status', 1)->where('series_lang_id', $section4_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        } else {
-            $section4_lang_id = $home_sections->section4_lang;
-            $home_sections_list4 = Movies::where('status', 1)->where('movie_lang_id', $section4_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        }
-
-        if ($home_sections->section5_type == "Series") {
-            $section5_lang_id = $home_sections->section5_lang;
-            $home_sections_list5 = Series::where('status', 1)->where('series_lang_id', $section5_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        } else {
-            $section5_lang_id = $home_sections->section5_lang;
-            $home_sections_list5 = Movies::where('status', 1)->where('movie_lang_id', $section5_lang_id)->orderBy('id', 'DESC')->take(10)->get();
-        }
 
 
-        return view('pages.index', compact('slider', 'recently_watched', 'home_sections', 'section3_lang_id', 'home_sections_list3', 'section4_lang_id', 'home_sections_list4', 'section5_lang_id', 'home_sections_list5'));
+        // if ($home_sections->section3_type == "Series") {
+        //     $section3_lang_id = $home_sections->section3_lang;
+        //     $home_sections_list3 = Series::where('status', 1)->where('series_lang_id', $section3_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // } else {
+        //     $section3_lang_id = $home_sections->section3_lang;
+        //     $home_sections_list3 = Movies::where('status', 1)->where('movie_lang_id', $section3_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // }
+
+        // if ($home_sections->section4_type == "Series") {
+        //     $section4_lang_id = $home_sections->section4_lang;
+        //     $home_sections_list4 = Series::where('status', 1)->where('series_lang_id', $section4_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // } else {
+        //     $section4_lang_id = $home_sections->section4_lang;
+        //     $home_sections_list4 = Movies::where('status', 1)->where('movie_lang_id', $section4_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // }
+
+        // if ($home_sections->section5_type == "Series") {
+        //     $section5_lang_id = $home_sections->section5_lang;
+        //     $home_sections_list5 = Series::where('status', 1)->where('series_lang_id', $section5_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // } else {
+        //     $section5_lang_id = $home_sections->section5_lang;
+        //     $home_sections_list5 = Movies::where('status', 1)->where('movie_lang_id', $section5_lang_id)->orderBy('id', 'DESC')->take(10)->get();
+        // }
+
+
+        // return view('pages.index', compact('slider', 'recently_watched', 'home_sections', 'section3_lang_id', 'home_sections_list3', 'section4_lang_id', 'home_sections_list4', 'section5_lang_id', 'home_sections_list5'));
         //return view('pages.index', compact('slider'));
+
+        $genres = Genres::all();
+
+
+        //return $genres[4]->genre_name;
+
+
+        return view('frontend.index', [
+            'genres' => $genres,
+        ]);
     }
 
 
@@ -150,7 +163,12 @@ class IndexController extends Controller
     public function login()
     {
 
-        return view('pages.login');
+        return view('frontend.auth.login');
+    }
+
+    public function register()
+    {
+        return view('frontend.auth.register');
     }
 
     public function postLogin(Request $request)
@@ -231,7 +249,7 @@ class IndexController extends Controller
 
     public function signup()
     {
-        return view('pages.signup');
+        return view('frontend.auth.register');
     }
 
     public function postSignup(Request $request)

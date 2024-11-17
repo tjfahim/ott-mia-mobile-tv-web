@@ -29,104 +29,104 @@ Route::post('/reels/{id}/comments', [ReelsController::class, 'postComment']);
 Route::get('/reels/{id}/comments', [ReelsController::class, 'ReelComment']);
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-	
+
 	Route::get('/', 'IndexController@index');
 
 	Route::get('login', [ 'as' => 'login', 'uses' => 'IndexController@index']);
-	
+
 	Route::post('login', 'IndexController@postLogin');
 	Route::get('logout', 'IndexController@logout');
-	 
-	Route::get('dashboard', 'DashboardController@index');	
-	Route::get('profile', 'AdminController@profile');	
+
+	Route::get('dashboard', 'DashboardController@index');
+	Route::get('profile', 'AdminController@profile');
 	Route::post('profile', 'AdminController@updateProfile');
 	Route::get('verify_purchase', 'AdminController@verify_purchase');
-	//Route::post('verify_purchase', 'AdminController@verify_purchase_update');		
- 	
+	//Route::post('verify_purchase', 'AdminController@verify_purchase_update');
+
 	Route::get('settings', 'SettingsController@settings');
 
 	Route::get('find_imdb_movie', 'ImportImdbController@find_imdb_movie');
 	Route::get('find_imdb_show', 'ImportImdbController@find_imdb_show');
-	Route::get('find_imdb_episode', 'ImportImdbController@find_imdb_episode');	
+	Route::get('find_imdb_episode', 'ImportImdbController@find_imdb_episode');
 
 
-	Route::get('language', 'LanguageController@languag_list');	
-	Route::get('language/add_language', 'LanguageController@addLanguage'); 
-	Route::get('language/edit_language/{id}', 'LanguageController@editLanguage');	
-	Route::post('language/add_edit_language', 'LanguageController@addnew');	
+	Route::get('language', 'LanguageController@languag_list');
+	Route::get('language/add_language', 'LanguageController@addLanguage');
+	Route::get('language/edit_language/{id}', 'LanguageController@editLanguage');
+	Route::post('language/add_edit_language', 'LanguageController@addnew');
 	Route::get('language/delete/{id}', 'LanguageController@delete');
 
-	Route::get('genres', 'GenresController@genres_list');	
-	Route::get('genres/add_genre', 'GenresController@addGenre'); 
-	Route::get('genres/edit_genre/{id}', 'GenresController@editGenre');	
-	Route::post('genres/add_edit_genre', 'GenresController@addnew');	
+	Route::get('genres', 'GenresController@genres_list');
+	Route::get('genres/add_genre', 'GenresController@addGenre');
+	Route::get('genres/edit_genre/{id}', 'GenresController@editGenre');
+	Route::post('genres/add_edit_genre', 'GenresController@addnew');
 	Route::get('genres/delete/{id}', 'GenresController@delete');
- 	
- 	Route::get('movies', 'MoviesController@movies_list');	
-	Route::get('movies/add_movie', 'MoviesController@addMovie'); 
-	Route::get('movies/edit_movie/{id}', 'MoviesController@editMovie');	
-	Route::post('movies/add_edit_movie', 'MoviesController@addnew');	
+
+ 	Route::get('movies', 'MoviesController@movies_list');
+	Route::get('movies/add_movie', 'MoviesController@addMovie');
+	Route::get('movies/edit_movie/{id}', 'MoviesController@editMovie');
+	Route::post('movies/add_edit_movie', 'MoviesController@addnew');
 	Route::get('movies/delete/{id}', 'MoviesController@delete');
 
 
-	Route::get('series', 'SeriesController@series_list');	
-	Route::get('series/add_series', 'SeriesController@addSeries'); 
-	Route::get('series/edit_series/{id}', 'SeriesController@editSeries');	
-	Route::post('series/add_edit_series', 'SeriesController@addnew');	
+	Route::get('series', 'SeriesController@series_list');
+	Route::get('series/add_series', 'SeriesController@addSeries');
+	Route::get('series/edit_series/{id}', 'SeriesController@editSeries');
+	Route::post('series/add_edit_series', 'SeriesController@addnew');
 	Route::get('series/delete/{id}', 'SeriesController@delete');
 
 
-	Route::get('season', 'SeasonController@season_list');	
-	Route::get('season/add_season', 'SeasonController@addSeason'); 
-	Route::get('season/edit_season/{id}', 'SeasonController@editSeason');	
-	Route::post('season/add_edit_season', 'SeasonController@addnew');	
+	Route::get('season', 'SeasonController@season_list');
+	Route::get('season/add_season', 'SeasonController@addSeason');
+	Route::get('season/edit_season/{id}', 'SeasonController@editSeason');
+	Route::post('season/add_edit_season', 'SeasonController@addnew');
 	Route::get('season/delete/{id}', 'SeasonController@delete');
 
-	Route::get('episodes', 'EpisodesController@episodes_list');	
-	Route::get('episodes/add_episode', 'EpisodesController@addEpisode'); 
-	Route::get('episodes/edit_episode/{id}', 'EpisodesController@editEpisode');	
-	Route::post('episodes/add_edit_episode', 'EpisodesController@addnew');	
-	Route::get('episodes/delete/{id}', 'EpisodesController@delete');	
+	Route::get('episodes', 'EpisodesController@episodes_list');
+	Route::get('episodes/add_episode', 'EpisodesController@addEpisode');
+	Route::get('episodes/edit_episode/{id}', 'EpisodesController@editEpisode');
+	Route::post('episodes/add_edit_episode', 'EpisodesController@addnew');
+	Route::get('episodes/delete/{id}', 'EpisodesController@delete');
 
-	Route::get('ajax_get_season/{id}', 'EpisodesController@ajax_get_season_list'); 
+	Route::get('ajax_get_season/{id}', 'EpisodesController@ajax_get_season_list');
 
-	Route::get('sports_category', 'SportsCategoryController@category_list');	
-	Route::get('sports_category/add_category', 'SportsCategoryController@addCategory'); 
-	Route::get('sports_category/edit_category/{id}', 'SportsCategoryController@editCategory');	
-	Route::post('sports_category/add_edit_category', 'SportsCategoryController@addnew');	
+	Route::get('sports_category', 'SportsCategoryController@category_list');
+	Route::get('sports_category/add_category', 'SportsCategoryController@addCategory');
+	Route::get('sports_category/edit_category/{id}', 'SportsCategoryController@editCategory');
+	Route::post('sports_category/add_edit_category', 'SportsCategoryController@addnew');
 	Route::get('sports_category/delete/{id}', 'SportsCategoryController@delete');
 
-	Route::get('sports', 'SportsController@sports_video_list');	
-	Route::get('sports/add_video', 'SportsController@addVideo'); 
-	Route::get('sports/edit_video/{id}', 'SportsController@editVideo');	
-	Route::post('sports/add_edit_video', 'SportsController@addnew');	
+	Route::get('sports', 'SportsController@sports_video_list');
+	Route::get('sports/add_video', 'SportsController@addVideo');
+	Route::get('sports/edit_video/{id}', 'SportsController@editVideo');
+	Route::post('sports/add_edit_video', 'SportsController@addnew');
 	Route::get('sports/delete/{id}', 'SportsController@delete');
 
-	Route::get('tv_category', 'TvCategoryController@category_list');	
-	Route::get('tv_category/add_category', 'TvCategoryController@addCategory'); 
-	Route::get('tv_category/edit_category/{id}', 'TvCategoryController@editCategory');	
-	Route::post('tv_category/add_edit_category', 'TvCategoryController@addnew');	
+	Route::get('tv_category', 'TvCategoryController@category_list');
+	Route::get('tv_category/add_category', 'TvCategoryController@addCategory');
+	Route::get('tv_category/edit_category/{id}', 'TvCategoryController@editCategory');
+	Route::post('tv_category/add_edit_category', 'TvCategoryController@addnew');
 	Route::get('tv_category/delete/{id}', 'TvCategoryController@delete');
 
-	Route::get('live_tv', 'LiveTvController@live_tv_list');	
-	Route::get('live_tv/add_live_tv', 'LiveTvController@addTv'); 
-	Route::get('live_tv/edit_live_tv/{id}', 'LiveTvController@editTv');	
-	Route::post('live_tv/add_edit_live_tv', 'LiveTvController@addnew');	
+	Route::get('live_tv', 'LiveTvController@live_tv_list');
+	Route::get('live_tv/add_live_tv', 'LiveTvController@addTv');
+	Route::get('live_tv/edit_live_tv/{id}', 'LiveTvController@editTv');
+	Route::post('live_tv/add_edit_live_tv', 'LiveTvController@addnew');
 	Route::get('live_tv/delete/{id}', 'LiveTvController@delete');
 
 
-	Route::get('music', 'MusicController@music_list');	
-	Route::get('music/add_music', 'MusicController@addMusic'); 
-	Route::get('music/edit_music/{id}', 'MusicController@editMusic');	
-	Route::post('music/add_edit_music', 'MusicController@addnew');	
+	Route::get('music', 'MusicController@music_list');
+	Route::get('music/add_music', 'MusicController@addMusic');
+	Route::get('music/edit_music/{id}', 'MusicController@editMusic');
+	Route::post('music/add_edit_music', 'MusicController@addnew');
 	Route::get('music/delete/{id}', 'MusicController@delete');
 
 
 
-	Route::get('reels', 'ReelsController@reel_list');	
-	Route::get('reels/add_reels', 'ReelsController@addreel'); 
-	Route::get('reels/edit_reels/{id}', 'ReelsController@editReel');	
-	Route::post('reels/add_edit_reels', 'ReelsController@addnew');	
+	Route::get('reels', 'ReelsController@reel_list');
+	Route::get('reels/add_reels', 'ReelsController@addreel');
+	Route::get('reels/edit_reels/{id}', 'ReelsController@editReel');
+	Route::post('reels/add_edit_reels', 'ReelsController@addnew');
 	Route::get('reels/delete/{id}', 'ReelsController@delete');
 	Route::get('reels/all-comments/{id}', 'ReelsController@allComments');
 	Route::get('reels/comment-delete/{id}', 'ReelsController@commentDelete');
@@ -135,38 +135,38 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 
 
-	Route::get('slider', 'SliderController@slider_list');	
-	Route::get('slider/add_slider', 'SliderController@addSlider'); 
-	Route::get('slider/edit_slider/{id}', 'SliderController@editSlider');	
-	Route::post('slider/add_edit_slider', 'SliderController@addnew');	
+	Route::get('slider', 'SliderController@slider_list');
+	Route::get('slider/add_slider', 'SliderController@addSlider');
+	Route::get('slider/edit_slider/{id}', 'SliderController@editSlider');
+	Route::post('slider/add_edit_slider', 'SliderController@addnew');
 	Route::get('slider/delete/{id}', 'SliderController@delete');
 
 	Route::get('home_section', 'HomeSectionController@home_section');
 	Route::post('home_section', 'HomeSectionController@update_home_section');
 
 
-	Route::get('users', 'UsersController@user_list');	
-	Route::get('users/add_user', 'UsersController@addUser'); 
-	Route::get('users/edit_user/{id}', 'UsersController@editUser');	
-	Route::post('users/add_edit_user', 'UsersController@addnew');	
+	Route::get('users', 'UsersController@user_list');
+	Route::get('users/add_user', 'UsersController@addUser');
+	Route::get('users/edit_user/{id}', 'UsersController@editUser');
+	Route::post('users/add_edit_user', 'UsersController@addnew');
 	Route::get('users/delete/{id}', 'UsersController@delete');
 	Route::get('users/history/{id}', 'UsersController@user_history');
-	Route::get('users/export', 'UsersController@user_export');	
+	Route::get('users/export', 'UsersController@user_export');
 
-	Route::get('sub_admin', 'UsersController@admin_user_list');	
-	Route::get('sub_admin/add_user', 'UsersController@admin_addUser'); 
-	Route::get('sub_admin/edit_user/{id}', 'UsersController@admin_editUser');	
-	Route::post('sub_admin/add_edit_user', 'UsersController@admin_addnew');	
+	Route::get('sub_admin', 'UsersController@admin_user_list');
+	Route::get('sub_admin/add_user', 'UsersController@admin_addUser');
+	Route::get('sub_admin/edit_user/{id}', 'UsersController@admin_editUser');
+	Route::post('sub_admin/add_edit_user', 'UsersController@admin_addnew');
 	Route::get('sub_admin/delete/{id}', 'UsersController@admin_delete');
 
-	Route::get('subscription_plan', 'SubscriptionPlanController@subscription_plan_list');	
-	Route::get('subscription_plan/add_plan', 'SubscriptionPlanController@addSubscriptionPlan'); 
-	Route::get('subscription_plan/edit_plan/{id}', 'SubscriptionPlanController@editSubscriptionPlan');	
-	Route::post('subscription_plan/add_edit_plan', 'SubscriptionPlanController@addnew');	
+	Route::get('subscription_plan', 'SubscriptionPlanController@subscription_plan_list');
+	Route::get('subscription_plan/add_plan', 'SubscriptionPlanController@addSubscriptionPlan');
+	Route::get('subscription_plan/edit_plan/{id}', 'SubscriptionPlanController@editSubscriptionPlan');
+	Route::post('subscription_plan/add_edit_plan', 'SubscriptionPlanController@addnew');
 	Route::get('subscription_plan/delete/{id}', 'SubscriptionPlanController@delete');
 
 	Route::get('transactions', 'TransactionsController@transactions_list');
-	Route::get('transactions/export', 'TransactionsController@transactions_export');	
+	Route::get('transactions/export', 'TransactionsController@transactions_export');
 
 	Route::get('about_page', 'PagesController@about_page');
 	Route::post('about_page', 'PagesController@update_about_page');
@@ -203,11 +203,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::post('payment_settings', 'SettingsController@update_payment_settings');
 	Route::get('social_login_settings', 'SettingsController@social_login_settings');
 	Route::post('social_login_settings', 'SettingsController@update_social_login_settings');
-	
+
 
 	Route::get('player_settings', 'SettingsPlayerController@player_settings');
 	Route::post('player_settings', 'SettingsPlayerController@update_player_settings');
- 
+
 	Route::get('ads_list', 'AdsController@ads_list');
 	Route::get('ads_edit/{id}', 'AdsController@ads_edit');
 	Route::post('ads_edit', 'AdsController@addnew');
@@ -220,14 +220,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('android_notification', 'SettingsAndroidAppController@android_notification');
 	Route::post('android_notification', 'SettingsAndroidAppController@send_android_notification');
 
-	
+
 	Route::get('/faqs', [FaqController::class, 'faqList'])->name('faqs.list');
     Route::get('/faqs/add', [FaqController::class, 'addFaq'])->name('faqs.add');
     Route::post('/faqs/add', [FaqController::class, 'addNew'])->name('faqs.store');
     Route::get('/faqs/edit/{id}', [FaqController::class, 'editFaq'])->name('faqs.edit');
     Route::post('/faqs/edit/{id}', [FaqController::class, 'addNew'])->name('faqs.update');
     Route::get('/faqs/delete/{id}', [FaqController::class, 'delete'])->name('faqs.delete');
- 
+
 
 	Route::get('broadcasts', [LiveBroadcastManageController::class, 'index'])->name('broadcasts.index');
     Route::get('broadcasts/create', [LiveBroadcastManageController::class, 'create'])->name('broadcasts.create');
@@ -236,7 +236,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::delete('broadcasts/{id}', [LiveBroadcastManageController::class, 'destroy'])->name('broadcasts.destroy');
 
 
-	
+
     Route::get('channel-manage', [ChannelManageController::class, 'index'])->name('channel.index');
     Route::get('channel-manage/create', [ChannelManageController::class, 'create'])->name('channel.create');
     Route::post('channel-manage', [ChannelManageController::class, 'store'])->name('channel.store');
@@ -252,6 +252,7 @@ Route::get('/', 'IndexController@index');
 
 
 Route::get('login', 'IndexController@login');
+Route::get('register', 'IndexController@register');
 Route::post('login', 'IndexController@postLogin');
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
@@ -265,6 +266,8 @@ Route::post('signup', 'IndexController@postSignup');
 
 Route::get('logout', 'IndexController@logout');
 
+Route::get('settings', 'UserController@settings');
+Route::get('tvstation', 'UserController@tvstation');
 Route::get('dashboard', 'UserController@dashboard');
 Route::get('profile', 'UserController@profile');
 Route::post('profile', 'UserController@editprofile');
@@ -272,7 +275,7 @@ Route::get('membership_plan', 'UserController@membership_plan');
 Route::get('payment_method/{plan_id}', 'UserController@payment_method');
 
 Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
-Route::get('paypal', array('as' => 'payment.status','uses' => 'PaypalController@getPaymentStatus',)); 
+Route::get('paypal', array('as' => 'payment.status','uses' => 'PaypalController@getPaymentStatus',));
 
 //Route::get('stripe/stripe_payments', 'StripeController@stripe_payments');
 
