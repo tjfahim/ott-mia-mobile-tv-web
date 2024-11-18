@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="@yield('head_image', URL::asset('upload/source/'.getcong('site_logo')))">
   <link rel="image_src" href="@yield('head_image', URL::asset('upload/source/'.getcong('site_logo')))">
-
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
 

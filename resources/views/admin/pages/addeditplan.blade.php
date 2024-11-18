@@ -58,6 +58,14 @@
                   </div>
 
                   <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">{{trans('words.plan_description')}}*</label>
+                    <div class="col-sm-8">
+                      <textarea type="text" name="description" value="{{ isset($plan_info->description) ? $plan_info->description : null }}" class="form-control">
+                      </textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
                     <label class="col-sm-3 col-form-label">{{trans('words.duration')}}*</label>
                     <div class="col-sm-4">
                       <input type="number" name="plan_duration" value="{{ isset($plan_info->plan_duration) ? $plan_info->plan_duration : null }}" class="form-control" placeholder="7">

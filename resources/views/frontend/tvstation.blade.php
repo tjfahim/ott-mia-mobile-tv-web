@@ -27,7 +27,40 @@
 
 
             <div class="bg-cardbg  grid  grid-cols-1 place-items-center  sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[80px] carasol first_carasol  p-10">
-                <div class="">
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($liveStrems as $strem)
+
+                    @if ($counter == 5)
+                        @break
+                    @endif
+
+
+
+                    <div class="">
+                        <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{URL::to( "upload/source/".$strem->channel_thumb )}});">
+                            <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
+                                <img src="./images/eye.svg" alt="">
+                                420
+                            </div>
+                            <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
+                        </div>
+                        <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
+                            <div>{{  $strem->channel_name }}</div>
+
+                            <a href="{{  $strem->channel_url }}">
+                                <img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt="">
+                            </a>
+
+                        </div>
+                    </div>
+
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
+                {{-- <div class="">
                     <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
                         <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
                             <img src="./images/eye.svg" alt="">
@@ -39,63 +72,9 @@
                         <div>LIVE</div>
                         <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="./images/eye.svg" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
-                    </div>
-                </div>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full min-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="./images/eye.svg" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
-                    </div>
-                </div>
-
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="./images/eye.svg" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
-                    </div>
-                </div>
-
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="./images/eye.svg" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
-                    </div>
-                </div>
 
 
 
@@ -111,46 +90,27 @@
                 <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($youtubs as $youtube)
+                    @if ($counter == 5)
+                        @break
+                    @endif
+                    <div class="border border-[#262626] p-3 rounded-md space-y-5">
+                        <img class="w-full  rounded-md" src="{{URL::to( $youtube->image )}}" alt="">
+                        <div class="text-white flex justify-between items-center text-sm">
+                            <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
+                            <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
+                        </div>
                     </div>
-                </div>
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
 
 
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
 
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
 
 
             </div>
@@ -159,52 +119,33 @@
 
          <!-- tiktok card start -->
         <section class="py-[50px]">
+
             <div class="flex justify-between items-center text-white mb-10">
                 <h2 class="text-3xl font-semibold">TikTok</h2>
                 <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="{{  URL::asset('assets/frontend/images/youtube2.png') }}" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
+
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($tiktoks as $tiktok)
+
+                    @if ($counter == 5)
+                        @break
+                    @endif
+
+                    <div class="border border-[#262626] p-3 rounded-md space-y-5">
+                        <img class="w-full  rounded-md" src="{{URL::to( $tiktok->image )}}" alt="">
+                        <div class="text-white flex justify-between items-center text-sm">
+                            <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
+                            <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
+                        </div>
                     </div>
-                </div>
-
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="{{  URL::asset('assets/frontend/images/youtube2.png') }}" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="{{  URL::asset('assets/frontend/images/youtube2.png') }}" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="{{  URL::asset('assets/frontend/images/youtube2.png') }}" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="{{  URL::asset('assets/frontend/images/youtube2.png') }}" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                        <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                    </div>
-                </div>
-
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
 
             </div>
          </section>
@@ -212,44 +153,48 @@
 
 
          <!-- Livestreams card start -->
-        <section class="py-[50px]">
+
+
+
+         <section class="py-[50px]">
+
             <div class="flex justify-between items-center text-white mb-10">
                 <h2 class="text-3xl font-semibold">Livestreams</h2>
                 <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube3.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at 14 April 2023</span></button>
-                    </div>
-                </div>
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube3.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at 14 April 2023</span></button>
-                    </div>
-                </div>
 
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube3.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at 14 April 2023</span></button>
-                    </div>
-                </div>
 
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($liveBroadCasts as $livestrem)
+
+                    @if ($counter == 5)
+                        @break
+                    @endif
+
+                    <div class="border border-[#262626] p-3 rounded-md space-y-5">
+                        <img class="w-full  rounded-md" src="{{URL::to( $livestrem->image )}}" alt="">
+                        <div class="text-white flex justify-between items-center text-sm">
+                            <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at {{ $livestrem->created_at->format('F j, Y') }}</span></button>
+                        </div>
+                    </div>
+
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
+
+        {{-- <div class="border border-[#262626] p-3 rounded-md space-y-5">
                     <img class="w-full  rounded-md" src="./images/youtube3.png" alt="">
                     <div class="text-white flex justify-between items-center text-sm">
                         <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at 14 April 2023</span></button>
                     </div>
-                </div>
-                <div class="border border-[#262626] p-3 rounded-md space-y-5">
-                    <img class="w-full  rounded-md" src="./images/youtube3.png" alt="">
-                    <div class="text-white flex justify-between items-center text-sm">
-                        <button class="text-[#BFBFBF] w-full text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414] text-center"> <span>Released at 14 April 2023</span></button>
-                    </div>
-                </div>
+                </div> --}}
+
+
+
 
 
             </div>

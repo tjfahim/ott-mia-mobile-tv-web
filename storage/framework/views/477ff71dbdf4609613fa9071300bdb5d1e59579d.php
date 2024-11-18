@@ -24,7 +24,7 @@
   <link href="<?php echo e(URL::asset('admin_assets/css/font-awesome.min.css')); ?>" rel="stylesheet" type="text/css" />
   <script src="<?php echo e(URL::asset('admin_assets/js/modernizr.min.js')); ?>"></script>
   <?php endif; ?>
-  
+
 </head>
 
 <body>
@@ -32,19 +32,19 @@
   <div class="clearfix"></div>
   <div class="wrapper-page">
     <div class="text-center">
-       
+
       <?php if(getcong('site_logo')): ?>
-        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo"> </a> 
+        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img style="width: 20px; height: 20px" src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo"> </a>
       <?php else: ?>
-        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img src="<?php echo e(URL::asset('site_assets/images/template/logo.png')); ?>" alt="Site Logo"> </a>          
+        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img src="<?php echo e(URL::asset('site_assets/images/template/logo.png')); ?>" alt="Site Logo"> </a>
       <?php endif; ?>
-     
+
     </div>
     <div class="m-t-20 card-box">
       <div class="text-center">
         <h3 class="text-uppercase font-bold m-b-0"><?php echo e(trans('words.sign_in')); ?></h3>
- 
-        <div class="message">                                                 
+
+        <div class="message">
             <?php if(count($errors) > 0): ?>
                 <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -54,12 +54,13 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            <?php endif; ?>                
+            <?php endif; ?>
         </div>
 
       </div>
       <div class="p-10">
-         <?php echo Form::open(array('url' => 'admin/login','class'=>'form-horizontal m-t-20','id'=>'loginform','role'=>'form')); ?>    
+         <?php echo Form::open(array('url' => 'admin/login','class'=>'form-horizontal m-t-20','id'=>'loginform','role'=>'form')); ?>
+
           <div class="form-group">
             <div class="col-xs-12">
               <input name="email" class="form-control" type="text" required placeholder="<?php echo e(trans('words.email')); ?>">
@@ -87,8 +88,9 @@
             <div class="col-sm-12"> <a href="<?php echo e(URL::to('password/email')); ?>" class="text-muted"><i class="fa fa-lock m-r-5"></i>
                 <?php echo e(trans('words.forgot_pass_text')); ?></a> </div>
           </div>
-           
-        <?php echo Form::close(); ?> 
+
+        <?php echo Form::close(); ?>
+
       </div>
     </div>
   </div>
@@ -96,19 +98,20 @@
   <?php if(getcong('external_css_js')=="CDN"): ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="<?php echo e(URL::asset('admin_assets/js/popper.min.js')); ?>"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-  <?php else: ?>  
+  <?php else: ?>
   <script src="<?php echo e(URL::asset('admin_assets/js/jquery.min.js')); ?>"></script>
   <script src="<?php echo e(URL::asset('admin_assets/js/popper.min.js')); ?>"></script>
-  <script src="<?php echo e(URL::asset('admin_assets/js/bootstrap.min.js')); ?>"></script>  
+  <script src="<?php echo e(URL::asset('admin_assets/js/bootstrap.min.js')); ?>"></script>
   <?php endif; ?>
-     
-  
+
+
 
   <!-- App js -->
   <script src="<?php echo e(URL::asset('admin_assets/js/jquery.core.js')); ?>"></script>
   <script src="<?php echo e(URL::asset('admin_assets/js/jquery.app.js')); ?>"></script>
 </body>
 
-</html><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/index.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/index.blade.php ENDPATH**/ ?>

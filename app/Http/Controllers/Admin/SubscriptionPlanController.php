@@ -62,19 +62,24 @@ class SubscriptionPlanController extends MainAdminController
     public function addnew(Request $request)
     { 
         
+
         $data =  \Request::except(array('_token')) ;
+
+    
         
         if(!empty($inputs['id'])){
                 
                 $rule=array(
                 'plan_name' => 'required',
-                'plan_price' => 'required'                 
+                'plan_price' => 'required',
+                'description' => 'required'
                  );
         }else
         {
             $rule=array(
                 'plan_name' => 'required',
-                'plan_price' => 'required'                  
+                'plan_price' => 'required',
+                'description' => 'required'                  
                  );
         }
 
@@ -101,6 +106,7 @@ class SubscriptionPlanController extends MainAdminController
          $plan_days_final=$inputs['plan_duration']*$inputs['plan_duration_type'];
          
          $plan_obj->plan_name = $inputs['plan_name'];
+         $plan_obj->description = $inputs['description'];
          $plan_obj->plan_duration = $inputs['plan_duration']; 
          $plan_obj->plan_duration_type = $inputs['plan_duration_type']; 
          $plan_obj->plan_days = $plan_days_final;           

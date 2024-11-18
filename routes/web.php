@@ -20,7 +20,10 @@ use App\Http\Controllers\Admin\ChannelManageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\LiveBroadcastManageController;
 use App\Http\Controllers\Admin\UpcomingMovieSeriesController;
+use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
+
+
 
 
 Route::post('/reels/{id}/like', [ReelsController::class, 'postLike']);
@@ -248,7 +251,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 //Site
 
-Route::get('/', 'IndexController@index');
+//Route::get('/', 'IndexController@index');
 
 
 Route::get('login', 'IndexController@login');
@@ -267,7 +270,7 @@ Route::post('signup', 'IndexController@postSignup');
 Route::get('logout', 'IndexController@logout');
 
 Route::get('settings', 'UserController@settings');
-Route::get('tvstation', 'UserController@tvstation');
+
 Route::get('dashboard', 'UserController@dashboard');
 Route::get('profile', 'UserController@profile');
 Route::post('profile', 'UserController@editprofile');
@@ -360,3 +363,13 @@ Route::post('/verify-otp', 'ForgotPasswordController@verifyOTP');
 Route::get('/reset-password', 'ForgotPasswordController@showResetPasswordForm')->name('password.reset');
 Route::post('/reset-password', 'ForgotPasswordController@resetPassword');
 Route::post('/resend-otp', 'OtpController@resend')->name('resend.otp');
+
+
+
+
+// frontend controller
+
+Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
+Route::get('tvstation', [App\Http\Controllers\frontend\TvstationController::class, 'index']);
+Route::get('vod', [App\Http\Controllers\frontend\VodController::class, 'index']);
+Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);

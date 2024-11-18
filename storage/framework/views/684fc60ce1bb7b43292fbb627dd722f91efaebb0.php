@@ -1,1 +1,2 @@
-<footer class="footer text-right"> <?php echo e(trans('words.copyright')); ?> © <?php echo e(date('Y')); ?> <a href="<?php echo e(url('/')); ?>" target="_blank"> NET SKY </a>. <?php echo e(trans('words.all_rights')); ?>. </footer><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/copyright.blade.php ENDPATH**/ ?>
+<footer class="footer text-right"> <?php echo e(trans('words.copyright')); ?> © <?php echo e(date('Y')); ?> <a href="<?php echo e(url('/')); ?>" target="_blank"> Silk Road TV </a>. <?php echo e(trans('words.all_rights')); ?>. </footer>
+<?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/copyright.blade.php ENDPATH**/ ?>

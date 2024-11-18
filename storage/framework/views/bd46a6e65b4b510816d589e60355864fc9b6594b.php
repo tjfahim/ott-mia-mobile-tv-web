@@ -30,7 +30,9 @@
                         </li>
 
                         <li class="px-3 py-2 opacity-75 hover:opacity-100  hover:bg-[#1A1A1A] hover:border-[#1A1A1A] hover:rounded-md"><a href="">Notification</a></li>
-                        <li class="px-3 py-2 opacity-75 hover:opacity-100  hover:bg-[#1A1A1A] hover:border-[#1A1A1A] hover:rounded-md" ><a href="">VDO</a></li>
+                        <li class="<?php echo e(request()->is('vod') ? 'hover:opacity-100 bg-[#1A1A1A] border-[#1A1A1A] ' : ''); ?> rounded-md  hover:bg-[#1A1A1A] px-3 py-2 opacity-75" >
+                            <a href="<?php echo e(URL::to('vod')); ?>">VDO</a>
+                        </li>
 
 
                         <li class="<?php echo e(request()->is('settings') ? 'hover:opacity-100 bg-[#1A1A1A] border-[#1A1A1A] ' : ''); ?> rounded-md  hover:bg-[#1A1A1A] px-3 py-2 opacity-75">
@@ -71,79 +73,79 @@
 
 
         <!-- footer section start -->
-        <div class="bg-[#0F0F0F] w-full ">
-            <div class="container mx-auto ">
-                <footer class="">
-                    <div class="px-10 text-white flex flex-col sm:flex-row justify-between items-start gap-8  py-5 border-b border-gray-500">
-                        <div>
-                            <h3 class="text-xl font-medium mb-2">Home</h3>
-                            <div class="flex flex-col gap-2 opacity-75">
-                                <a class="" href="">Category</a>
-                                <a class="" href="">Devices</a>
-                                <a class="" href="">Pricing</a>
-                                <a class="" href="">FAQ</a>
-                            </div>
-                        </div>
-                        <div class="">
-                             <h3 class="text-xl font-medium mb-3">Movies</h3>
-                             <div class="flex flex-col gap-2 opacity-75">
-                                 <a class="" href="">Games</a>
-                                 <a class="" href="">Trending</a>
-                                 <a class="" href="">New Release</a>
-                                 <a class="" href="">Popular</a>
-                             </div>
-                         </div>
-                         <div class="col">
-                             <h3 class="text-xl font-medium mb-2">Shows</h3>
-                             <div class="flex flex-col gap-2 opacity-75">
-                                 <a class="" href="">Games</a>
-                                 <a class="" href="">Trending</a>
-                                 <a class="" href="">New Release</a>
-                                 <a class="" href="">Popular</a>
-                             </div>
-                         </div>
-                         <div class="col">
-                             <h3 class="text-xl font-medium mb-2">Support</h3>
-                             <div class="flex flex-col gap-2 opacity-75 ">
-                                 <a class="" href="">Contact Us</a>
-
-                             </div>
-                         </div>
-                         <div class="col">
-                             <h3 class="text-xl font-medium mb-2">Subscription</h3>
-                             <div class="flex flex-col gap-2 opacity-75  ">
-                                 <a class="" href="">Plans</a>
-                                 <a class="" href="">Features</a>
-
-                             </div>
-                         </div>
-                         <div class="col">
-                             <h3 class="text-xl font-medium mb-2">Contact With Us</h3>
-                             <div class="flex gap-2 opacity-75">
-                                 <a class=" bg-dark p-2 rounded" href="<?php echo e(stripslashes(getcong('footer_fb_link'))); ?>" ><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/facebook-Icon.svg')); ?>" alt=""></a>
-                                 <a class=" bg-dark p-2 rounded"href="<?php echo e(stripslashes(getcong('footer_twitter_link'))); ?>" ><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/x-Icon.svg')); ?>" alt=""></a>
-                                 <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/linkdin-icon.svg')); ?>" alt=""></a>
-                             </div>
-                         </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row gap-5 text-center justify-between py-5 text-white opacity-50">
+            <div class="bg-[#0F0F0F] w-full ">
+                <div class="container mx-auto ">
+                    <footer class="">
+                        <div class="px-10 text-white flex flex-col sm:flex-row justify-between items-start gap-8  py-5 border-b border-gray-500">
                             <div>
-                                <?php echo e(stripslashes(getcong('site_copyright'))); ?>
-
+                                <h3 class="text-xl font-medium mb-2">Home</h3>
+                                <div class="flex flex-col gap-2 opacity-75">
+                                    <a class="" href="">Category</a>
+                                    <a class="" href="">Devices</a>
+                                    <a class="" href="">Pricing</a>
+                                    <a class="" href="">FAQ</a>
+                                </div>
                             </div>
-                            <div class="px-3">
-                                <a class="px-2 border-r" href="">Terms of Use</a>
-                                <a class="px-2 border-r" href="">Private Policy</a>
-                                <a class="" href="">Cookie Policy</a>
+                            <div class="">
+                                <h3 class="text-xl font-medium mb-3">Movies</h3>
+                                <div class="flex flex-col gap-2 opacity-75">
+                                    <a class="" href="">Games</a>
+                                    <a class="" href="">Trending</a>
+                                    <a class="" href="">New Release</a>
+                                    <a class="" href="">Popular</a>
+                                </div>
                             </div>
-                        </div>
+                            <div class="col">
+                                <h3 class="text-xl font-medium mb-2">Shows</h3>
+                                <div class="flex flex-col gap-2 opacity-75">
+                                    <a class="" href="">Games</a>
+                                    <a class="" href="">Trending</a>
+                                    <a class="" href="">New Release</a>
+                                    <a class="" href="">Popular</a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-xl font-medium mb-2">Support</h3>
+                                <div class="flex flex-col gap-2 opacity-75 ">
+                                    <a class="" href="<?php echo e(URL::to('contact')); ?>">Contact Us</a>
 
-                </footer>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-xl font-medium mb-2">Subscription</h3>
+                                <div class="flex flex-col gap-2 opacity-75  ">
+                                    <a class="" href="">Plans</a>
+                                    <a class="" href="">Features</a>
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-xl font-medium mb-2">Contact With Us</h3>
+                                <div class="flex gap-2 opacity-75">
+                                    <a class=" bg-dark p-2 rounded" href="<?php echo e(stripslashes(getcong('footer_fb_link'))); ?>" ><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/facebook-Icon.svg')); ?>" alt=""></a>
+                                    <a class=" bg-dark p-2 rounded"href="<?php echo e(stripslashes(getcong('footer_twitter_link'))); ?>" ><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/x-Icon.svg')); ?>" alt=""></a>
+                                    <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('assets/frontend/images/linkdin-icon.svg')); ?>" alt=""></a>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-5 text-center justify-between py-5 text-white opacity-50">
+                                <div>
+                                    <?php echo e(stripslashes(getcong('site_copyright'))); ?>
+
+                                </div>
+                                <div class="px-3">
+                                    <a class="px-2 border-r" href="">Terms of Use</a>
+                                    <a class="px-2 border-r" href="">Private Policy</a>
+                                    <a class="" href="">Cookie Policy</a>
+                                </div>
+                            </div>
+
+                    </footer>
+                </div>
             </div>
-        </div>
+        <!-- footer section end -->
     </div>
-    <!-- footer section end -->
 
 
 

@@ -114,75 +114,42 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
 
 
             <div class="bg-cardbg  grid  grid-cols-1 place-items-center  sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[80px] carasol first_carasol  p-10">
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::asset('assets/frontend/images/explore-station_image_1.png')); ?>)">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="<?php echo e(URL::asset('assets/frontend/images/eye.svg')); ?>" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt=""></div>
-                    </div>
-                </div>
+                <?php
+                    $counter = 0;
+                ?>
+                <?php $__currentLoopData = $liveStrems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $strem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::asset('assets/frontend/images/explore-station_image_1.png')); ?>)">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="<?php echo e(URL::asset('assets/frontend/images/eye.svg')); ?>" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt=""></div>
-                    </div>
-                </div>
+                    <?php if($counter == 5): ?>
+                        <?php break; ?>
+                    <?php endif; ?>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::asset('assets/frontend/images/explore-station_image_1.png')); ?>)">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="<?php echo e(URL::asset('assets/frontend/images/eye.svg')); ?>" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt=""></div>
-                    </div>
-                </div>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::asset('assets/frontend/images/explore-station_image_1.png')); ?>)">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="<?php echo e(URL::asset('assets/frontend/images/eye.svg')); ?>" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt=""></div>
-                    </div>
-                </div>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::asset('assets/frontend/images/explore-station_image_1.png')); ?>)">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="<?php echo e(URL::asset('assets/frontend/images/eye.svg')); ?>" alt="">
-                            420
+                    <div class="">
+                        <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url(<?php echo e(URL::to( "upload/source/".$strem->channel_thumb )); ?>);">
+                            <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
+                                <img src="./images/eye.svg" alt="">
+                                420
+                            </div>
+                            <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
                         </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
+                        <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
+                            <div><?php echo e($strem->channel_name); ?></div>
+
+                            <a href="<?php echo e($strem->channel_url); ?>">
+                                <img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt="">
+                            </a>
+
+                        </div>
                     </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="<?php echo e(URL::asset('assets/frontend/images/right-arow.png')); ?>" alt=""></div>
-                    </div>
-                </div>
+
+                    <?php
+                        $counter++;
+                    ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                
+
+
 
 
 
@@ -202,60 +169,26 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
             </div>
             <div class="space-y-5 grid grid-cols-1  sm:grid-cols-2 gap-5">
                 <!-- single question  -->
-                <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
-                    <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
-                        01
-                    </div>
-                    <div class="text-white answer flex flex-col items-start justify-center flex-1">
-                        <div class="">What is Silk Road TV?</div>
-                        <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
-                    </div>
-                    <button class="text-white showQ text-3xl">+</button>
-                </div>
+                <?php
+                    $count = 1;
+                ?>
+                <?php $__currentLoopData = $faqs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $qu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
+                        <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
+                            <?php echo e($count); ?>
 
-                <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
-                    <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
-                        01
+                        </div>
+                        <div class="text-white answer flex flex-col items-start justify-center flex-1">
+                            <div class=""><?php echo e($qu->title); ?></div>
+                            <p class="opacity-50 ans"><?php echo e($qu->description); ?></p>
+                        </div>
+                        <button class="text-white showQ text-3xl">+</button>
                     </div>
-                    <div class="text-white answer flex flex-col items-start justify-center flex-1">
-                        <div class="">What is Silk Road TV?</div>
-                        <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
-                    </div>
-                    <button class="text-white showQ text-3xl">+</button>
-                </div>
-
-                <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
-                    <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
-                        01
-                    </div>
-                    <div class="text-white answer flex flex-col items-start justify-center flex-1">
-                        <div class="">What is Silk Road TV?</div>
-                        <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
-                    </div>
-                    <button class="text-white showQ text-3xl">+</button>
-                </div>
-
-                <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
-                    <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
-                        01
-                    </div>
-                    <div class="text-white answer flex flex-col items-start justify-center flex-1">
-                        <div class="">What is Silk Road TV?</div>
-                        <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
-                    </div>
-                    <button class="text-white showQ text-3xl">+</button>
-                </div>
-
-                <div class="flex justify-between items-center gap-2 py-2 question border-b border-red-600 ">
-                    <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
-                        01
-                    </div>
-                    <div class="text-white answer flex flex-col items-start justify-center flex-1">
-                        <div class="">What is Silk Road TV?</div>
-                        <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
-                    </div>
-                    <button class="text-white showQ text-3xl">+</button>
-                </div>
+                    <?php
+                        $count++;
+                    ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                
 
 
 
@@ -276,76 +209,38 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                 </div>
             </div>
             <!-- monthly plan -->
-            <div class="flex flex-col sm:flex-row p-10 sm:p-0 gap-6" id="monthly_plan">
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$9.99</span><span class="opacity-50">/month</span>
+            <div class="flex flex-col md:flex-row flex-wrap  p-10 sm:p-0 gap-6 w-full justify-between" id="monthly_plan">
+                <?php $__currentLoopData = $monthly_plan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded w-full sm:w-[450px]  ">
+                        <h2 class="text-2xl"><?php echo e($plan->plan_name); ?></h2>
+                        <p class="opacity-50"><?php echo e($plan->description); ?></p>
+                        <div class="">
+                            <span class="text-3xl "><?php echo e($plan->plan_price); ?></span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
+                            <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
+                        </div>
                     </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$9.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$9.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                
             </div>
             <!-- yearly plan -->
-            <div class="flex flex-col sm:flex-row p-10 sm:p-0 gap-6" id="yearly_plan">
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$70.99</span><span class="opacity-50">/month</span>
+            <div class="flex flex-col md:flex-row flex-wrap  p-10 sm:p-0 gap-6 w-full justify-between " id="yearly_plan">
+                <?php $__currentLoopData = $yearly_plan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded w-full sm:w-[450px] ">
+                        <h2 class="text-2xl"><?php echo e($plan->plan_name); ?></h2>
+                        <p class="opacity-50"><?php echo e($plan->description); ?></p>
+                        <div class="">
+                            <span class="text-3xl "><?php echo e($plan->plan_price); ?></span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
+                            <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
+                        </div>
                     </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$100.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$150.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
-                        <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
-                    </div>
-                </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                
             </div>
          </section>
         <!-- plan section end -->

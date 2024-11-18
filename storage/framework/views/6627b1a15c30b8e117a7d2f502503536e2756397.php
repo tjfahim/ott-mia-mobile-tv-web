@@ -1,11 +1,11 @@
 <div class="topbar">
-      <div class="topbar-left"> 
+      <div class="topbar-left">
         <a href="<?php echo e(URL::to('admin/dashboard')); ?>" class="logo">
           <span>
-            <?php if(getcong('site_logo')): ?> 
-            <img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo" width="120">
+            <?php if(getcong('site_logo')): ?>
+            <img  src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo" width="120" height="40">
             <?php else: ?>
-            <img src="<?php echo e(URL::asset('site_assets/images/template/logo.png')); ?>" alt="Site Logo" width="120">           
+            <img src="<?php echo e(URL::asset('site_assets/images/template/logo.png')); ?>" alt="Site Logo" width="120"  height="40">
             <?php endif; ?>
           </span>
           <i class="mdi mdi-layers"></i></a> </div>
@@ -29,24 +29,24 @@
                             <a href="<?php echo e(URL::to('/')); ?>" class="right-bar-toggle" data-toggle="tooltip" title="Front End" target="_blank">
                                 <i class="fa fa-desktop"></i>
                             </a>
-                             
+
                         </li>
                     </ul>
                 </div>
                 <!-- End Notification bar -->
-            </li> 
+            </li>
               <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#"
                   role="button" aria-haspopup="false" aria-expanded="false">
-                  
-                  <?php if(file_exists(public_path('upload/'.Auth::user()->user_image)) and Auth::user()->user_image!=null): ?>                                 
- 
+
+                  <?php if(file_exists(public_path('upload/'.Auth::user()->user_image)) and Auth::user()->user_image!=null): ?>
+
                   <img src="<?php echo e(URL::to('upload/'.Auth::user()->user_image)); ?>" alt="person" class="rounded-circle" />
-                  
+
                   <?php else: ?>
-                      
+
                   <img src="<?php echo e(URL::asset('admin_assets/images/users/avatar-9.jpg')); ?>" alt="person" class="rounded-circle" />
-                  
+
                   <?php endif; ?>
 
                  </a>
@@ -65,4 +65,5 @@
           </nav>
         </div>
       </div>
-    </div><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/topbar.blade.php ENDPATH**/ ?>
+    </div>
+<?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/admin/topbar.blade.php ENDPATH**/ ?>

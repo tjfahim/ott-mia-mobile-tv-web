@@ -115,75 +115,54 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
 
 
             <div class="bg-cardbg  grid  grid-cols-1 place-items-center  sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[80px] carasol first_carasol  p-10">
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{ URL::asset('assets/frontend/images/explore-station_image_1.png') }})">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="{{ URL::asset('assets/frontend/images/eye.svg') }}" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt=""></div>
-                    </div>
-                </div>
+                @php
+                    $counter = 0;
+                @endphp
+                @foreach ($liveStrems as $strem)
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{ URL::asset('assets/frontend/images/explore-station_image_1.png') }})">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="{{ URL::asset('assets/frontend/images/eye.svg') }}" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt=""></div>
-                    </div>
-                </div>
+                    @if ($counter == 5)
+                        @break
+                    @endif
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{ URL::asset('assets/frontend/images/explore-station_image_1.png') }})">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="{{ URL::asset('assets/frontend/images/eye.svg') }}" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt=""></div>
-                    </div>
-                </div>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{ URL::asset('assets/frontend/images/explore-station_image_1.png') }})">
-                        <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="{{ URL::asset('assets/frontend/images/eye.svg') }}" alt="">
-                            420
-                        </div>
-                        <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
-                    </div>
-                    <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
-                        <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt=""></div>
-                    </div>
-                </div>
 
-                <div class="">
-                    <div class="bg-cover h-[270px] flex justify-between items-start hover:opacity-50 duration-300  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{ URL::asset('assets/frontend/images/explore-station_image_1.png') }})">
+                    <div class="">
+                        <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url({{URL::to( "upload/source/".$strem->channel_thumb )}});">
+                            <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
+                                <img src="./images/eye.svg" alt="">
+                                420
+                            </div>
+                            <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
+                        </div>
+                        <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
+                            <div>{{  $strem->channel_name }}</div>
+
+                            <a href="{{  $strem->channel_url }}">
+                                <img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt="">
+                            </a>
+
+                        </div>
+                    </div>
+
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
+                {{-- <div class="">
+                    <div class="bg-cover h-[270px] flex justify-between items-start  p-5 rounded w-full max-w-[230px]"  style="background-image: url('./images/explore-station_image_1.png');">
                         <div class="bg-gray-500 rounded-full px-3 py-1 text-sm text-white opacity-75 flex justify-between items-center gap-1 ">
-                            <img src="{{ URL::asset('assets/frontend/images/eye.svg') }}" alt="">
+                            <img src="./images/eye.svg" alt="">
                             420
                         </div>
                         <div class="bg-red-500 rounded-full px-3 py-1 text-sm text-white">live</div>
                     </div>
                     <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
                         <div>LIVE</div>
-                        <div><img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt=""></div>
+                        <div><img class="h-4.5 w-4.5" src="./images/right-arow.png" alt=""></div>
                     </div>
-                </div>
+                </div> --}}
+
+
 
 
 
@@ -203,7 +182,25 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
             </div>
             <div class="space-y-5 grid grid-cols-1  sm:grid-cols-2 gap-5">
                 <!-- single question  -->
-                <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
+                @php
+                    $count = 1;
+                @endphp
+                @foreach ($faqs as $qu)
+                    <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
+                        <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
+                            {{ $count }}
+                        </div>
+                        <div class="text-white answer flex flex-col items-start justify-center flex-1">
+                            <div class="">{{ $qu->title }}</div>
+                            <p class="opacity-50 ans">{{ $qu->description }}</p>
+                        </div>
+                        <button class="text-white showQ text-3xl">+</button>
+                    </div>
+                    @php
+                        $count++;
+                    @endphp
+                @endforeach
+                {{-- <div class="flex justify-between items-center gap-2 question border-b border-red-600 ">
                     <div class="p-3 bg-stone-800 rounded text-center h-12  w-12 text-white block align-center justify-center">
                         01
                     </div>
@@ -256,7 +253,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <p class="opacity-50 ans">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aperiam reprehenderit eaque, soluta dolores consequuntur impedit asperiores repellat? At, aspernatur.</p>
                     </div>
                     <button class="text-white showQ text-3xl">+</button>
-                </div>
+                </div> --}}
 
 
 
@@ -277,8 +274,21 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                 </div>
             </div>
             <!-- monthly plan -->
-            <div class="flex flex-col sm:flex-row p-10 sm:p-0 gap-6" id="monthly_plan">
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
+            <div class="flex flex-col md:flex-row flex-wrap  p-10 sm:p-0 gap-6 w-full justify-between" id="monthly_plan">
+                @foreach ($monthly_plan as $plan)
+                    <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded w-full sm:w-[450px]  ">
+                        <h2 class="text-2xl">{{ $plan->plan_name }}</h2>
+                        <p class="opacity-50">{{  $plan->description }}</p>
+                        <div class="">
+                            <span class="text-3xl ">{{  $plan->plan_price }}</span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
+                            <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
                     <h2 class="text-2xl">Basic Plan</h2>
                     <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                     <div class="">
@@ -310,11 +320,24 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
                         <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!-- yearly plan -->
-            <div class="flex flex-col sm:flex-row p-10 sm:p-0 gap-6" id="yearly_plan">
-                <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
+            <div class="flex flex-col md:flex-row flex-wrap  p-10 sm:p-0 gap-6 w-full justify-between " id="yearly_plan">
+                @foreach ($yearly_plan as $plan)
+                    <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded w-full sm:w-[450px] ">
+                        <h2 class="text-2xl">{{ $plan->plan_name }}</h2>
+                        <p class="opacity-50">{{  $plan->description }}</p>
+                        <div class="">
+                            <span class="text-3xl ">{{  $plan->plan_price }}</span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
+                            <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded">
                     <h2 class="text-2xl">Basic Plan</h2>
                     <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                     <div class="">
@@ -346,7 +369,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
                         <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
          </section>
         <!-- plan section end -->

@@ -208,6 +208,7 @@ return [
     'add_plan' => 'Add Plan',
     'edit_plan' => 'Edit Plan',
     'plan_name' => 'Plan Name',
+    'plan_description' => 'Plan Description',
     'price' => 'Price',
 
     'filter_by_gateway' => 'Filter by Gateway',

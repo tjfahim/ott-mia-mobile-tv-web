@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="<?php echo $__env->yieldContent('head_image', URL::asset('upload/source/'.getcong('site_logo'))); ?>">
   <link rel="image_src" href="<?php echo $__env->yieldContent('head_image', URL::asset('upload/source/'.getcong('site_logo'))); ?>">
-
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
 
@@ -139,4 +139,5 @@
 
 </body>
 
-</html><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/site_app.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/site_app.blade.php ENDPATH**/ ?>

@@ -24,7 +24,7 @@
   <link href="{{ URL::asset('admin_assets/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
   <script src="{{ URL::asset('admin_assets/js/modernizr.min.js') }}"></script>
   @endif
-  
+
 </head>
 
 <body>
@@ -32,19 +32,19 @@
   <div class="clearfix"></div>
   <div class="wrapper-page">
     <div class="text-center">
-       
+
       @if(getcong('site_logo'))
-        <a class="navbar-brand" href="{{ URL::to('/') }}" target="_blank"> <img src="{{ URL::asset('upload/source/'.getcong('site_logo')) }}" alt="Site Logo"> </a> 
+        <a class="navbar-brand" href="{{ URL::to('/') }}" target="_blank"> <img style="width: 120px; height: 120px" src="{{ URL::asset('upload/source/'.getcong('site_logo')) }}" alt="Site Logo"> </a>
       @else
-        <a class="navbar-brand" href="{{ URL::to('/') }}" target="_blank"> <img src="{{ URL::asset('site_assets/images/template/logo.png') }}" alt="Site Logo"> </a>          
+        <a class="navbar-brand" href="{{ URL::to('/') }}" target="_blank"> <img src="{{ URL::asset('site_assets/images/template/logo.png') }}" alt="Site Logo"> </a>
       @endif
-     
+
     </div>
     <div class="m-t-20 card-box">
       <div class="text-center">
         <h3 class="text-uppercase font-bold m-b-0">{{trans('words.sign_in')}}</h3>
- 
-        <div class="message">                                                 
+
+        <div class="message">
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -54,12 +54,12 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif                
+            @endif
         </div>
 
       </div>
       <div class="p-10">
-         {!! Form::open(array('url' => 'admin/login','class'=>'form-horizontal m-t-20','id'=>'loginform','role'=>'form')) !!}    
+         {!! Form::open(array('url' => 'admin/login','class'=>'form-horizontal m-t-20','id'=>'loginform','role'=>'form')) !!}
           <div class="form-group">
             <div class="col-xs-12">
               <input name="email" class="form-control" type="text" required placeholder="{{trans('words.email')}}">
@@ -87,8 +87,8 @@
             <div class="col-sm-12"> <a href="{{ URL::to('password/email') }}" class="text-muted"><i class="fa fa-lock m-r-5"></i>
                 {{trans('words.forgot_pass_text')}}</a> </div>
           </div>
-           
-        {!! Form::close() !!} 
+
+        {!! Form::close() !!}
       </div>
     </div>
   </div>
@@ -96,15 +96,15 @@
   @if(getcong('external_css_js')=="CDN")
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="{{ URL::asset('admin_assets/js/popper.min.js') }}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-  @else  
+  @else
   <script src="{{ URL::asset('admin_assets/js/jquery.min.js') }}"></script>
   <script src="{{ URL::asset('admin_assets/js/popper.min.js') }}"></script>
-  <script src="{{ URL::asset('admin_assets/js/bootstrap.min.js') }}"></script>  
+  <script src="{{ URL::asset('admin_assets/js/bootstrap.min.js') }}"></script>
   @endif
-     
-  
+
+
 
   <!-- App js -->
   <script src="{{ URL::asset('admin_assets/js/jquery.core.js') }}"></script>
