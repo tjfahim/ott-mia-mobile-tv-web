@@ -34,7 +34,7 @@
     <div class="text-center">
 
       <?php if(getcong('site_logo')): ?>
-        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img style="width: 20px; height: 20px" src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo"> </a>
+        <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img style="width: 120px; height: 120px" src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="Site Logo"> </a>
       <?php else: ?>
         <a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>" target="_blank"> <img src="<?php echo e(URL::asset('site_assets/images/template/logo.png')); ?>" alt="Site Logo"> </a>
       <?php endif; ?>

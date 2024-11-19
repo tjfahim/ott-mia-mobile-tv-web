@@ -8,14 +8,25 @@
         <h2 class="text-2xl font-normal ">Login form</h2>
         <p class="opacity-50 text-sm">Enter following details to login.</p>
     </div>
-    <form action="" class="flex gap-5 flex-col">
+    <form action="<?php echo e(URL::to('login')); ?>" class="flex gap-5 flex-col" method="post">
+        <?php echo csrf_field(); ?>
         <div class="border border-[#FFFFFF1A]  hover:border-[#ED2024] rounded-md p-3   gap-3 flex items-center justify-start" >
             <div class=" border-r pr-3 border-[#FFFFFF1A]">
                 <img src="<?php echo e(URL::asset('assets/frontend/images/email.svg')); ?>" alt="">
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Email</label>
-                <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+                <input type="email" name="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" value="<?php echo e(old('email')); ?>" placeholder="example@gmail.com" >
+                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
             <div>
                 <img src="<?php echo e(URL::asset('assets/frontend/images/success.svg')); ?>" alt="">
@@ -28,7 +39,17 @@
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Password</label>
-                <input type="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                <input type="password" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
             <div>
                 <img src="<?php echo e(URL::asset('assets/frontend/images/eye-off.svg')); ?>" alt="">

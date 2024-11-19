@@ -12,13 +12,14 @@ class Movies extends Model
 
 
 	public $timestamps = false;
- 
-	 
-	
-	public static function getMoviesInfo($id,$field_name) 
-    { 
+
+
+
+
+	public static function getMoviesInfo($id,$field_name)
+    {
     	$movie_info = Movies::where('status','1')->where('id',$id)->first();
-		
+
 		if($movie_info)
 		{
 			return  $movie_info->$field_name;
@@ -27,8 +28,15 @@ class Movies extends Model
 		{
 			return  '';
 		}
-		
+
 	}
 
-	
+    
+
+    // public function genres()
+    // {
+    //     return $this->hasMany()
+    // }
+
+
 }

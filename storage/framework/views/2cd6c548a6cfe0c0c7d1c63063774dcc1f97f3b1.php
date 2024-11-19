@@ -5,7 +5,7 @@
 <!-- vod  content start -->
 <div class="border border-[#262626] p-10 py-10" >
 
-    <!-- Recently Added Shows start -->    
+    <!-- Recently Added Shows start -->
     <section class="py-[50px]">
         <div class="flex justify-between items-center text-white mb-10">
             <h2 class="text-3xl font-semibold">Recently Added Shows</h2>
@@ -30,7 +30,7 @@
             
 
 
-            
+
         </div>
      </section>
     <!-- Recently Added Shows end -->
@@ -42,12 +42,12 @@
             <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            <?php 
+            <?php
                 $count = 0;
             ?>
             <?php $__currentLoopData = $recent_movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($count === 5): ?>  
-                    <?php break; ?> 
+                <?php if($count === 5): ?>
+                    <?php break; ?>
                 <?php endif; ?>
                 <div class="border border-[#262626] p-3 rounded-md space-y-5">
                     <img class="w-full  rounded-md" src="<?php echo e(URL::to( 'upload/source/'.$movie->video_image_thumb )); ?>" alt="">
@@ -70,15 +70,15 @@
                     $count++;
                 ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            
-            
 
             
+
+
         </div>
      </section>
      <!-- Recently Added Movies session end -->
 
-     
+
       <!-- Recently Added Lives session start -->
       <section class="py-[50px]">
         <div class="flex justify-between items-center text-white mb-10">
@@ -104,7 +104,7 @@
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
-    
+
                             </div>
                             <span>2k</span>
                         </button>
@@ -114,11 +114,11 @@
                     $count++;
                 ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            
+
 
             
 
-            
+
         </div>
      </section>
      <!-- Recently Added Lives session end -->
@@ -137,7 +137,7 @@
                 <?php if($count == 5): ?>
                     <?php break; ?>
                 <?php endif; ?>
-                <a href="<?php echo e($movie->video_url); ?> ">
+                <a href="<?php echo e(URL::to('movie/'.$movie->video_slug)); ?> ">
                     <div class="border border-[#262626] p-3 rounded-md space-y-5">
                         <img class="w-full  rounded-md" src="<?php echo e(URL::to( 'upload/source/'.$movie->video_image_thumb )); ?>" alt="">
                         <div class="text-white flex justify-between items-center text-sm">
@@ -152,7 +152,7 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             
 
-            
+
         </div>
      </section>
     <!-- movie card end -->
@@ -164,7 +164,7 @@
             <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            
+
             <?php
                 $count = 0;
             ?>
@@ -182,15 +182,15 @@
                         </div>
                     </div>
                 </a>
-                
+
                 <?php
                     $count++;
                 ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-          
-            
 
             
+
+
         </div>
      </section>
     <!-- show card end -->
@@ -224,7 +224,7 @@
 
             
 
-            
+
         </div>
      </section>
      <!-- Live TV card end -->

@@ -22,9 +22,7 @@ use App\Http\Controllers\Admin\LiveBroadcastManageController;
 use App\Http\Controllers\Admin\UpcomingMovieSeriesController;
 use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
-
-
-
+use Illuminate\Support\Facades\Route;
 
 Route::post('/reels/{id}/like', [ReelsController::class, 'postLike']);
 Route::get('/reels/{id}/likes', [ReelsController::class, 'ReelLike']);
@@ -254,9 +252,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 //Route::get('/', 'IndexController@index');
 
 
-Route::get('login', 'IndexController@login');
-Route::get('register', 'IndexController@register');
-Route::post('login', 'IndexController@postLogin');
+// Route::get('login', 'IndexController@login');
+// Route::get('register', 'IndexController@register');
+// Route::post('login', 'IndexController@postLogin');
 
 Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
@@ -264,8 +262,8 @@ Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback')
 Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
 Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');
 
-Route::get('signup', 'IndexController@signup');
-Route::post('signup', 'IndexController@postSignup');
+// Route::get('signup', 'IndexController@signup');
+// Route::post('signup', 'IndexController@postSignup');
 
 Route::get('logout', 'IndexController@logout');
 
@@ -362,14 +360,27 @@ Route::post('/forgot-password', 'ForgotPasswordController@sendOTP');
 Route::post('/verify-otp', 'ForgotPasswordController@verifyOTP');
 Route::get('/reset-password', 'ForgotPasswordController@showResetPasswordForm')->name('password.reset');
 Route::post('/reset-password', 'ForgotPasswordController@resetPassword');
-Route::post('/resend-otp', 'OtpController@resend')->name('resend.otp');
+//Route::post('/resend-otp', 'OtpController@resend')->name('resend.otp');
 
 
 
 
 // frontend controller
 
+// auth
+
+Route::get('login', [App\Http\Controllers\frontend\auth\loginController::class, 'index']);
+Route::post('login', [App\Http\Controllers\frontend\auth\loginController::class, 'store']);
+
+Route::get('signup', [App\Http\Controllers\frontend\auth\SignupController::class,'index']);
+Route::post('signup', [App\Http\Controllers\frontend\auth\SignupController::class,'store']);
+
 Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
 Route::get('tvstation', [App\Http\Controllers\frontend\TvstationController::class, 'index']);
 Route::get('vod', [App\Http\Controllers\frontend\VodController::class, 'index']);
 Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);
+
+Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
+Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);
+
+

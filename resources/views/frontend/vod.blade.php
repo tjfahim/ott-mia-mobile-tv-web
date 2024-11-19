@@ -7,7 +7,7 @@
 <!-- vod  content start -->
 <div class="border border-[#262626] p-10 py-10" >
 
-    <!-- Recently Added Shows start -->    
+    <!-- Recently Added Shows start -->
     <section class="py-[50px]">
         <div class="flex justify-between items-center text-white mb-10">
             <h2 class="text-3xl font-semibold">Recently Added Shows</h2>
@@ -36,7 +36,7 @@
                     <button class="flex justify-center items-center gap-1 text-xs border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/season-Icon.svg" alt=""><span>3 Season</span></button>
                 </div>
             </div>
-            
+
 
             <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
@@ -63,7 +63,7 @@
             </div> --}}
 
 
-            
+
         </div>
      </section>
     <!-- Recently Added Shows end -->
@@ -75,12 +75,12 @@
             <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            @php 
+            @php
                 $count = 0;
             @endphp
             @foreach($recent_movies as $movie)
-                @if($count === 5)  
-                    @break 
+                @if($count === 5)
+                    @break
                 @endif
                 <div class="border border-[#262626] p-3 rounded-md space-y-5">
                     <img class="w-full  rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
@@ -103,7 +103,7 @@
                     $count++;
                 @endphp
             @endforeach
-            
+
             {{-- <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube2.png" alt="">
                 <div class="text-white flex justify-between items-center text-sm">
@@ -158,12 +158,12 @@
                 </div>
             </div>     --}}
 
-            
+
         </div>
      </section>
      <!-- Recently Added Movies session end -->
 
-     
+
       <!-- Recently Added Lives session start -->
       <section class="py-[50px]">
         <div class="flex justify-between items-center text-white mb-10">
@@ -189,7 +189,7 @@
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
                                 <img class="h-3 w-3" src="./images/star.svg" alt="">
-    
+
                             </div>
                             <span>2k</span>
                         </button>
@@ -199,7 +199,7 @@
                     $count++;
                 @endphp
             @endforeach
-            
+
 
             {{-- <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube2.png" alt="">
@@ -255,7 +255,7 @@
                 </div>
             </div>     --}}
 
-            
+
         </div>
      </section>
      <!-- Recently Added Lives session end -->
@@ -274,7 +274,7 @@
                 @if ($count == 5)
                     @break
                 @endif
-                <a href="{{  $movie->video_url}} ">
+                <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
                     <div class="border border-[#262626] p-3 rounded-md space-y-5">
                         <img class="w-full  rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
                         <div class="text-white flex justify-between items-center text-sm">
@@ -294,7 +294,7 @@
                     <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
                 </div>
             </div>
-            
+
 
             <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
@@ -328,7 +328,7 @@
                 </div>
             </div>      --}}
 
-            
+
         </div>
      </section>
     <!-- movie card end -->
@@ -340,7 +340,7 @@
             <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            
+
             @php
                 $count = 0;
             @endphp
@@ -358,12 +358,12 @@
                         </div>
                     </div>
                 </a>
-                
+
                 @php
                     $count++;
                 @endphp
             @endforeach
-          
+
             {{-- <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
                 <div class="text-white flex justify-between items-center text-sm">
@@ -371,7 +371,7 @@
                     <button class="flex justify-center items-center gap-1 text-sm border border-[#262626] rounded-full px-2 py-1 bg-[#141414]"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
                 </div>
             </div>
-            
+
 
             <div class="border border-[#262626] p-3 rounded-md space-y-5">
                 <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
@@ -405,7 +405,7 @@
                 </div>
             </div>      --}}
 
-            
+
         </div>
      </section>
     <!-- show card end -->
@@ -470,7 +470,7 @@
                 </div>
             </div>             --}}
 
-            
+
         </div>
      </section>
      <!-- Live TV card end -->

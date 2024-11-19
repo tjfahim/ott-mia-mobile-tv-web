@@ -10,14 +10,18 @@
         <h2 class="text-2xl font-normal ">Login form</h2>
         <p class="opacity-50 text-sm">Enter following details to login.</p>
     </div>
-    <form action="" class="flex gap-5 flex-col">
+    <form action="{{ URL::to('login') }}" class="flex gap-5 flex-col" method="post">
+        @csrf
         <div class="border border-[#FFFFFF1A]  hover:border-[#ED2024] rounded-md p-3   gap-3 flex items-center justify-start" >
             <div class=" border-r pr-3 border-[#FFFFFF1A]">
                 <img src="{{  URL::asset('assets/frontend/images/email.svg') }}" alt="">
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Email</label>
-                <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+                <input type="email" name="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" value="{{ old('email') }}" placeholder="example@gmail.com" >
+                @error('email')
+                    <small class="text-[#ED2024]">{{  $message }}</small>
+                @enderror
             </div>
             <div>
                 <img src="{{  URL::asset('assets/frontend/images/success.svg') }}" alt="">
@@ -30,7 +34,10 @@
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Password</label>
-                <input type="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                <input type="password" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                @error('password')
+                    <small class="text-[#ED2024]">{{  $message }}</small>
+                @enderror
             </div>
             <div>
                 <img src="{{  URL::asset('assets/frontend/images/eye-off.svg') }}" alt="">

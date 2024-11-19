@@ -17,4 +17,9 @@ class ContactController extends Controller
             'faqs' => $faq
         ]);
     }
+
+    public function store(Request $request)
+    {
+        return $request->all();
+    }
 }

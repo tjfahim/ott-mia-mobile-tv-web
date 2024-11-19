@@ -186,6 +186,7 @@ class IndexController extends Controller
             'password' => 'required'
         );
 
+        
 
 
         $validator = \Validator::make($data, $rule);

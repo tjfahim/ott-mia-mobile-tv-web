@@ -11,7 +11,7 @@
                     <div class="flex flex-col text-white gap-4">
                         <h2 class="text-2xl font-semibold">Contact Us</h2>
                         <p class="opacity-50 text-md">We're here to help you with any problems you may be having with our product.</p>
-                        <img class="cover rounded-md border-3 border-[#262626]" src="./images/contact.png" alt="">
+                        <img class="cover rounded-md border-3 border-[#262626]" src="{{  URL::asset('assets/frontend/images/contact.png') }}" alt="">
                     </div>
                 </section>
                 <section class=" flex-1  md:gap-10 rounded-md bg-[#0F0F0F] border border-[#262626] ">

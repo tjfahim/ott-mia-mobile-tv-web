@@ -8,14 +8,18 @@
         <h2 class="text-2xl font-normal ">Create A New Account</h2>
         <p class="opacity-50 text-sm">Enter following details to Signup.</p>
     </div>
-    <form action="" class="flex gap-5 flex-col">
+    <form action="{{ URL::to('signup') }}" class="flex gap-5 flex-col" method="post">
+        @csrf
         <div class="border  rounded-md p-3 border-[#FFFFFF1A]    gap-3 flex items-center justify-start hover:border-[#ED2024]" >
             <div class=" border-r pr-3  border-[#FFFFFF1A]">
                 <img class="text-black" src="./images/user.svg" alt="">
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">User</label>
-                <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="Name" >
+                <input type="text" name="name" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="Name" >
+                @error('name')
+                    <small class="text-[#ED2024]">{{ $message }}</small>
+                @enderror
             </div>
             <div>
 
@@ -28,7 +32,10 @@
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Email</label>
-                <input type="email" class="border-none  bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+                <input type="email" name="email" class="border-none  bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+                @error('email')
+                    <small class="text-[#ED2024]">{{ $message }}</small>
+                 @enderror
             </div>
             <div>
 
@@ -41,7 +48,10 @@
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Password</label>
-                <input type="passwrod" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                <input type="passwrod" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                @error('password')
+                    <small class="text-[#ED2024]">{{ $message }}</small>
+                 @enderror
             </div>
             <div>
                 <img src="./images/eye-off.svg" alt="">
@@ -54,7 +64,10 @@
             </div>
             <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
                 <label for="" class=" text-md">Confirm Password</label>
-                <input type="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                <input type="password" name="password_confirmation" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                @error('password_confirmation')
+                    <small class="text-[#ED2024]">{{ $message }}</small>
+                 @enderror
             </div>
             <div>
                 <img src="./images/eye-off.svg" alt="">
@@ -62,7 +75,7 @@
         </div>
         <div  class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
             <div>
-                <input type="checkbox" name="" value="" class="bg-red-500">
+                <input type="checkbox" name="" value="" class="bg-red-500" >
                 <label for="" class="text-sm text-[#999999]">By clicking register you agree to our <a href="" class="text-white">Terms and Conditions</a> of Use</label>
             </div>
 
