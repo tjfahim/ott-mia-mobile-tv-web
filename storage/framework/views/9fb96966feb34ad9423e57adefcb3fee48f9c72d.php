@@ -10,6 +10,8 @@
 
             <li><a href="<?php echo e(URL::to('admin/genres')); ?>" class="waves-effect <?php echo e(classActivePath('genres')); ?>"><i class="fa fa-list"></i> <span> <?php echo e(trans('words.genres_text')); ?></span></a></li>
 
+            <li><a href="<?php echo e(URL::to('admin/production/members')); ?>" class="waves-effect <?php echo e(classActivePath('members')); ?>"><i class="fa fa-list"></i> <span><?php echo e(trans('words.production_member')); ?></span></span></a></li>
+
             <li><a href="<?php echo e(URL::to('admin/movies')); ?>" class="waves-effect <?php echo e(classActivePath('movies')); ?>"><i class="fa fa-video-camera"></i> <span> <?php echo e(trans('words.movies_text')); ?></span></a></li>
             <?php
              // echo classActivePathSub('episodes');
@@ -61,6 +63,7 @@
             <li><a href="<?php echo e(URL::to('admin/subscription_plan')); ?>" class="waves-effect <?php echo e(classActivePath('subscription_plan')); ?>"><i class="fa fa-dollar"></i> <span><?php echo e(trans('words.subscription_plan')); ?></span></a></li>
 
             <li><a href="<?php echo e(URL::to('admin/transactions')); ?>" class="waves-effect <?php echo e(classActivePath('transactions')); ?>"><i class="fa fa-list"></i> <span> <?php echo e(trans('words.transactions')); ?></span></a></li>
+            <li><a href="<?php echo e(URL::to('admin/contacts')); ?>" class="waves-effect <?php echo e(classActivePath('contacts')); ?>"><i class="fa fa-list"></i> <span> <?php echo e(trans('words.contact')); ?></span></a></li>
 
             <li class="has_sub">
               <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-edit"></i><span><?php echo e(trans('words.pages')); ?> </span> <span class="menu-arrow"></span></a>
@@ -116,6 +119,7 @@
             <li><a href="<?php echo e(URL::to('admin/language')); ?>" class="waves-effect <?php echo e(classActivePath('language')); ?>"><i class="fa fa-language"></i> <span> <?php echo e(trans('words.language_text')); ?></span></a></li>
 
             <li><a href="<?php echo e(URL::to('admin/genres')); ?>" class="waves-effect <?php echo e(classActivePath('genres')); ?>"><i class="fa fa-list"></i> <span> <?php echo e(trans('words.genres_text')); ?></span></a></li>
+
 
             <li><a href="<?php echo e(URL::to('admin/movies')); ?>" class="waves-effect <?php echo e(classActivePath('movies')); ?>"><i class="fa fa-video-camera"></i> <span> <?php echo e(trans('words.movies_text')); ?></span></a></li>
             <?php

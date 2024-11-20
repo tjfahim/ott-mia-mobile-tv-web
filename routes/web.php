@@ -31,6 +31,20 @@ Route::get('/reels/{id}/comments', [ReelsController::class, 'ReelComment']);
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
+
+    //h
+    Route::get('contacts', [App\Http\Controllers\Admin\ContactController::class, 'index']);
+    Route::get('contacts/replay/{id}', [App\Http\Controllers\Admin\ContactController::class, 'replay']);
+
+    Route::get('production/members', [App\Http\Controllers\Admin\ProductionMemberController::class, 'index']);
+    Route::get('production/members/add', [App\Http\Controllers\Admin\ProductionMemberController::class, 'create']);
+    Route::post('production/members', [App\Http\Controllers\Admin\ProductionMemberController::class, 'store']);
+    Route::get('production/members/{id}/edit', [App\Http\Controllers\Admin\ProductionMemberController::class, 'edit']);
+    Route::put('production/members/{id}', [App\Http\Controllers\Admin\ProductionMemberController::class, 'update']);
+    Route::delete('production/members/{id}', [App\Http\Controllers\Admin\ProductionMemberController::class, 'destroy']);
+
+    // h
+
 	Route::get('/', 'IndexController@index');
 
 	Route::get('login', [ 'as' => 'login', 'uses' => 'IndexController@index']);
@@ -378,7 +392,9 @@ Route::post('signup', [App\Http\Controllers\frontend\auth\SignupController::clas
 Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
 Route::get('tvstation', [App\Http\Controllers\frontend\TvstationController::class, 'index']);
 Route::get('vod', [App\Http\Controllers\frontend\VodController::class, 'index']);
+
 Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);
+Route::post('contact', [App\Http\Controllers\frontend\ContactController::class, 'store']);
 
 Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
 Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);

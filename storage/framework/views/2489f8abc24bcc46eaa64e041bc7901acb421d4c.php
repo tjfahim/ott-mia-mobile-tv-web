@@ -12,16 +12,37 @@
                     </div>
                 </section>
                 <section class=" flex-1  md:gap-10 rounded-md bg-[#0F0F0F] border border-[#262626] ">
-                    <form action="" class="flex flex-col gap-7  p-5">
+                    <form action="<?php echo e(URL::to('contact')); ?>" class="flex flex-col gap-7  p-5" method="post">
+                        <?php echo csrf_field(); ?>
                         <div class="flex gap-5 flex-col md:flex-row justify-between">
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">First Name</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <input type="text" name="first_name" value="<?php echo e(old('first_name')); ?>" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <?php $__errorArgs = ['first_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
 
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">Last Name</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <input type="text" name="last_name" value="<?php echo e(old('last_name')); ?>" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <?php $__errorArgs = ['last_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
 
@@ -29,7 +50,17 @@
 
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">Email</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="jone.doe@gmail.com">
+                                <input type="email" name="email" value="<?php echo e(old('email')); ?>" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="jone.doe@gmail.com">
+                                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
 
                             <div class="flex flex-col gap-3 text-white w-full">
@@ -41,19 +72,39 @@
                                         <option value="green">Green</option>
                                         <option value="blue">Blue</option>
                                     </select>
-                                    <input type="password" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                    <input type="text" name="phone" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone" value="<?php echo e(old('phone')); ?>">
+                                    <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
 
                         <div class="flex flex-col gap-3 text-white w-full">
                             <label for="" class="text-lg font-normal">Messages</label>
-                            <textarea name="" id="" class="focus:outline-none  h-20 opacity-50 bg-[#141414] border border-[#262626] p-2 w-full"></textarea>
+                            <textarea name="message" id="" class="focus:outline-none  h-20 opacity-50 bg-[#141414] border border-[#262626] p-2 w-full"><?php echo e(old('message')); ?></textarea>
+                            <?php $__errorArgs = ['message'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <small class="text-[#ED2024]"><?php echo e($message); ?></small>
+                             <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div  class="flex gap-5 flex-col md:flex-row justify-between">
                             <div>
-                                <input type="checkbox" name="" value="" class="">
+                                <input type="checkbox" name="" value="" class="" required>
                                 <label for="" class="text-sm text-[#999999]">I agree with Terms of Use and Privacy Policy</label>
                             </div>
                             <button class="bg-[#E50000] px-3 py-2 rounded text-white hover:opacity-50">Send Message</button>

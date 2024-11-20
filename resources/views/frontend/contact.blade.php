@@ -15,16 +15,23 @@
                     </div>
                 </section>
                 <section class=" flex-1  md:gap-10 rounded-md bg-[#0F0F0F] border border-[#262626] ">
-                    <form action="" class="flex flex-col gap-7  p-5">
+                    <form action="{{ URL::to('contact') }}" class="flex flex-col gap-7  p-5" method="post">
+                        @csrf
                         <div class="flex gap-5 flex-col md:flex-row justify-between">
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">First Name</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <input type="text" name="first_name" value="{{ old('first_name') }}" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                @error('first_name')
+                                    <small class="text-[#ED2024]">{{  $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">Last Name</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                @error('last_name')
+                                    <small class="text-[#ED2024]">{{  $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
@@ -32,7 +39,10 @@
 
                             <div class="flex flex-col gap-3 text-white w-full">
                                 <label for="" class="text-lg font-normal">Email</label>
-                                <input type="text" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="jone.doe@gmail.com">
+                                <input type="email" name="email" value="{{ old('email') }}" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="jone.doe@gmail.com">
+                                @error('email')
+                                    <small class="text-[#ED2024]">{{  $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="flex flex-col gap-3 text-white w-full">
@@ -44,19 +54,25 @@
                                         <option value="green">Green</option>
                                         <option value="blue">Blue</option>
                                     </select>
-                                    <input type="password" name="firstname" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone">
+                                    <input type="text" name="phone" class="opacity-50 bg-[#141414] border border-[#262626] p-2 w-full " placeholder="Jone" value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <small class="text-[#ED2024]">{{  $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
 
                         <div class="flex flex-col gap-3 text-white w-full">
                             <label for="" class="text-lg font-normal">Messages</label>
-                            <textarea name="" id="" class="focus:outline-none  h-20 opacity-50 bg-[#141414] border border-[#262626] p-2 w-full"></textarea>
+                            <textarea name="message" id="" class="focus:outline-none  h-20 opacity-50 bg-[#141414] border border-[#262626] p-2 w-full">{{ old('message') }}</textarea>
+                            @error('message')
+                                        <small class="text-[#ED2024]">{{  $message }}</small>
+                             @enderror
                         </div>
 
                         <div  class="flex gap-5 flex-col md:flex-row justify-between">
                             <div>
-                                <input type="checkbox" name="" value="" class="">
+                                <input type="checkbox" name="" value="" class="" required>
                                 <label for="" class="text-sm text-[#999999]">I agree with Terms of Use and Privacy Policy</label>
                             </div>
                             <button class="bg-[#E50000] px-3 py-2 rounded text-white hover:opacity-50">Send Message</button>

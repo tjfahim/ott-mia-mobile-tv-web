@@ -35,6 +35,8 @@ return [
     'admin' => 'Sub Admin',
     'subscription_plan' => 'Subscription Plans',
     'transactions' => 'Transactions',
+    'contact' => 'Contact Form',
+    'production_member' => 'Prouduction Member',
     'pages' => 'Pages',
     'about_us' => 'About Us',
     'terms_of_us' => 'Terms Of Use',

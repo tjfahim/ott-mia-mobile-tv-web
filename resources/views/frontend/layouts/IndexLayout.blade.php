@@ -5,10 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="{{ URL::asset('assets/frontend/css/output.css') }}">
+    <!-- Toastr CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <link rel="stylesheet" href="{{  URL::asset('assets/frontend/css/output.css') }}">
+
 </head>
 <body>
+    @if(session('success'))
+        <script>
+            toastr.success("{{ session('success') }}");
+        </script>
+    @endif
     <div class="" style="background-image:  linear-gradient(0deg, rgba(16,8,8,0.6587009803921569) 7%, rgba(8,8,8,0.07046568627450978) 100%), url({{ URL::asset('assets/frontend/images/SubContainer.png') }})">
         <!--  nav section start -->
         <div class="container mx-auto ">
@@ -114,9 +125,12 @@
             </div>
         </div>
         <!-- footer section end -->
+        <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
         $(document).ready(function(event){
+
 
             // $(document).click(function(event){
             //     if(event)
