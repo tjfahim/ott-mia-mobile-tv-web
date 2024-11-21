@@ -9,13 +9,51 @@ use Session;
 
 class ProductionMemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $page_title = 'Production Memeber';
 
+
+        $production_member_query = Production_member::query();
+
+        //$filter = $request->input('filter');
+        $search = $request->input('s');
+        $serach_by = $request->input('s_by');
+
+        switch($serach_by){
+            case 'name':
+                $production_member = $production_member_query->when($search, function($query)use($search){
+                    return $query->where('name', 'like', "%".$search."%");
+                });
+                break;
+            case 'role':
+                $production_member = $production_member_query->when($search, function($query)use($search){
+                    return $query->where('role', 'like', "%".$search."%");
+                });
+                break;
+            case 'country':
+                $production_member = $production_member_query->when($search, function($query)use($search){
+                    return $query->where('nationality', 'like', "%".$search."%");
+                });
+                break;
+            default:
+                $production_member = $production_member_query->when($search, function($query) use($search){
+                    return $query->where('name', 'like', "%".$search."%")
+                        ->orWhere('nationality', 'like', "%".$search."%")
+                        ->orWhere('role', 'like', '%'.$search.'%');
+                });
+                break;
+        }
+
+        // $production_member =  $production_member_query->when($search, function($query) use($search){
+        //     return $query->where('name', 'like', "%".$search."%")
+        //         ->orWhere('nationality', 'like', "%".$search."%")
+        //         ->orWhere('role', 'like', '%'.$search.'%');
+        // })->get();
+
         return view('admin.pages.production_member.index', [
             'page_title' => $page_title,
-            'members' => Production_member::all()
+            'members' => $production_member->get()
         ]);
     }
 

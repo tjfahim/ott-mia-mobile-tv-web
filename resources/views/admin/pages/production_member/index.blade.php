@@ -10,25 +10,33 @@
           <div class="col-12">
             <div class="card-box table-responsive">
 
-              <div class="row">
-                <div class="col-sm-3">
-                   <select class="form-control select2" name="movie_language_id" id="movie_language_id">
-                      <option value="">{{trans('words.filter_by_lang')}}</option>
-                      {{-- @foreach($language_list as $language_data)
-                        <option value="?language_id={{$language_data->id}}">{{$language_data->language_name}}</option>
-                      @endforeach --}}
-                  </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! Form::open(array('url' => 'admin/production/members','class'=>'app-search','id'=>'search','role'=>'form','method'=>'get')) !!}
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-control" name="s_by" aria-label="Default select example">
+                                    <option value="all" {{ request('s_by') == 'all' ? 'selected' : '' }}>All</option>
+                                    <option value="name" {{ request('s_by') == 'name' ? 'selected' : '' }}>Name</option>
+                                    <option value="role" {{ request('s_by') == 'role' ? 'selected' : '' }}>Role</option>
+                                    <option value="country" {{ request('s_by') == 'country' ? 'selected' : '' }}>Country</option>
+                                </select>
+
+
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" name="s" placeholder="search..." value="{{ request()->input('s') }}" class="form-control">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{URL::to('admin/production/members')}}" class="btn btn-light btn-md waves-effect waves-light m-b-20">Clear</a>
+                        <a href="{{URL::to('admin/production/members/add')}}" class="btn btn-success btn-md waves-effect waves-light m-b-20" data-toggle="tooltip" title="{{trans('words.add_movie')}}"><i class="fa fa-plus"></i>Add Member</a>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                   {!! Form::open(array('url' => 'admin/movies','class'=>'app-search','id'=>'search','role'=>'form','method'=>'get')) !!}
-                    <input type="text" name="s" placeholder="{{trans('words.search_by_title')}}" class="form-control">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                  {!! Form::close() !!}
-                </div>
-              <div class="col-md-3">
-                <a href="{{URL::to('admin/production/members/add')}}" class="btn btn-success btn-md waves-effect waves-light m-b-20" data-toggle="tooltip" title="{{trans('words.add_movie')}}"><i class="fa fa-plus"></i>Add Member</a>
-              </div>
-            </div>
+
 
               @if(Session::has('flash_message'))
                   <div class="alert alert-success">
