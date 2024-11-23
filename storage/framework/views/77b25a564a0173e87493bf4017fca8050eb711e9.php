@@ -78,11 +78,13 @@
                         <?php echo e($age); ?> Years
                     </td>
                     <td>
-                        <a href="<?php echo e(URL::to('admin/production/members/'. $member->id.'/edit')); ?>" class="btn btn-info">Edit</a>
+                        <a href="<?php echo e(URL::to('admin/production/members/'. $member->id.'/edit')); ?>" class="btn btn-icon waves-effect waves-light btn-success m-b-5 m-r-5" data-toggle="tooltip" title="<?php echo e(trans('words.edit')); ?>"> <i class="fa fa-edit"></i> </a>
+                        
                         <form action="<?php echo e(URL::asset('admin/production/members/'. $member->id)); ?>" method="post">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('delete'); ?>
-                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button  class="btn btn-icon waves-effect waves-light btn-danger m-b-5" onclick="return confirm('<?php echo e(trans('words.dlt_warning_text')); ?>')" data-toggle="tooltip" title="<?php echo e(trans('words.remove')); ?>"> <i class="fa fa-remove"></i> </button>
+                            
                         </form>
                     </td>
                   </tr>

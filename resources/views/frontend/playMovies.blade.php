@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    />
     <link rel="stylesheet" href="{{  URL::asset('assets/frontend/css/output.css') }}">
-        <!-- Include Video.js CSS -->
-    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
@@ -18,12 +21,72 @@
             <!--  nav section end -->
 
             <!-- video play section start -->
-            <section class="py-2 sm:py-10 relative h-[400px] sm:h-[800px]  w-full">
-                <video class="h-[400px] sm:h-[800px] w-full" controls>
-                    <source src="{{ URL::to( $video->video_url) }}" type="video/mp4">
-                    <source src="movie.ogg" type="video/ogg">
-                    Your browser does not support the video tag.
-                </video>
+
+
+                <div
+                id="container"
+                class="group   w-full mx-auto rounded-lg overflow-hidden relative"
+            >
+
+                <figure>
+                    <video  class="w-full">
+                        <source src="{{ URL::to( $video->video_url) }}" />
+                        <!-- <source src="https://www.youtube.com/watch?v=jMcIE1hnaYw"> -->
+                    </video>
+                </figure>
+
+                <!-- CONTROLS -->
+                <div
+                    id="controls"
+                    class="opacity-0 p-5 absolute bottom-0 left-0 w-full transition-opacity duration-300 ease-linear group-hover:opacity-100"
+                >
+                <!-- PROGRESS BAR -->
+                <div id="progress-bar" class="h-1 w-full bg-white cursor-pointer mb-4">
+                    <div
+                    id="progress-indicator"
+                    class="h-full w-0 bg-indigo-800 transition-all duration-500 ease-in-out"
+                    ></div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between">
+                        <!-- REWIND BUTTON -->
+                        <button
+                            id="rewind"
+                            class="transition-all duration-100 ease-linear hover:scale-125"
+                        >
+                        <i class="material-icons text-white text-3xl w-12">replay_10 </i>
+                        </button>
+
+                        <!-- PLAY BUTTON -->
+                        <button
+                        id="play-pause"
+                        class="transition-all duration-100 ease-linear hover:scale-125"
+                        >
+                        <i class="material-icons text-white text-5xl inline-block w-12">play_arrow</i>
+                        </button>
+
+                        <!-- FAST FORWARD BUTTON -->
+                        <button
+                            id="fast-forward"
+                            class="transition-all duration-100 ease-linear hover:scale-125"
+                        >
+                        <i class="material-icons text-white text-3xl w-12">forward_10 </i>
+                        </button>
+                    </div>
+
+                <div>
+                    <!-- VOLUME BUTTON -->
+                    <button
+                        id="volume"
+                        class="transition-all duration-100 ease-linear hover:scale-125"
+                    >
+                    <i class="material-icons text-white text-3xl">volume_up</i>
+                    </button>
+                </div>
+                </div>
+                    </div>
+                </div>
+
                 <div class=" absolute w-full sm:w-2/3 mt-[200px]  sm:mt-0 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-5 xl:p-20  popup">
                     <div class="w-full relative bg-red-500   rounded-md p-5 xl:p-10" style=" background: rgb(20,20,20);
         background: linear-gradient(0deg, rgba(20,20,20,0.695098107602416) 0%, rgba(20,20,20,0.7539216370141807) 100%); ">
@@ -152,6 +215,6 @@
             });
         });
    </script>
-
+    <script src="{{ URL::asset('assets/frontend/js/video.js') }}"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                  <?php $__currentLoopData = $contacts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contact): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <tr>
+                  <tr class="<?php echo e($contact->read ? 'bg-light hover' : ''); ?>">
                     <td><?php echo e($contact->id); ?></td>
                     <td><?php echo e($contact->first_name); ?></td>
                     <td><?php echo e($contact->last_name); ?></td>
@@ -42,9 +42,9 @@
                     <td><?php echo e($contact->message); ?></td>
                     <td>
                         <?php if($contact->read): ?>
-                        <div>Ok</div>
+                        <div class="btn btn-success">Read</div>
                         <?php else: ?>
-                        <div>No</div><a href="<?php echo e(URL::to('admin/contacts/replay/'.$contact->id)); ?>" class="btn btn-success">Replay</a>
+                        <div></div><a href="<?php echo e(URL::to('admin/contacts/replay/'.$contact->id)); ?>" class="btn btn-info">Unread</a>
                         <?php endif; ?>
                     </td>
                   </tr>

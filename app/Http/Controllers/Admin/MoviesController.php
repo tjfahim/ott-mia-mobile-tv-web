@@ -10,6 +10,7 @@ use App\Language;
 use App\RecentlyWatched;
 
 use App\Http\Requests;
+use App\Production_member;
 use Illuminate\Http\Request;
 use Session;
 use Intervention\Image\Facades\Image;
@@ -70,15 +71,17 @@ class MoviesController extends MainAdminController
                 \Session::flash('flash_message', trans('words.access_denied'));
 
                 return redirect('dashboard');
-
         }
 
         $page_title=trans('words.add_movie');
 
         $language_list = Language::orderBy('language_name')->get();
         $genre_list = Genres::orderBy('genre_name')->get();
+        $artist_list = Production_member::where('role', 'artist')->orderby('name')->get();
 
-        return view('admin.pages.addeditmovie',compact('page_title','language_list','genre_list'));
+
+
+        return view('admin.pages.addeditmovie',compact('page_title','language_list','genre_list', 'artist_list'));
     }
 
     public function addnew(Request $request)
@@ -126,6 +129,7 @@ class MoviesController extends MainAdminController
          $movie_obj->video_access = $inputs['video_access'];
          $movie_obj->movie_lang_id = $inputs['movie_language'];
          $movie_obj->movie_genre_id = implode(',', $inputs['genres']);
+         $movie_obj->movies_artist_id = implode(',', $inputs['artists']);
          $movie_obj->video_title = addslashes($inputs['video_title']);
          $movie_obj->video_slug = $video_slug;
          $movie_obj->video_description = addslashes($inputs['video_description']);

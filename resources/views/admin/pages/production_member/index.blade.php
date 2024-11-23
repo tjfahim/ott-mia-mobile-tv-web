@@ -77,11 +77,13 @@
                         {{  $age }} Years
                     </td>
                     <td>
-                        <a href="{{ URL::to('admin/production/members/'. $member->id.'/edit') }}" class="btn btn-info">Edit</a>
+                        <a href="{{ URL::to('admin/production/members/'. $member->id.'/edit') }}" class="btn btn-icon waves-effect waves-light btn-success m-b-5 m-r-5" data-toggle="tooltip" title="{{trans('words.edit')}}"> <i class="fa fa-edit"></i> </a>
+                        {{-- <a href="{{ URL::to('admin/production/members/'. $member->id.'/edit') }}" class="btn btn-info">Edit</a> --}}
                         <form action="{{  URL::asset('admin/production/members/'. $member->id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-primary">Delete</button>
+                            <button  class="btn btn-icon waves-effect waves-light btn-danger m-b-5" onclick="return confirm('{{trans('words.dlt_warning_text')}}')" data-toggle="tooltip" title="{{trans('words.remove')}}"> <i class="fa fa-remove"></i> </button>
+                            {{-- <button type="submit" class="btn btn-primary">Delete</button> --}}
                         </form>
                     </td>
                   </tr>

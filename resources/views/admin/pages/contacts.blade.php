@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                  @foreach($contacts as $contact)
-                  <tr>
+                  <tr class="{{ $contact->read ? 'bg-light hover' : '' }}">
                     <td>{{ $contact->id }}</td>
                     <td>{{ $contact->first_name }}</td>
                     <td>{{ $contact->last_name }}</td>
@@ -61,9 +61,9 @@
                     <td>{{ $contact->message }}</td>
                     <td>
                         @if($contact->read)
-                        <div>Ok</div>
+                        <div class="btn btn-success">Read</div>
                         @else
-                        <div>No</div><a href="{{  URL::to('admin/contacts/replay/'.$contact->id) }}" class="btn btn-success">Replay</a>
+                        <div></div><a href="{{  URL::to('admin/contacts/replay/'.$contact->id) }}" class="btn btn-info">Unread</a>
                         @endif
                     </td>
                   </tr>
