@@ -11,6 +11,7 @@
             <li><a href="<?php echo e(URL::to('admin/genres')); ?>" class="waves-effect <?php echo e(classActivePath('genres')); ?>"><i class="fa fa-list"></i> <span> <?php echo e(trans('words.genres_text')); ?></span></a></li>
 
             <li><a href="<?php echo e(URL::to('admin/production/members')); ?>" class="waves-effect <?php echo e(classActivePath('members')); ?>"><i class="fa fa-list"></i> <span><?php echo e(trans('words.production_member')); ?></span></span></a></li>
+            <li><a href="<?php echo e(URL::to('admin/categories')); ?>" class="waves-effect <?php echo e(classActivePath('categories')); ?>"><i class="fa fa-list"></i> <span>Categories</span></span></a></li>
 
             <li><a href="<?php echo e(URL::to('admin/movies')); ?>" class="waves-effect <?php echo e(classActivePath('movies')); ?>"><i class="fa fa-video-camera"></i> <span> <?php echo e(trans('words.movies_text')); ?></span></a></li>
             <?php
@@ -84,7 +85,7 @@
                 <li class="<?php echo e(classActivePath('general_settings')); ?>"><a href="<?php echo e(URL::to('admin/general_settings')); ?>" class="<?php echo e(classActivePath('general_settings')); ?>"><i class="fa fa-cog"></i> <span> <?php echo e(trans('words.general')); ?></span></a></li>
                 <li class="<?php echo e(classActivePath('email_settings')); ?>"><a href="<?php echo e(URL::to('admin/email_settings')); ?>" class="<?php echo e(classActivePath('email_settings')); ?>"><i class="fa fa-send"></i> <span> <?php echo e(trans('words.smtp_email')); ?></span></a></li>
 
-                <!-- <li class="<?php echo e(classActivePath('social_login_settings')); ?>"><a href="<?php echo e(URL::to('admin/social_login_settings')); ?>" class="<?php echo e(classActivePath('social_login_settings')); ?>"><i class="fa fa-usb"></i> <span> <?php echo e(trans('words.social_login')); ?></span></a></li> -->
+                 <li class="<?php echo e(classActivePath('social_login_settings')); ?>"><a href="<?php echo e(URL::to('admin/social_login_settings')); ?>" class="<?php echo e(classActivePath('social_login_settings')); ?>"><i class="fa fa-usb"></i> <span> <?php echo e(trans('words.social_login')); ?></span></a></li>
 
                 <li class="<?php echo e(classActivePath('payment_settings')); ?>"><a href="<?php echo e(URL::to('admin/payment_settings')); ?>" class="<?php echo e(classActivePath('payment_settings')); ?>"><i class="fa fa-ticket"></i> <span> <?php echo e(trans('words.payment')); ?></span></a></li>
 

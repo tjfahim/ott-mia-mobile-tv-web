@@ -11,6 +11,7 @@
             <li><a href="{{ URL::to('admin/genres') }}" class="waves-effect {{classActivePath('genres')}}"><i class="fa fa-list"></i> <span> {{trans('words.genres_text')}}</span></a></li>
 
             <li><a href="{{ URL::to('admin/production/members') }}" class="waves-effect {{classActivePath('members')}}"><i class="fa fa-list"></i> <span>{{trans('words.production_member')}}</span></span></a></li>
+            <li><a href="{{ URL::to('admin/categories') }}" class="waves-effect {{classActivePath('categories')}}"><i class="fa fa-list"></i> <span>Categories</span></span></a></li>
 
             <li><a href="{{ URL::to('admin/movies') }}" class="waves-effect {{classActivePath('movies')}}"><i class="fa fa-video-camera"></i> <span> {{trans('words.movies_text')}}</span></a></li>
             <?php
@@ -84,7 +85,7 @@
                 <li class="{{classActivePath('general_settings')}}"><a href="{{ URL::to('admin/general_settings') }}" class="{{classActivePath('general_settings')}}"><i class="fa fa-cog"></i> <span> {{trans('words.general')}}</span></a></li>
                 <li class="{{classActivePath('email_settings')}}"><a href="{{ URL::to('admin/email_settings') }}" class="{{classActivePath('email_settings')}}"><i class="fa fa-send"></i> <span> {{trans('words.smtp_email')}}</span></a></li>
 
-                <!-- <li class="{{classActivePath('social_login_settings')}}"><a href="{{ URL::to('admin/social_login_settings') }}" class="{{classActivePath('social_login_settings')}}"><i class="fa fa-usb"></i> <span> {{trans('words.social_login')}}</span></a></li> -->
+                 <li class="{{classActivePath('social_login_settings')}}"><a href="{{ URL::to('admin/social_login_settings') }}" class="{{classActivePath('social_login_settings')}}"><i class="fa fa-usb"></i> <span> {{trans('words.social_login')}}</span></a></li>
 
                 <li class="{{classActivePath('payment_settings')}}"><a href="{{ URL::to('admin/payment_settings') }}" class="{{classActivePath('payment_settings')}}"><i class="fa fa-ticket"></i> <span> {{trans('words.payment')}}</span></a></li>
 

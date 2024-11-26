@@ -43,6 +43,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::put('production/members/{id}', [App\Http\Controllers\Admin\ProductionMemberController::class, 'update']);
     Route::delete('production/members/{id}', [App\Http\Controllers\Admin\ProductionMemberController::class, 'destroy']);
 
+    Route::get('categories', [App\Http\Controllers\Admin\CategoriesController::class, 'index']);
+    Route::get('categories/create', [App\Http\Controllers\Admin\CategoriesController::class, 'create']);
+    Route::post('categories', [App\Http\Controllers\Admin\CategoriesController::class, 'store']);
+    Route::get('categories/edit/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'edit']);
+    Route::put('categories/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'update']);
+    Route::get('categories/delete/{category}', [App\Http\Controllers\Admin\CategoriesController::class, 'destroy']);
+
+
     // h
 
 	Route::get('/', 'IndexController@index');
