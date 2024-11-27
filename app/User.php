@@ -19,7 +19,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name','email', 'password','user_image','mobile','username','remember_token'];
+    protected $fillable = ['name', 'last_name', 'email', 'password','user_image','mobile','username','remember_token'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,13 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function getUserInfo($id) 
-    { 
+    public static function getUserInfo($id)
+    {
         return User::find($id);
     }
 
-    public static function getUserFullname($id) 
-    { 
+    public static function getUserFullname($id)
+    {
         $userinfo=User::find($id);
 
         if($userinfo)
@@ -56,7 +56,7 @@ class User extends Authenticatable
         {
             return  '';
         }
-        
+
     }
 
     public function sendPasswordResetNotification($token)
@@ -69,9 +69,9 @@ class User extends Authenticatable
 class CustomPassword extends ResetPassword
 {
     public function toMail($notifiable)
-    {   
+    {
         $url=url('password/reset/'.$this->token);
- 
+
 
         return (new MailMessage)
             ->subject('Reset Password')

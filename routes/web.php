@@ -391,10 +391,10 @@ Route::post('/reset-password', 'ForgotPasswordController@resetPassword');
 
 // auth
 
-Route::get('login', [App\Http\Controllers\frontend\auth\loginController::class, 'index']);
+// Route::get('login', [App\Http\Controllers\frontend\auth\loginController::class, 'index']);
 Route::post('login', [App\Http\Controllers\frontend\auth\loginController::class, 'store']);
 
-Route::get('signup', [App\Http\Controllers\frontend\auth\SignupController::class,'index']);
+// Route::get('signup', [App\Http\Controllers\frontend\auth\SignupController::class,'index']);
 Route::post('signup', [App\Http\Controllers\frontend\auth\SignupController::class,'store']);
 
 Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
@@ -406,5 +406,7 @@ Route::post('contact', [App\Http\Controllers\frontend\ContactController::class, 
 
 Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
 Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);
+
+Route::get('play/{slug}/{type}', [App\Http\Controllers\frontend\PlayController::class, 'index']);
 
 

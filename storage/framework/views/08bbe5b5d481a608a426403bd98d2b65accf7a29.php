@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -11,6 +17,12 @@
 
     <link rel="stylesheet" href="<?php echo e(URL::asset('frontend/style.css')); ?>">
     <title>Home Page</title>
+
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 
 </head>
 <body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false}">
@@ -20,92 +32,19 @@
     <div class="bg-black">
         <div class="container mx-auto">
             <!-- nav section  start -->
-            <nav class="flex flex-col  sm:flex-row justify-between sm:items-center p-5 gap-5 h-[90px]">
-                <a href=""><img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="logo"></a>
-                <div class="flex flex-col sm:flex-row p-1.5  sm:bg-first_black sm:rounded-full text-white font-manrope ">
-                    <!-- active class css bg-second_black -->
-                    <a href="" class="px-5 py-2 bg-second_black rounded-full duration-200 hover:translate-x-1">Home</a>
-                    <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">TV Station</a>
-                    <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Live</a>
-                    <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">VDO</a>
-                    <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Notification</a>
-                    <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a>
-                </div>
-                <div class="flex justify-between gap-3">
-                    <div class="hidden sm:flex gap-1">
-                        <div class="relative" x-data="{open: false}" @click.away="open = false">
-                            <button @click="open = !open" class="p-3 bg-second_black rounded-full hover:scale-110 duration-300"><img src="<?php echo e(URL::asset('frontend/images/search-icon.svg')); ?>" alt=""></button>
-                            <div
-                                x-show="open"
-                                x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0 scale-90"
-                                x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-300"
-                                x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-90"
-                                class="bg-second_black  rounded-md w-[300px] absolute right-0 top-0 ">
-                                <form action="relative">
-                                    <input class="border border-third_black bg-second_black p-2 w-full focus:boreder-none  rounded-md" type="text" placeholder="search...">
-                                    <button class="absolute top-1/2 trasnform -translate-y-1/2 hover:scale-95 duration-300 right-2"><img src="<?php echo e(URL::asset('frontend/images/search-icon.svg')); ?> " alt=""></button>
-                                </form>
-                            </div>
-                        </div>
-                        <button class="p-3 bg-second_black rounded-full hover:scale-110 duration-300"><img src="<?php echo e(URL::asset('frontend/images/notif-icon.svg')); ?>" alt=""></button>
-                    </div>
-                    <div class="flex justify-center gap-3 sm:items-center">
-
-                        <?php if(auth()->guard()->check()): ?>
-                            <div class="group flex gap-3 items-center cursor-pointer px-3 py-2 rounded-full bg-first_black ">
-                                <img class="size-8 group-hover:scale-110 duration-300 transform " src="<?php echo e(URL::asset('frontend/images/user.png')); ?>" alt="">
-                                <div>User</div>
-
-                                <div class="relative " x-data="{open: false}" @click.away="open = false">
-                                    <button @click="open = !open" class="bg-second_black rounded-full p-2 hover:scale-110 duration-300 transform ease-in"><img class="size-4" src="<?php echo e(URL::asset('frontend/images/3dot.svg')); ?>" alt=""></button>
-
-                                    <div
-                                        x-show="open"
-                                        x-transition:enter="transition ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 scale-90"
-                                        x-transition:enter-end="opacity-100 scale-100"
-                                        x-transition:leave="transition ease-in duration-300"
-                                        x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-90"
-
-                                        class="bg-second_black p-5 absolute -right-4 mt-4 w-[250px] rounded-md flex flex-col gap-2">
-                                        <div class="size-4 bg-second_black absolute -top-2 right-5 rotate-45 rounded-sm"></div>
-                                        <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out">Account</a>
-                                        <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Settings</a>
-                                        <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Contacts</a>
-                                        <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Favorites</a>
-                                        <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out text-redcolor">Logout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if(auth()->guard()->guest()): ?>
-                        <button
-                                @click="loginform = !loginform"
-                                class="btn-login"
-                        >
-                                Login
-                        </button>
-                        <button
-                                @click="regform = !regform"
-                                class="btn-register"
-                        >Register</button>
-                        <?php endif; ?>
-
-                    </div>
-                </div>
-            </nav>
+            <?php echo $__env->make('client_site.components.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
              <!-- nav section  end -->
 
         </div>
     </div>
 
+    <div class="bg-black pb-20">
+        <div class="container mx-auto">
 
-    <?php echo $__env->yieldContent('content'); ?>
+            <?php echo $__env->yieldContent('content'); ?>
+
+        </div>
+    </div>
 
     <!-- footer section start -->
     <div class="bg-first_black w-full ">
@@ -182,60 +121,93 @@
 
 
      <!-- login section start -->
-    <div class="popup-login bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="loginform" @click.away="loginform = false">
+    <div x-cloak class="popup-login bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="loginform" @click.away="loginform = false">
         <section class="p-10 w-full ">
             <div class="text-center text-white space-y-5">
                 <h2 class="text-2xl font-normal ">Login form</h2>
                 <p class="opacity-50 text-sm">Enter following details to login.</p>
             </div>
-            <form action="<?php echo e(URL::to('login')); ?>" class="flex gap-5 flex-col" method="post">
-                <?php echo csrf_field(); ?>
-                <div class="border border-[#FFFFFF1A]  hover:border-[#ED2024] rounded-md p-3   gap-3 flex items-center justify-start" >
-                    <div class=" border-r pr-3 border-[#FFFFFF1A]">
-                        <img src="./images/email.svg" alt="">
-                    </div>
-                    <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                        <label for="" class=" text-md">Email</label>
-                        <input type="email" name="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
-                        <?php $__errorArgs = ['email'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                            <small class="text-sm text-redColor
-                            "><?php echo e($message); ?></small>
-                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                    </div>
-                    <div>
-                        <img src="./images/success.svg" alt="">
-                    </div>
-                </div>
+            <div x-data="{
+                email: '',
+                password: '',
+                error_find: false,
+                error: '',
+                url: '<?php echo e(URL::to('login')); ?>',
+                csrfToken: '',
+                submitForm() {
+                    axios.post(this.url, {
+                        email: this.email,
+                        password: this.password
+                    }, {
+                        headers: {
+                            'X-CSRF-TOKEN': this.csrfToken,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        console.log(response)
+                        if(response.data.status == 401){
+                            this.error = response.data.errors.email;
+                            this.error_find = true;
+                        }
+                        if(response.data.status == 200){
+                            location.reload()
+                        }
 
-                <div class="btn-login" >
-                    <div class=" border-r pr-3 border-[#FFFFFF1A]">
-                        <img src="./images/email.svg" alt="">
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.message = 'An error occurred!';
+                        this.loading = false;
+                    });
+                }
+            }"
+            x-init="csrfToken = document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')">
+                <form  class="flex gap-5 flex-col" method="post"
+                    x-on:submit.prevent="submitForm"
+                >
+
+
+                    <div class="border border-[#FFFFFF1A]  hover:border-[#ED2024] rounded-md p-3   gap-3 flex items-center justify-start" >
+                        <div class=" border-r pr-3 border-[#FFFFFF1A]">
+                            <img src="./images/email.svg" alt="">
+                        </div>
+                        <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                            <label for="" class=" text-md">Email</label>
+                            <input type="email" name="email" x-model="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+
+                                <small x-show="error_find" class="text-sm text-redColor" x-text="error"></small>
+
+                        </div>
+                        <div>
+                            <img src="./images/success.svg" alt="">
+                        </div>
                     </div>
-                    <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                        <label for="" class=" text-md">Password</label>
-                        <input type="password" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+
+                    <div class="btn-login" >
+                        <div class=" border-r pr-3 border-[#FFFFFF1A]">
+                            <img src="./images/email.svg" alt="">
+                        </div>
+                        <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                            <label for="" class=" text-md">Password</label>
+                            <input type="password" x-model="password" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                        </div>
+                        <div>
+                            <img src="./images/eye-off.svg" alt="">
+                        </div>
                     </div>
-                    <div>
-                        <img src="./images/eye-off.svg" alt="">
+                    <div  class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
+                        <div>
+                            <input type="checkbox" name="" value="" class="bg-red-500">
+                            <label for="" class="text-sm text-[#999999]">Remember me</label>
+                        </div>
+                        <a href="" class="hover:underline hover:underline-offset-2">Forget Password</a>
                     </div>
-                </div>
-                <div  class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
-                    <div>
-                        <input type="checkbox" name="" value="" class="bg-red-500">
-                        <label for="" class="text-sm text-[#999999]">Remember me</label>
-                    </div>
-                    <a href="" class="hover:underline hover:underline-offset-2">Forget Password</a>
-                </div>
-                <button class="bg-red-500 py-3 hover:bg-red-400 px-2 rounded-full text-white font-normal ">Login</button>
-                <a href="" class="text-white text-center hover:underline hover:underline-offset-2 decoration-red-500">Registation</a>
-            </form>
+                    <button type="submit" class="bg-red-500 py-3 hover:bg-red-400 px-2 rounded-full text-white font-normal ">Login</button>
+                    <a href="" class="text-white text-center hover:underline hover:underline-offset-2 decoration-red-500">Registation</a>
+                </form>
+            </div>
             <div class="flex gap-2 opacity-70 mx-auto">
                 <a class=" bg-gray-300 opacity-90 p-2 rounded-full" href="">
                     <img style="height: 24px; width: 24px;" src="./images/facebook-Icon.svg" alt="">
@@ -251,85 +223,157 @@ unset($__errorArgs, $__bag); ?>
 
 
     <!-- registation start  -->
-    <div class="popup-register bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="regform" @click.away="regform = false">
-    <section class=" ">
-        <div class="text-center text-white space-y-5">
-            <h2 class="text-2xl font-normal ">Create A New Account</h2>
-            <p class="opacity-50 text-sm">Enter following details to Signup.</p>
-        </div>
-        <form action="" class="flex gap-5 flex-col">
-            <div class="border  rounded-md p-3 border-[#FFFFFF1A]    gap-3 flex items-center justify-start hover:border-[#ED2024]" >
-                <div class=" border-r pr-3  border-[#FFFFFF1A]">
-                    <img class="text-black" src="./images/user.svg" alt="">
-                </div>
-                <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                    <label for="" class=" text-md">User</label>
-                    <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="Name" >
-                </div>
-                <div>
+ <!-- registation start  -->
+ <div x-data="{
+    regform: false,  // Controls the popup visibility
+    name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    errors: {},
+    successMessage: '',
+    loading: false,
+    csrfToken: '',
 
-                </div>
+    showModal: false,
+    submitForm() {
+        this.loading = true;
+        axios.post('<?php echo e(URL::to('signup')); ?>', {
+            name: this.name,
+            last_name: this.last_name,
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.password_confirmation
+        }, {
+            headers: {
+                'X-CSRF-TOKEN': this.csrfToken,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+
+            if (response.data.status === 200) {
+                location.reload()
+                this.successMessage = 'Registration successful! You can now login.';
+                this.errors = {};
+                this.regform = false;  // Close the modal on success
+                this.loading = false;
+            }
+        })
+        .catch(error => {
+            if (error.response && error.response.data.errors) {
+                this.errors = error.response.data.errors;
+                this.showModal = true;  // Open the error modal on error
+            }
+            this.loading = false;
+        });
+    },
+    closeModal() {
+        this.showModal = false;  // Close the error modal manually
+    }
+ }"  x-init="csrfToken = document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')" x-cloak>
+
+    <!-- Registration Form Popup -->
+    <div x-show="regform" @click.away="regform = false" class="popup-register bg-first_black rounded-md p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" >
+        <section class="">
+            <div class="text-center text-white space-y-5">
+                <h2 class="text-2xl font-normal">Create A New Account</h2>
+                <p class="opacity-50 text-sm">Enter following details to Signup.</p>
             </div>
 
-            <div class="border  rounded-md p-3 border-[#FFFFFF1A]    gap-3 flex items-center justify-start hover:border-[#ED2024]" >
-                <div class=" border-r pr-3 border-[#FFFFFF1A]">
-                    <img src="./images/email.svg" alt="">
-                </div>
-                <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                    <label for="" class=" text-md">Email</label>
-                    <input type="email" class="border-none  bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
-                </div>
-                <div>
+            <!-- Registration Form -->
+            <form @submit.prevent="submitForm" class="flex gap-5 flex-col">
+                <!-- First Name -->
+                <div class="flex gap-4">
+                    <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                        <div class="border-r pr-3 border-[#FFFFFF1A]">
+                            <img class="text-black" src="./images/user.svg" alt="">
+                        </div>
+                        <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                            <label for="name" class="text-md">First Name</label>
+                            <input type="text" x-model="name" name="name" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="First Name">
+                            <span x-show="errors.name" class="text-red-500 text-sm" x-text="errors.name[0]"></span>
+                        </div>
+                    </div>
 
-                </div>
-            </div>
-
-            <div class="border  rounded-md p-3 border-[#FFFFFF1A]    gap-3 flex items-center justify-start hover:border-[#ED2024]" >
-                <div class=" border-r pr-3 border-[#FFFFFF1A]">
-                    <img src="./images/lock-white.svg" alt="">
-                </div>
-                <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                    <label for="" class=" text-md">Password</label>
-                    <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
-                </div>
-                <div>
-                    <img src="./images/eye-off.svg" alt="">
-                </div>
-            </div>
-
-            <div class="border  rounded-md p-3 border-[#FFFFFF1A]    gap-3 flex items-center justify-start hover:border-[#ED2024]" >
-                <div class=" border-r pr-3 border-[#FFFFFF1A]">
-                    <img src="./images/lock-white.svg" alt="">
-                </div>
-                <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
-                    <label for="" class=" text-md">Confirm Password</label>
-                    <input type="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
-                </div>
-                <div>
-                    <img src="./images/eye-off.svg" alt="">
-                </div>
-            </div>
-            <div  class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
-                <div>
-                    <input type="checkbox" name="" value="" class="bg-red-500">
-                    <label for="" class="text-sm text-[#999999]">By clicking register you agree to our <a href="" class="text-white">Terms and Conditions</a> of Use</label>
+                    <!-- Last Name -->
+                    <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                        <div class="border-r pr-3 border-[#FFFFFF1A]">
+                            <img class="text-black" src="./images/user.svg" alt="">
+                        </div>
+                        <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                            <label for="last_name" class="text-md">Last Name</label>
+                            <input type="text" x-model="last_name" name="last_name" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="Last Name">
+                            <span x-show="errors.last_name" class="text-red-500 text-sm" x-text="errors.last_name[0]"></span>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
-            <button class="bg-red-500 py-3 hover:bg-red-400 px-2 rounded-full text-white font-normal ">Singup</button>
-            <a href="" class="text-white text-center hover:underline hover:underline-offset-2 decoration-red-500">Singup With</a>
-        </form>
-        <div class="flex gap-2 opacity-70 mx-auto">
-            <a class=" bg-gray-300 opacity-90 p-2 rounded-full" href="">
-                <img style="height: 24px; width: 24px;" src="./images/facebook-Icon.svg" alt="">
-            </a>
-            <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="./images/x-Icon.svg" alt=""></a>
-            <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="./images/linkdin-icon.svg" alt=""></a>
-        </div>
+                <!-- Email -->
+                <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                    <div class="border-r pr-3 border-[#FFFFFF1A]">
+                        <img src="./images/email.svg" alt="">
+                    </div>
+                    <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                        <label for="email" class="text-md">Email</label>
+                        <input type="email" x-model="email" name="email" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com">
+                        <span x-show="errors.email" class="text-red-500 text-sm" x-text="errors.email[0]"></span>
+                    </div>
+                </div>
 
-        <button @click="regform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt=""></button>
-    </section>
+                <!-- Password -->
+                <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                    <div class="border-r pr-3 border-[#FFFFFF1A]">
+                        <img src="./images/lock-white.svg" alt="">
+                    </div>
+                    <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                        <label for="password" class="text-md">Password</label>
+                        <input type="password" x-model="password" name="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                        <span x-show="errors.password" class="text-red-500 text-sm" x-text="errors.password[0]"></span>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                    <div class="border-r pr-3 border-[#FFFFFF1A]">
+                        <img src="./images/lock-white.svg" alt="">
+                    </div>
+                    <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                        <label for="password_confirmation" class="text-md">Confirm Password</label>
+                        <input type="password" x-model="password_confirmation" name="password_confirmation" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="**********">
+                        <span x-show="errors.password_confirmation" class="text-red-500 text-sm" x-text="errors.password_confirmation[0]"></span>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
+                    <div>
+                        <input type="checkbox" name="terms" value="" class="bg-red-500">
+                        <label for="terms" class="text-sm text-[#999999]">By clicking register you agree to our <a href="#" class="text-white">Terms and Conditions</a></label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="bg-red-500 py-3 hover:bg-red-400 px-2 rounded-full text-white font-normal" :disabled="loading">
+                    Register
+                </button>
+            </form>
+
+
+        </section>
+
+        <!-- Close Button -->
+        <button @click="regform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor">
+            <img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt="">
+        </button>
     </div>
+
+</div>
+
+<!-- registation end  -->
+
     <!-- registation end  -->
 
 
@@ -489,6 +533,7 @@ unset($__errorArgs, $__bag); ?>
 
 
     <script src="<?php echo e(URL::asset('frontend/js/jquery-code.js')); ?>"></script>
+    <script src="<?php echo e(URL::asset('frontend/js/video.js')); ?>"></script>
 </body>
 </html>
 <?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/client_site/layouts/app.blade.php ENDPATH**/ ?>

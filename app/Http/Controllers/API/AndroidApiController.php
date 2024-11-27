@@ -123,7 +123,6 @@ class AndroidApiController extends MainAPIController
 
     public function app_details(Request $request)
     {
-
         // $get_data=checkSignSalt($_POST['data']);
 
         $user_id = $request->user_id;
@@ -528,26 +527,26 @@ class AndroidApiController extends MainAPIController
 
         $email = isset($request->email) ? $request->email : '';
         $user = User::where('email', $email)->first();
-        
+
         //dd($user);
         //exit;
-        
+
         if (!$user) {
             $response[] = array('msg' => 'We can\'t find a user with that e-mail address.', 'success' => '1');
         } else {
-            
+
             $newOtp = mt_rand(100000, 999999); // Replace with your OTP generation logic
             $newOtp = 1234; // Replace with your OTP generation logic
-            
+
             $user = User::where('email', $request->email)->first();
             $otp = new OTP;
             $otp->user_id = $user->id;
             $otp->otp = $newOtp;
             $otp->otp_expiry = strtotime("+600 seconds");
             $otp->save();
-            
+
             $user_full_name = $user->name;
-            
+
             $data_email = array(
                 'email' => $user->email,
                 'otp' => $newOtp,
@@ -580,7 +579,7 @@ class AndroidApiController extends MainAPIController
 
             $user = User::where('email', $request->email)->first();
             $otps = OTP::where('user_id', $user->id)->orderBy('id', 'desc')->first();
-            
+
 
             // Check if the OTP matches and is still valid
             if ($otps->otp != $request->input_code or $otps->otp_expiry < time()) {
@@ -588,9 +587,9 @@ class AndroidApiController extends MainAPIController
                 $response[] = array('msg' => 'Please enter Valid OTP.', 'success' => '1');
             }
             else{
-              $response[] = array('msg' => 'Succesful.','success' => '1', 'user' => $user);  
+              $response[] = array('msg' => 'Succesful.','success' => '1', 'user' => $user);
             }
-            
+
         // }
 
         return \Response::json(array(
@@ -672,12 +671,12 @@ class AndroidApiController extends MainAPIController
     {
         $user_id = $request->user_id;
         $user = User::findOrFail($user_id);
-    
+
         // Prepare the user image URL
-        $user_image = $user->user_image 
-            ? \URL::asset('upload/' . $user->user_image) 
+        $user_image = $user->user_image
+            ? \URL::asset('upload/' . $user->user_image)
             : \URL::asset('upload/profile.jpg');
-    
+
         // Prepare the user data using an associative array
         $response = [
             'user_id' => $user_id,
@@ -690,13 +689,13 @@ class AndroidApiController extends MainAPIController
             'msg' => 'Profile',
             'success' => '1',
         ];
-    
+
         return response()->json([
             'VIDEO_STREAMING_APP' => $response,
             'status_code' => 200
         ]);
     }
-    
+
 
     public function profile_update(Request $request)
     {
@@ -730,7 +729,7 @@ class AndroidApiController extends MainAPIController
             $user->password = bcrypt($request->password);
         }
 
-    
+
         $user->save();
 
         // Prepare response
@@ -754,17 +753,17 @@ class AndroidApiController extends MainAPIController
             'user_id' => 'required|exists:users,id',
             'user_image' => 'required|image', // Add any other validation you need
         ]);
-    
+
         // Get user and check if the ID exists
         $user_id = $request->user_id;
         $user = User::findOrFail($user_id);
-    
+
         // Check if the user has an existing profile image
         if ($user->user_image) {
             // Delete the old image if exists
             \File::delete(public_path('/upload/') . $user->user_image);
         }
-    
+
         // Process the new uploaded image
         if ($request->hasFile('user_image')) {
             $icon = $request->file('user_image');
@@ -772,15 +771,15 @@ class AndroidApiController extends MainAPIController
             $hardPath = Str::slug($user->name, '-') . '-' . md5(time());
             $img = Image::make($icon);
             $img->fit(250, 250)->save($tmpFilePath . $hardPath . '-b.jpg'); // You can adjust the image size here
-            
+
             // Save the new image path in the user record
             $user->user_image = $hardPath . '-b.jpg';
             $user->save();
         }
-    
+
         // Generate the full URL for the image
         $imageUrl = asset('upload/' . $user->user_image);
-    
+
         // Return success response with full user data including image path and URL
         return response()->json([
             'message' => 'Profile image updated successfully',
@@ -815,7 +814,7 @@ class AndroidApiController extends MainAPIController
             'status_code' => 200
         ]);
     }
-    
+
 
 
 
@@ -823,7 +822,7 @@ class AndroidApiController extends MainAPIController
     {
         // Fetch only active FAQs (status = 1)
         $faqs = Faq::where('status', 1)->get(); // Adjust this according to your needs
-    
+
         // Return the FAQ data in a JSON response
         return response()->json([
             'faqs' => $faqs,
@@ -860,7 +859,7 @@ class AndroidApiController extends MainAPIController
             'message' => 'Contact support request submitted successfully.',
             'data' => $contactSupport,
         ], 201);
-   
+
     }
     public function user_feedback(Request $request)
     {
@@ -893,9 +892,9 @@ class AndroidApiController extends MainAPIController
             'message' => 'Contact support request submitted successfully.',
             'data' => $contactSupport,
         ], 201);
-   
+
     }
-    
+
     public function check_user_plan(Request $request)
     {
         // $get_data=checkSignSalt($_POST['data']);
@@ -1152,7 +1151,7 @@ class AndroidApiController extends MainAPIController
                 $movie_poster = URL::to('upload/source/' . Movies::getMoviesInfo($latest_movie, 'video_image_thumb'));
                 $movie_duration = Movies::getMoviesInfo($latest_movie, 'duration');
                 $movie_access = Movies::getMoviesInfo($latest_movie, 'video_access');
-             
+
                 $response['latest_movies'][] = array(
                     "movie_id" => $movie_id,
                     "movie_title" => stripslashes($movie_title),
@@ -1187,11 +1186,11 @@ class AndroidApiController extends MainAPIController
                 $show_id = Series::getSeriesInfo($latest_series, 'id');
                 $show_title = Series::getSeriesInfo($latest_series, 'series_name');
                 $show_poster = URL::to('upload/source/' . Series::getSeriesInfo($latest_series, 'series_poster'));
-        
+
                 // Adding static type and rating
                 $show_type = "Series"; // Static type value
                 $show_rating = "4.7"; // Static rating value
-        
+
                 $response['latest_shows'][] = array(
                     "show_id" => $show_id,
                     "show_title" => stripslashes($show_title),
@@ -1211,11 +1210,11 @@ class AndroidApiController extends MainAPIController
                 $movie_poster = URL::to('upload/source/' . Movies::getMoviesInfo($popular_movie, 'video_image_thumb'));
                 $movie_duration = Movies::getMoviesInfo($popular_movie, 'duration');
                 $movie_access = Movies::getMoviesInfo($popular_movie, 'video_access');
-        
+
                 // Adding static type and rating
                 $movie_type = "Movie"; // Static type value
                 $movie_rating = "4.5"; // Static rating value
-        
+
                 $response['popular_movies'][] = array(
                     "movie_id" => $movie_id,
                     "movie_title" => stripslashes($movie_title),
@@ -1228,18 +1227,18 @@ class AndroidApiController extends MainAPIController
                 );
             }
         }
-        
+
 
         foreach (explode(",", $home_sections->section3_popular_series) as $popular_series) {
             if (Series::getSeriesInfo($popular_series, 'status') == 1) {
                 $show_id = Series::getSeriesInfo($popular_series, 'id');
                 $show_title = Series::getSeriesInfo($popular_series, 'series_name');
                 $show_poster = URL::to('upload/source/' . Series::getSeriesInfo($popular_series, 'series_poster'));
-        
+
                 // Adding static type and rating
                 $show_type = "Series"; // Static type value
                 $show_rating = "4.2"; // Static rating value
-        
+
                 $response['popular_shows'][] = array(
                     "show_id" => $show_id,
                     "show_title" => stripslashes($show_title),
@@ -1250,7 +1249,7 @@ class AndroidApiController extends MainAPIController
                 );
             }
         }
-        
+
         //Section 3
         $response['home_sections3_title'] = $home_sections->section3_title;
         $response['home_sections3_type'] = $home_sections->section3_type;
@@ -1441,7 +1440,7 @@ class AndroidApiController extends MainAPIController
 
         $home_sections = HomeSection::findOrFail('1');
 
-        
+
         foreach (explode(",", $home_sections->section1_latest_movie) as $latest_movie) {
             if (Movies::getMoviesInfo($latest_movie, 'status') == 1) {
                 $movie_id = Movies::getMoviesInfo($latest_movie, 'id');
@@ -1814,7 +1813,7 @@ class AndroidApiController extends MainAPIController
         }
 
 
-        //Related Shows 
+        //Related Shows
         $series_list = Series::where('status', '1')->where('id', "!=", $series_info->id)->where('series_lang_id', $series_info->series_lang_id)->orderBy('id', 'DESC')->take(5)->get();
 
         if ($series_list->count()) {
@@ -2208,7 +2207,7 @@ class AndroidApiController extends MainAPIController
        $favorite= MovieSeriesFavorite::where('user_id', $user_id)
             ->where('movie_videos_id', $movie_id)
             ->first();
-           
+
         $is_favorite = $favorite ? $favorite->is_favorite : 0;
         $favoritecount = MovieSeriesFavorite::where('movie_videos_id', $movie_id)
             ->where('is_favorite', 1)
@@ -2284,11 +2283,11 @@ class AndroidApiController extends MainAPIController
                 $r_movie_poster = URL::to('upload/source/' . $related_movies_data->video_image_thumb);
                 $r_movie_access = $related_movies_data->video_access;
                 $r_duration = $related_movies_data->duration;
-        
+
                 // Retrieve the IMDb rating for the related movie
                 $related_imdb_rating = $related_movies_data->imdb_rating ? $related_movies_data->imdb_rating : "0";
                 $related_rating = $related_imdb_rating !== null ? (string)$related_imdb_rating : "0";
-        
+
                 $response['related_movies'][] = array(
                     "movie_id" => $r_movie_id,
                     "movie_title" => $r_movie_title,
@@ -2832,7 +2831,7 @@ class AndroidApiController extends MainAPIController
         }
         //Show End
 
-        //Sports Start   
+        //Sports Start
         $sports_video_list = Sports::where('status', 1)->where("video_title", "LIKE", "%$keyword%")->orderBy('video_title')->get();
 
         if ($sports_video_list->count()) {
@@ -2851,7 +2850,7 @@ class AndroidApiController extends MainAPIController
         }
         //Sports End
 
-        //Live TV Start 
+        //Live TV Start
         $live_tv_list = LiveTV::where('status', 1)->where("channel_name", "LIKE", "%$keyword%")->orderBy('channel_name')->get();
 
         if ($live_tv_list->count()) {
@@ -2867,7 +2866,7 @@ class AndroidApiController extends MainAPIController
         } else {
             $response['live_tv'] = array();
         }
-        //Live TV End    
+        //Live TV End
 
         return \Response::json(array(
             'VIDEO_STREAMING_APP' => $response,
@@ -2885,7 +2884,7 @@ class AndroidApiController extends MainAPIController
         ]);
 
         // Retrieve the file from the request
-       
+
         //$publicUrl = str_replace('public/', '', $path);
         // Create a new music track record in the database
         $musicTrack = new Music([
@@ -2902,16 +2901,16 @@ class AndroidApiController extends MainAPIController
         $request->audio_type ? $musicTrack->audio_type = $request->audio_type : '';
         $request->music_release_date ? $musicTrack->music_release_date = strtotime($request->music_release_date) : '';
         if($request['audio_type']=="URL")
-         {  
+         {
             $musicTrack->music_url = $request['music_url'];
 
          }
          else
-         {     
+         {
             $file = $request->file('music_url');
 
             // Store the file in a storage directory (e.g., 'uploads')
-            $path = $file->store('upload/source');       
+            $path = $file->store('upload/source');
 
             $musicTrack->music_url = $path;
 
@@ -3040,7 +3039,7 @@ class AndroidApiController extends MainAPIController
                 return response()->json(['message' => 'Comment reply successfully']);
             }
             else{
-            return response()->json(['message' => 'Comment posted successfully']); 
+            return response()->json(['message' => 'Comment posted successfully']);
             }
         }
 
@@ -3060,7 +3059,7 @@ class AndroidApiController extends MainAPIController
     //     $save = $like->save();
 
     //     if ($save) {
-            
+
     //         $reel_like_count_add->like_count = $reel_like_count_add->like_count + 1;
     //         $reel_like_count_add->save();
 
@@ -3112,7 +3111,7 @@ class AndroidApiController extends MainAPIController
     //         if(!$replies->isEmpty()){
     //             $reel_comment->replies = $replies;
     //         }
-            
+
     //     }
 
     //     if(!$reel_comments->isEmpty()){
@@ -3222,19 +3221,19 @@ class AndroidApiController extends MainAPIController
                         "type" => "movie"
                     ];
                 }
-    
+
                 return null; // Skip if the related movie is not found
             })->filter(); // Remove any null items from the collection
-    
+
         $total_records = $movieFavorites->count();
-    
+
         return response()->json([
             'VIDEO_STREAMING_APP' => $movieFavorites->values(), // Ensure a clean JSON array
             'total_records' => $total_records,
             'status_code' => 200
         ]);
     }
-    
+
 
     public function submitRecentWatch(Request $request)
     {
@@ -3249,7 +3248,7 @@ class AndroidApiController extends MainAPIController
                 'errors' => $e->errors(),
             ], 422);
         }
-    
+
         // Update or create a recent watch record
         $recentWatch = RecentWatch::updateOrCreate(
             [
@@ -3261,7 +3260,7 @@ class AndroidApiController extends MainAPIController
                 'updated_at' => now(), // Update timestamp
             ]
         );
-    
+
         // Return a JSON response
         return response()->json([
             'status_code' => 201,
@@ -3269,7 +3268,7 @@ class AndroidApiController extends MainAPIController
             'data' => $recentWatch,
         ]);
     }
-    
+
 
         public function getRecentWatchesByUser($userId)
         {
@@ -3277,10 +3276,10 @@ class AndroidApiController extends MainAPIController
                 ->where('user_id', $userId)
                 ->orderBy('created_at', 'desc') // Order by created_at in descending order
                 ->get();
-        
+
             // Base URL for the image or video
             $baseUrl = URL::to('upload/source/');
-        
+
             // Append the image_video_url to each recent watch
             foreach ($recentWatches as $watch) {
                 // Assuming the 'movie' relationship is loaded and has 'video_image_thumb'
@@ -3290,7 +3289,7 @@ class AndroidApiController extends MainAPIController
                     $watch->image_video_url = $baseUrl; // Fallback if no movie found
                 }
             }
-        
+
             return response()->json([
                 'status_code' => 200,
                 'recent_watches' => $recentWatches,
@@ -3301,23 +3300,23 @@ class AndroidApiController extends MainAPIController
         {
             // Fetch active YouTube data
             $youtubeData = YoutubeTiktokManage::where('type', 'YouTube')->where('status', 1)->get();
-    
+
             return response()->json([
                 'status' => 'success',
                 'data' => $youtubeData
             ]);
         }
-    
+
         // Function to get active TikTok data
         public function tiktok_video()
         {
             // Fetch active TikTok data
             $tiktokData = YoutubeTiktokManage::where('type', 'TikTok')->where('status', 1)->get();
-    
+
             $tiktokData = $tiktokData->map(function($tiktokData) {
                 // Add the asset URL for the image (if it exists)
                 $tiktokData->image = $tiktokData->image ? asset('/' . $tiktokData->image) : null;
-        
+
                 return $tiktokData;
             });
             return response()->json([
@@ -3330,18 +3329,18 @@ class AndroidApiController extends MainAPIController
             // Generate a random unique string with a length of 32 characters (you can adjust the length)
             return Str::random(12); // You can use a different length based on your requirements
         }
-    
+
         public function broadcast_list()
         {
             // Fetch active broadcasts (where status is 1)
             $broadcasts = LiveBroadcastManage::where('status', 1)->orderBy('id', 'DESC')->get();
-            
+
             // Fetch active YouTube data
             $youtubeData = YoutubeTiktokManage::where('type', 'YouTube')->where('status', 1)->get();
-        
+
             // Fetch active TikTok data
             $tiktokData = YoutubeTiktokManage::where('type', 'TikTok')->where('status', 1)->get();
-        
+
             // Prepare the response data
             $response = [
                 'status' => 1,
@@ -3349,7 +3348,7 @@ class AndroidApiController extends MainAPIController
                 'youtube' => [],
                 'tiktok' => [],
             ];
-        
+
             // Add broadcast data to response
             foreach ($broadcasts as $broadcast) {
                 $response['data'][] = [
@@ -3366,7 +3365,7 @@ class AndroidApiController extends MainAPIController
                     'updated_at' => $broadcast->updated_at,
                 ];
             }
-        
+
             // Add YouTube data to response
             foreach ($youtubeData as $video) {
                 $response['youtube'][] = [
@@ -3379,7 +3378,7 @@ class AndroidApiController extends MainAPIController
                     'created_at' => $video->created_at,
                 ];
             }
-        
+
             // Add TikTok data to response
             foreach ($tiktokData as $video) {
                 $response['tiktok'][] = [
@@ -3392,11 +3391,11 @@ class AndroidApiController extends MainAPIController
                     'created_at' => $video->created_at,
                 ];
             }
-        
+
             return response()->json($response);
         }
 
-     
+
         public function broadcast_create(Request $request)
         {
                 // Define custom validation rules
@@ -3426,10 +3425,10 @@ class AndroidApiController extends MainAPIController
                         'status_code' => 404
                     ]);
                 }
-            
+
                 // Use the username as the stream key
                 $key = $user->username ?? $this->generateUniqueKey();
-            
+
                 // Handle image upload if provided
                 $imagePath = null;
                 if ($request->hasFile('image')) {
@@ -3437,21 +3436,21 @@ class AndroidApiController extends MainAPIController
                     $image = $request->file('image');
                     $imagePath = $image->store('uploads', 'public'); // Store image in the 'uploads' folder inside 'public' disk
                 }
-            
+
                 // Get the broadcast link from the settings (use default if null)
                 $setting = Settings::first();
                 $rtmp_server = $setting->broadcast_link ?? '194.233.65.161:1935/new';  // Default RTMP server if not provided in settings
-            
+
                 // Ensure the RTMP server URL is valid and contains a scheme (http:// or https://)
                 if (!empty($rtmp_server)) {
                     // If the RTMP server URL does not start with a scheme, add "http://"
                     if (!preg_match('/^http(s)?:\/\//', $rtmp_server)) {
                         $rtmp_server = 'http://' . $rtmp_server;
                     }
-            
+
                     // Parse RTMP server URL to get the host (IP or domain) and path (e.g., /new)
                     $parsedUrl = parse_url($rtmp_server);
-            
+
                     // Ensure the 'host' index exists in the parsed URL
                     if (isset($parsedUrl['host'])) {
                         $ipAddress = $parsedUrl['host'];  // Extract the host part (IP or domain)
@@ -3461,7 +3460,7 @@ class AndroidApiController extends MainAPIController
                             'status_code' => 400,
                         ]);
                     }
-            
+
                     // Ensure the 'path' part is properly assigned (if it exists in the URL)
                     $path = $parsedUrl['path'] ?? '/new'; // Default to '/new' if no path is provided in the URL
                 } else {
@@ -3470,10 +3469,10 @@ class AndroidApiController extends MainAPIController
                         'status_code' => 400,
                     ]);
                 }
-            
+
                 // Construct the HLS URL based on the parsed RTMP server, stream key, and path
                 $streamUrl = 'http://' . $ipAddress . ':8080/hls/' . $key . '.m3u8';
-            
+
                 // Create the user broadcast record
                 $userBroadcast = new UserBroadcast();
                 $userBroadcast->user_id = $request->user_id;
@@ -3484,22 +3483,22 @@ class AndroidApiController extends MainAPIController
                 $userBroadcast->key = $key;
                 $userBroadcast->rtmp_server = $rtmp_server;
                 $userBroadcast->rtmp_server_url = $streamUrl;
-            
+
                 // Construct the live link with the full RTMP server URL including the path and the stream key
                 $userBroadcast->live_link = 'rtmp://' . $ipAddress . ':' . (isset($parsedUrl['port']) ? $parsedUrl['port'] : '1935') . $path . '/' . $key;
-            
+
                 // Save the user broadcast record
                 $userBroadcast->save();
-            
+
                 // Return success response
                 return response()->json([
                     'VIDEO_STREAMING_APP' => [['msg' => "Broadcast created successfully", 'success' => '1']],
                     'status_code' => 200,
                     'data' => $userBroadcast // Optionally return the created broadcast object
-                ]);     
+                ]);
         }
-        
-        
+
+
 
 public function comment_post(Request $request)
 {
@@ -3577,19 +3576,19 @@ public function comment_post(Request $request)
         {
             // Validate the incoming broadcast ID
             $broadcast = UserBroadcast::find($user_broadcast_id);
-        
+
             if (!$broadcast) {
                 return response()->json([
                     'VIDEO_STREAMING_APP' => [['msg' => "Broadcast not found", 'success' => '0']],
                     'status_code' => 404
                 ]);
             }
-        
+
             // Retrieve all comments related to the specific broadcast
             $comments = UserBroadcastComments::with('user:id,username') // Load related user info (username)
                 ->where('user_broadcast_id', $user_broadcast_id)
                 ->get();
-        
+
             // Return the comments
             return response()->json([
                 'VIDEO_STREAMING_APP' => [['msg' => "Comments retrieved successfully", 'success' => '1']],
@@ -3597,7 +3596,7 @@ public function comment_post(Request $request)
                 'data' => $comments,
             ]);
         }
-        
+
         public function get_upcomming_data()
         {
             $movie_series_list = UpcomingMovieSeries::orderBy('id', 'DESC')->get();
@@ -3605,10 +3604,10 @@ public function comment_post(Request $request)
             $movie_series_data = $movie_series_list->map(function($movie_series) {
                 // Add the asset URL for the image (if it exists)
                 $movie_series->image = $movie_series->image ? asset('/' . $movie_series->image) : null;
-        
+
                 return $movie_series;
             });
-        
+
             // Return the comments
             return response()->json([
                 'VIDEO_STREAMING_APP' => [['msg' => "Data retrieved successfully", 'success' => '1']],
@@ -3623,10 +3622,10 @@ public function comment_post(Request $request)
             $movie_series_data = $cannel->map(function($movie_series) {
                 // Add the asset URL for the image (if it exists)
                 $movie_series->image = $movie_series->image ? asset('/' . $movie_series->image) : null;
-        
+
                 return $movie_series;
             });
-        
+
             // Return the comments
             return response()->json([
                 'VIDEO_STREAMING_APP' => [['msg' => "Data retrieved successfully", 'success' => '1']],
@@ -3634,7 +3633,7 @@ public function comment_post(Request $request)
                 'data' => $cannel,
             ]);
         }
-        
 
-    
+
+
 }

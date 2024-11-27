@@ -17,31 +17,39 @@ class loginController extends Controller
 
     public function store(Request $request)
     {
+        // Exclude the _token field
+        $data = $request->except('_token');
 
-
-        $data =  \Request::except(array('_token'));
-
-        $rule = array(
+        // Define validation rules
+        $rules = [
             'email' => 'required|email',
-            'password' => 'required'
-        );
+            'password' => 'required',
+        ];
 
-        $validator = Validator::make($data, $rule);
+        // Run validation
+        $validator = Validator::make($data, $rules);
 
-
-
-        if($validator->fails()){
-            Session::flash('login_flash_error', 'required');
-            return redirect()->back()->withErrors($validator->messages());
-        }
-
-        if(Auth::attempt($data)){
-            return redirect('/');
-        }else{
-            return redirect()->back()->withErrors([
-                'email' => 'These credentials do not match our records'
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),  // Return the actual error messages
             ]);
         }
 
+        // Attempt authentication
+        if (Auth::attempt($data)) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'Login successful!',
+            ]);
+        } else {
+            // Return an error response if authentication fails
+            return response()->json([
+                'status' => 401,
+                'errors' => ['email' => 'These credentials do not match our records'],
+            ]);
+        }
     }
+
 }

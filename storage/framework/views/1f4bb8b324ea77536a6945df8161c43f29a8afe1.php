@@ -1,14 +1,12 @@
-@extends('client_site.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div
 id="container"
 class="group w-full h-full mx-auto rounded-lg overflow-hidden relative"
 >
 
 <figure>
-    <video  class="w-full">
-        <source src="{{ $url }}" />
+    <video autoplay muted class="w-full">
+        <source src="<?php echo e($url); ?>" />
 
     </video>
 </figure>
@@ -71,4 +69,6 @@ class="group w-full h-full mx-auto rounded-lg overflow-hidden relative"
 </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('client_site.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/frontend/player.blade.php ENDPATH**/ ?>

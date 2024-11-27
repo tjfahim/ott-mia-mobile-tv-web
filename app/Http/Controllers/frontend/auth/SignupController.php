@@ -14,44 +14,54 @@ class SignupController extends Controller
         return view('frontend.auth.register');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $data =  \Request::except(array('_token'));
+        // Exclude the _token field
+        $data = $request->except('_token');
 
-
-        $rule = [
-            'name' => 'required',
-            'email' => 'required|email|max:200|unique:users',
-            'password' => 'required|confirmed|min:8',
-            'password_confirmation' => 'required'
+        // Define validation rules
+        $rules = [
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',  // Ensures email is unique in the users table
+            'password' => 'required|string|min:8|confirmed',  // Password confirmation check
         ];
 
+        // Run validation
+        $validator = Validator::make($data, $rules);
 
-
-        $validator = Validator::make($data, $rule);
-
-
-
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator->messages());
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),  // Return the actual error messages
+            ]);
         }
 
-        $user = new User;
 
 
+        try {
+            // Create the new user (hash the password before saving)
+            $user = new User();
+            $user->name = $data['name'];
+            $user->last_name = $data['last_name'];
+            $user->email = $data['email'];
+            $user->password = bcrypt($data['password']);  // Hash the password
+            $user = $user->save();  // Save the user to the database
 
-        $user->usertype = 'User';
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
-        $user->save();
+            // Respond with a success message
+            return response()->json([
+                'status' => 200,
+                'message' => $user
+            ]);
 
-        if($user){
-            return redirect()->to('/login');
+        } catch (\Exception $e) {
+            // Return an error if there's an issue with saving the user
+            return response()->json([
+                'status' => 500,
+                'errors' => ['error' => 'An error occurred while registering the user. Please try again later.'],
+            ]);
         }
-
-        // store
-        // redirect login page
-
     }
+
 }

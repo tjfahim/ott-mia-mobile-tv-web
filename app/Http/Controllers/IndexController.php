@@ -186,7 +186,11 @@ class IndexController extends Controller
             'password' => 'required'
         );
 
-        
+        return response()->json([
+            'message' => 'working'
+        ]);
+
+
 
 
         $validator = \Validator::make($data, $rule);

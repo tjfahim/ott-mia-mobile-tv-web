@@ -1,4 +1,5 @@
-@extends('frontend.layouts.MainLayout')
+@extends('client_site.layouts.app')
+
 @section('content')
 
 <section class="bg-cover relative w-full h-[650px]" style="background-image:  linear-gradient(0deg, rgba(20,20,20,0.4878151944371498) 0%, rgba(20,20,20,0.20770314961922265) 100%), url({{ URL::to( 'upload/source/'.$show->video_image_thumb )}})">
