@@ -8,7 +8,7 @@ class="group w-full h-full mx-auto rounded-lg overflow-hidden relative"
 
 <figure>
     <video  class="w-full">
-        <source src="{{ $url }}" />
+        <source src="{{ $url ?? '' }}" />
 
     </video>
 </figure>

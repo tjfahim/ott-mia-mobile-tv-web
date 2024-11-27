@@ -291,22 +291,22 @@ Route::get('logout', 'IndexController@logout');
 
 Route::get('settings', 'UserController@settings');
 
-Route::get('dashboard', 'UserController@dashboard');
-Route::get('profile', 'UserController@profile');
-Route::post('profile', 'UserController@editprofile');
-Route::get('membership_plan', 'UserController@membership_plan');
-Route::get('payment_method/{plan_id}', 'UserController@payment_method');
+// Route::get('dashboard', 'UserController@dashboard');
+// Route::get('profile', 'UserController@profile');
+// Route::post('profile', 'UserController@editprofile');
+// Route::get('membership_plan', 'UserController@membership_plan');
+// Route::get('payment_method/{plan_id}', 'UserController@payment_method');
 
-Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
-Route::get('paypal', array('as' => 'payment.status','uses' => 'PaypalController@getPaymentStatus',));
+// Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
+// Route::get('paypal', array('as' => 'payment.status','uses' => 'PaypalController@getPaymentStatus',));
 
-//Route::get('stripe/stripe_payments', 'StripeController@stripe_payments');
+// //Route::get('stripe/stripe_payments', 'StripeController@stripe_payments');
 
-Route::get('stripe/{plan_id}', 'StripeController@payWithStripe');
-Route::post('stripe', 'StripeController@postPaymentWithStripe');
+// Route::get('stripe/{plan_id}', 'StripeController@payWithStripe');
+// Route::post('stripe', 'StripeController@postPaymentWithStripe');
 
-Route::post('pay', 'PaystackController@redirectToGateway')->name('pay');
-Route::get('payment/callback', 'PaystackController@handleGatewayCallback');
+// Route::post('pay', 'PaystackController@redirectToGateway')->name('pay');
+// Route::get('payment/callback', 'PaystackController@handleGatewayCallback');
 
 # Call Route
 //Route::get('payment', ['as' => 'payment', 'uses' => 'PayuController@payment']);
@@ -314,74 +314,74 @@ Route::get('payment/callback', 'PaystackController@handleGatewayCallback');
 //Route::get('payment/status', ['as' => 'payment.status', 'uses' => 'PayuController@status']);
 
 
-Route::get('series', 'SeriesController@series');
-Route::get('series/latest', 'SeriesController@series_latest');
-Route::get('series/popular', 'SeriesController@series_popular');
-Route::get('series/{series_slug}/{id}', 'SeriesController@series_single');
-Route::get('series/{series_slug}/seasons/{season_slug}/{id}', 'SeriesController@season_episodes');
-Route::get('series/{series_slug}/{episodes_slug}/{id}', 'SeriesController@episodes_details')->name('episodes_single');
+// Route::get('series', 'SeriesController@series');
+// Route::get('series/latest', 'SeriesController@series_latest');
+// Route::get('series/popular', 'SeriesController@series_popular');
+// Route::get('series/{series_slug}/{id}', 'SeriesController@series_single');
+// Route::get('series/{series_slug}/seasons/{season_slug}/{id}', 'SeriesController@season_episodes');
+// Route::get('series/{series_slug}/{episodes_slug}/{id}', 'SeriesController@episodes_details')->name('episodes_single');
 
-Route::get('language/series', 'LanguageController@series_language');
-Route::get('language/series/{slug}', 'LanguageController@series_by_language');
-Route::get('language/movies', 'LanguageController@movies_language');
-Route::get('language/movies/{slug}', 'LanguageController@movies_by_language');
-
-
-Route::get('genres/series', 'GenresController@series_genres');
-Route::get('genres/series/{slug}', 'GenresController@series_by_genres');
-Route::get('genres/movies', 'GenresController@movies_genres');
-Route::get('genres/movies/{slug}', 'GenresController@movies_by_genres');
+// Route::get('language/series', 'LanguageController@series_language');
+// Route::get('language/series/{slug}', 'LanguageController@series_by_language');
+// Route::get('language/movies', 'LanguageController@movies_language');
+// Route::get('language/movies/{slug}', 'LanguageController@movies_by_language');
 
 
-Route::get('movies', 'MoviesController@movies');
-Route::get('movies/latest', 'MoviesController@movies_latest');
-Route::get('movies/popular', 'MoviesController@movies_popular');
-Route::get('movies/{slug}/{id}', 'MoviesController@movies_single')->name('movies_single');
+// Route::get('genres/series', 'GenresController@series_genres');
+// Route::get('genres/series/{slug}', 'GenresController@series_by_genres');
+// Route::get('genres/movies', 'GenresController@movies_genres');
+// Route::get('genres/movies/{slug}', 'GenresController@movies_by_genres');
 
 
-Route::get('reel/{slug}/{id}', 'ReelsController@reel_single')->name('reel_single');
-Route::get('/reels', [ReelsController::class, 'index'])->name('reels');
-Route::get('reels/{id}', [ReelsController::class, 'show'])->name('reels.show');
+// Route::get('movies', 'MoviesController@movies');
+// Route::get('movies/latest', 'MoviesController@movies_latest');
+// Route::get('movies/popular', 'MoviesController@movies_popular');
+// Route::get('movies/{slug}/{id}', 'MoviesController@movies_single')->name('movies_single');
 
 
-Route::get('sports', 'SportsController@sports');
-Route::get('sports/{slug}', 'SportsController@sports_by_category');
-Route::get('sports/{slug}/{id}', 'SportsController@sports_single')->name('sports_single');
-
-Route::get('live-tv', 'LiveTvController@live_tv_list');
-Route::get('live-tv/{slug}', 'LiveTvController@live_tv_by_category');
-Route::get('live-tv/{slug}/{id}', 'LiveTvController@live_tv_single')->name('tv_single');
-
-Route::get('page/{slug}', 'PagesController@get_page');
-Route::post('contact_send', 'PagesController@contact_send');
-
-Route::get('search', 'IndexController@search');
-
-Route::get('password/email', 'Auth\PasswordController@getEmail');
-Route::post('password/email', 'Auth\PasswordController@postEmail');
-
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password_reset_form');
-Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.reset');
-
-Route::get('sitemap.xml', 'IndexController@sitemap');
-Route::get('sitemap-misc.xml', 'IndexController@sitemap_misc');
-Route::get('sitemap-movies.xml', 'IndexController@sitemap_movies');
-Route::get('sitemap-show.xml', 'IndexController@sitemap_show');
-Route::get('sitemap-sports.xml', 'IndexController@sitemap_sports');
-Route::get('sitemap-livetv.xml', 'IndexController@sitemap_livetv');
-
-Route::get('razorpay', 'RazorpayController@pay');
-Route::post('razorpay-success', 'RazorpayController@payment_success');
-
- Route::get('test', 'IndexController@test');
+// Route::get('reel/{slug}/{id}', 'ReelsController@reel_single')->name('reel_single');
+// Route::get('/reels', [ReelsController::class, 'index'])->name('reels');
+// Route::get('reels/{id}', [ReelsController::class, 'show'])->name('reels.show');
 
 
+// Route::get('sports', 'SportsController@sports');
+// Route::get('sports/{slug}', 'SportsController@sports_by_category');
+// Route::get('sports/{slug}/{id}', 'SportsController@sports_single')->name('sports_single');
 
- Route::get('/forgot-password', 'ForgotPasswordController@showForgotPasswordForm')->name('password.request');
-Route::post('/forgot-password', 'ForgotPasswordController@sendOTP');
-Route::post('/verify-otp', 'ForgotPasswordController@verifyOTP');
-Route::get('/reset-password', 'ForgotPasswordController@showResetPasswordForm')->name('password.reset');
-Route::post('/reset-password', 'ForgotPasswordController@resetPassword');
+// Route::get('live-tv', 'LiveTvController@live_tv_list');
+// Route::get('live-tv/{slug}', 'LiveTvController@live_tv_by_category');
+// Route::get('live-tv/{slug}/{id}', 'LiveTvController@live_tv_single')->name('tv_single');
+
+// Route::get('page/{slug}', 'PagesController@get_page');
+// Route::post('contact_send', 'PagesController@contact_send');
+
+// Route::get('search', 'IndexController@search');
+
+// Route::get('password/email', 'Auth\PasswordController@getEmail');
+// Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password_reset_form');
+// Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.reset');
+
+// Route::get('sitemap.xml', 'IndexController@sitemap');
+// Route::get('sitemap-misc.xml', 'IndexController@sitemap_misc');
+// Route::get('sitemap-movies.xml', 'IndexController@sitemap_movies');
+// Route::get('sitemap-show.xml', 'IndexController@sitemap_show');
+// Route::get('sitemap-sports.xml', 'IndexController@sitemap_sports');
+// Route::get('sitemap-livetv.xml', 'IndexController@sitemap_livetv');
+
+// Route::get('razorpay', 'RazorpayController@pay');
+// Route::post('razorpay-success', 'RazorpayController@payment_success');
+
+//  Route::get('test', 'IndexController@test');
+
+
+
+//  Route::get('/forgot-password', 'ForgotPasswordController@showForgotPasswordForm')->name('password.request');
+// Route::post('/forgot-password', 'ForgotPasswordController@sendOTP');
+// Route::post('/verify-otp', 'ForgotPasswordController@verifyOTP');
+// Route::get('/reset-password', 'ForgotPasswordController@showResetPasswordForm')->name('password.reset');
+// Route::post('/reset-password', 'ForgotPasswordController@resetPassword');
 //Route::post('/resend-otp', 'OtpController@resend')->name('resend.otp');
 
 

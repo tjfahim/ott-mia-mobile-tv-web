@@ -16,7 +16,7 @@ class ContentController extends Controller
         if(!$movie){
             return redirect()->back();
         }
-        
+
         $allgenres = Genres::all();
         $genres = $movie->movie_genre_id;
         $genres = explode(',', $genres);
@@ -52,7 +52,8 @@ class ContentController extends Controller
         }
 
         return view('frontend.playMovies', [
-            'video' => $movie
+            'video' => $movie,
+            'url' => $movie->video_url
         ]);
     }
 }

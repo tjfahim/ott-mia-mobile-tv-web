@@ -16,8 +16,16 @@ class PlayVideo extends Controller
             return redirect()->back();
         }
 
-        return view('frontend.playMovies', [
-            'video' => $movie
+        // return view('frontend.playMovies', [
+        //     'video' => $movie,
+        //     'url' => $movie->video_url
+        // ]);
+
+        return $movie;
+
+        return view('frontend.player', [
+            'video' => $movie,
+            'url' => $movie->video_url
         ]);
     }
 }

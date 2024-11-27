@@ -6,7 +6,7 @@ class="group w-full h-full mx-auto rounded-lg overflow-hidden relative"
 
 <figure>
     <video  class="w-full">
-        <source src="<?php echo e($url); ?>" />
+        <source src="<?php echo e($url ?? ''); ?>" />
 
     </video>
 </figure>

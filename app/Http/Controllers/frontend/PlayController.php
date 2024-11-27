@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\LiveTV;
+use App\Movies;
 use Illuminate\Http\Request;
 use App\Series;
 
@@ -35,6 +36,15 @@ class PlayController extends Controller
                  'video' => $tv,
                  'url' => $tv->channel_url
              ]);
+        }
+
+        if($type === 'movie'){
+            $movie = Movies::where('video_slug', $slug)->first();
+
+            return view('frontend.player', [
+                'video' => $movie,
+                'url' => $movie->video_url
+            ]);
         }
     }
 }
