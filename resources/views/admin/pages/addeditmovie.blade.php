@@ -131,7 +131,7 @@
                       <div class="col-sm-8">
                             <select name="artists[]" class="select2 select2-multiple" multiple="multiple" multiple id="movie_genre_id" data-placeholder="Select artist...">
                                  @foreach($artist_list as $artist)
-                                  <option value="{{$artist->id}}" @if(isset($movie->id) && in_array($genre_data->id, explode(",",$movie->movie_genre_id))) selected @endif>{{$artist->name}}</option>
+                                  <option value="{{$artist->id}}" @if(isset($movie->id) && in_array($artist->id, explode(",",$movie->movie_genre_id))) selected @endif>{{$artist->name}}</option>
                                  @endforeach
                             </select>
                       </div>

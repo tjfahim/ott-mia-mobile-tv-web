@@ -131,7 +131,7 @@
                       <div class="col-sm-8">
                             <select name="artists[]" class="select2 select2-multiple" multiple="multiple" multiple id="movie_genre_id" data-placeholder="Select artist...">
                                  <?php $__currentLoopData = $artist_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $artist): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                  <option value="<?php echo e($artist->id); ?>" <?php if(isset($movie->id) && in_array($genre_data->id, explode(",",$movie->movie_genre_id))): ?> selected <?php endif; ?>><?php echo e($artist->name); ?></option>
+                                  <option value="<?php echo e($artist->id); ?>" <?php if(isset($movie->id) && in_array($artist->id, explode(",",$movie->movie_genre_id))): ?> selected <?php endif; ?>><?php echo e($artist->name); ?></option>
                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                       </div>

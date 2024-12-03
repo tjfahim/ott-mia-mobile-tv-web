@@ -391,6 +391,8 @@ Route::get('settings', 'UserController@settings');
 
 // auth
 
+// h
+
 // Route::get('login', [App\Http\Controllers\frontend\auth\loginController::class, 'index']);
 Route::post('login', [App\Http\Controllers\frontend\auth\loginController::class, 'store']);
 
@@ -399,14 +401,40 @@ Route::post('signup', [App\Http\Controllers\frontend\auth\SignupController::clas
 
 Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
 Route::get('tvstation', [App\Http\Controllers\frontend\TvstationController::class, 'index']);
-Route::get('vod', [App\Http\Controllers\frontend\VodController::class, 'index']);
 
-Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);
+
+Route::get('vod/movies', [App\Http\Controllers\frontend\VodController::class, 'movies']);
+Route::get('vod/shows', [App\Http\Controllers\frontend\VodController::class, 'shows']);
+Route::get('vod/lives', [App\Http\Controllers\frontend\VodController::class, 'lives']);
+
+Route::get('vod/movies/all', [App\Http\Controllers\frontend\VodController::class, 'allMovies']);
+Route::get('vod/shows/all', [App\Http\Controllers\frontend\VodController::class, 'allShows']);
+
+Route::get('/lives', [App\Http\Controllers\frontend\LiveController::class, 'index']);
+
+// Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);
 Route::post('contact', [App\Http\Controllers\frontend\ContactController::class, 'store']);
 
 Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
 Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);
 
+Route::get('show/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'serise_show']);
+Route::get('show/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play_series']);
+
+
+
 Route::get('play/{slug}/{type}', [App\Http\Controllers\frontend\PlayController::class, 'index']);
 
 
+// account
+
+
+
+Route::get('account/info', [App\Http\Controllers\frontend\user\AccountController::class, 'info'])->middleware('authUser');
+Route::get('account/subscription', [App\Http\Controllers\frontend\user\AccountController::class, 'subscripbtion'])->middleware('authUser');
+Route::get('account/device', [App\Http\Controllers\frontend\user\AccountController::class, 'deviceInfo'])->middleware('authUser');
+Route::get('account/preferences', [App\Http\Controllers\frontend\user\AccountController::class, 'preferences'])->middleware('authUser');
+Route::get('favorite', [App\Http\Controllers\frontend\user\AccountController::class, 'favorite']);
+
+
+// h

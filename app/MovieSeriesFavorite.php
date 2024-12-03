@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+
 class MovieSeriesFavorite extends Model
 {
     protected $fillable = [

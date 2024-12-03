@@ -57,6 +57,16 @@ $(document).ready(function(){
           $(this).addClass('bg-stone-700');
       });
 
+      // main slider
+      $('.main-slider').slick({
+        dots: false,
+        arrows: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        centerMode: true,
+      });
+
 
       // home page after login slider
       $('.slider1').slick({
@@ -100,38 +110,38 @@ $(document).ready(function(){
 
 
       // login popup-up show
-      $(document).ready(function() {
+    //   $(document).ready(function() {
 
-        $('.popup-login').hide();
+    //     $('.popup-login').hide();
 
-        $(document).on('click', '.btn-login', function() {
+    //     $(document).on('click', '.btn-login', function() {
 
-            $('.popup-login').slideDown("slow");
+    //         $('.popup-login').slideDown("slow");
 
-        });
-
-
-        $(document).on('click', '.close-popup', function() {
-            $('.popup-login').slideUp("slow");
-        });
-    });
-
-    // register popup show
-      $(document).ready(function() {
-
-        $('.popup-register').hide();
-
-        $(document).on('click', '.btn-register', function() {
-
-            $('.popup-register').slideDown("slow");
-
-        });
+    //     });
 
 
-        $(document).on('click', '.close-popup', function() {
-            $('.popup-register').slideUp("slow");
-        });
-    });
+    //     $(document).on('click', '.close-popup', function() {
+    //         $('.popup-login').slideUp("slow");
+    //     });
+    // });
+
+    // // register popup show
+    //   $(document).ready(function() {
+
+    //     $('.popup-register').hide();
+
+    //     $(document).on('click', '.btn-register', function() {
+
+    //         $('.popup-register').slideDown("slow");
+
+    //     });
+
+
+    //     $(document).on('click', '.close-popup', function() {
+    //         $('.popup-register').slideUp("slow");
+    //     });
+    // });
 
 
     // faq ask section

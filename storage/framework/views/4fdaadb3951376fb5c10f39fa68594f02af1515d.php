@@ -1,15 +1,15 @@
 <nav class="flex flex-col  sm:flex-row justify-between sm:items-center p-5 gap-5 h-[90px]">
-    <a href=""><img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="logo"></a>
+    <a href="<?php echo e(URL::to('/')); ?>"><img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="logo"></a>
     <div class="flex flex-col sm:flex-row p-1.5  sm:bg-first_black sm:rounded-full text-white font-manrope ">
         <!-- active class css bg-second_black -->
 
         <a href="<?php echo e(URL::to('/')); ?>" class="<?php echo e(request()->is('/') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1">Home</a>
 
         <a href="<?php echo e(URL::to('tvstation')); ?>" class="<?php echo e(request()->is('tvstation') ? 'bg-second_black translate-x-1' : ''); ?>  px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">TV Station</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Live</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">VDO</a>
+        <a href="<?php echo e(URL::to('lives')); ?>"  class="<?php echo e(request()->is('lives') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Live</a>
+        <a href="<?php echo e(URL::to('vod/movies')); ?>"  class="<?php echo e(request()->is('vod*') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">VDO</a>
         <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Notification</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a>
+        <a href="<?php echo e(URL::to('account/info')); ?>" class="<?php echo e(request()->is('account*') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a>
     </div>
     <div class="flex justify-between gap-3">
         <div class="hidden sm:flex gap-1">

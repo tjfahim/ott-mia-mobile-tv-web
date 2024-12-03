@@ -137,7 +137,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <div class="flex justify-between text-white text-md mt-3" style="width: 230px;">
                             <div>{{  $strem->channel_name }}</div>
 
-                            <a href="{{  $strem->channel_url }}">
+                            <a href="{{ URL::to('tvstation?play='.$strem->channel_name) }}">
                                 <img class="h-4.5 w-4.5" src="{{ URL::asset('assets/frontend/images/right-arow.png') }}" alt="">
                             </a>
 

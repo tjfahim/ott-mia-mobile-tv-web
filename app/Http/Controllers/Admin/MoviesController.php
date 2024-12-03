@@ -263,10 +263,11 @@ class MoviesController extends MainAdminController
 
           $language_list = Language::orderBy('language_name')->get();
           $genre_list = Genres::orderBy('genre_name')->get();
+          $artist_list = Production_member::where('role', 'artist')->orderby('name')->get();
 
           $movie = Movies::findOrFail($movie_id);
 
-          return view('admin.pages.addeditmovie',compact('page_title','movie','language_list','genre_list'));
+          return view('admin.pages.addeditmovie',compact('page_title','movie','language_list','genre_list', 'artist_list'));
 
     }
 

@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Genres;
 use App\LiveTV;
+use App\Movies;
+use App\Series;
 use App\SubscriptionPlan;
 
 class HomeController extends Controller
@@ -17,6 +19,8 @@ class HomeController extends Controller
         $genres = Genres::all();
         $liveStrim = LiveTV::all();
         $category = Category::all();
+        $movies = Movies::all();
+        $series = Series::all();
 
         //$plan = SubscriptionPlan::all();
 
@@ -24,7 +28,7 @@ class HomeController extends Controller
 
 
 
-        $monthly_plan = SubscriptionPlan::where('plan_days', 30)->get();
+        $monthly_plan = SubscriptionPlan::where('plan_days', 30)->where('status', 1)->get();
         $yearly_plan = SubscriptionPlan::where('plan_days', 365)->get();
 
 
@@ -35,7 +39,9 @@ class HomeController extends Controller
             'monthly_plan' => $monthly_plan,
             'yearly_plan' => $yearly_plan,
             'category' => $category,
-            'faqs' => $faq
+            'faqs' => $faq,
+            'movies' => $movies,
+            'series' => $series
         ]);
 
 

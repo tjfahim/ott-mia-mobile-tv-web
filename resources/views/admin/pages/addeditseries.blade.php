@@ -185,6 +185,13 @@
                     </div>
                   </div>
 
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Series Duration</label>
+                    <div class="col-sm-8">
+                      <input type="text" name="duration" id="duration" value="{{ isset($series_info->duration) ? stripslashes($series_info->duration) : null }}" class="form-control">
+                    </div>
+                  </div>
+
                   <div class="form-group">
                     <div class="offset-sm-9 col-sm-9">
                       <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="fa fa-save"></i> {{trans('words.save')}} </button>

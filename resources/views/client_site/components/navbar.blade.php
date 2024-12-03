@@ -1,15 +1,16 @@
 <nav class="flex flex-col  sm:flex-row justify-between sm:items-center p-5 gap-5 h-[90px]">
-    <a href=""><img src="{{ URL::asset('upload/source/'.getcong('site_logo')) }}" alt="logo"></a>
+    <a href="{{ URL::to('/') }}"><img src="{{ URL::asset('upload/source/'.getcong('site_logo')) }}" alt="logo"></a>
     <div class="flex flex-col sm:flex-row p-1.5  sm:bg-first_black sm:rounded-full text-white font-manrope ">
         <!-- active class css bg-second_black -->
 
         <a href="{{ URL::to('/') }}" class="{{ request()->is('/') ? 'bg-second_black translate-x-1' : '' }} px-5 py-2  rounded-full duration-200 hover:translate-x-1">Home</a>
 
         <a href="{{ URL::to('tvstation') }}" class="{{ request()->is('tvstation') ? 'bg-second_black translate-x-1' : '' }}  px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">TV Station</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Live</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">VDO</a>
+        <a href="{{ URL::to('lives') }}"  class="{{ request()->is('lives') ? 'bg-second_black translate-x-1' : '' }} px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Live</a>
+        <a href="{{ URL::to('vod/movies') }}"  class="{{ request()->is('vod*') ? 'bg-second_black translate-x-1' : '' }} px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">VDO</a>
         <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Notification</a>
-        <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a>
+        <button @click="contactForm = true" class=" translate-x-1  px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Contact Us</button>
+        <!-- <a href="{{ URL::to('account/info') }}" class="{{ request()->is('account*') ? 'bg-second_black translate-x-1' : '' }} px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a> -->
     </div>
     <div class="flex justify-between gap-3">
         <div class="hidden sm:flex gap-1">
@@ -54,7 +55,7 @@
                             x-transition:leave-end="opacity-0 scale-90"
 
                             class="bg-second_black p-5 absolute -right-4 mt-4 w-[250px] rounded-md flex flex-col gap-2">
-                            <div class="size-4 bg-second_black absolute -top-2 right-5 rotate-45 rounded-sm"></div>
+                            <div class="size-4 z-50 bg-second_black absolute -top-2 right-5 rotate-45 rounded-sm"></div>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out">Account</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Settings</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Contacts</a>

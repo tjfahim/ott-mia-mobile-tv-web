@@ -2,6 +2,11 @@
 
 @section('content')
 
+
+@guest
+
+
+
 <!-- hero section start -->
 <div class="h-[calc(100vh-90px)]"
 style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), url('{{ URL::asset('frontend/images/bg-hero.png') }}'); background-size: cover; background-position: center;">
@@ -123,7 +128,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <img class="w-full h-[250px] rounded-md" src="{{ URL::to('upload/source/'.$tv->channel_thumb) }}" alt="" style="background: linear-gradient(to bottom, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 1) 100%);">
                         <div class="flex justify-between items-center">
                             <h2>{{ $tv->channel_name }}</h2>
-                            <a href="{{ $tv->channel_slug }}"><img src="{{ URL::asset('frontend/images/right-arrow.svg') }}" alt=""></a>
+                            <a href="{{ URL::to('tvstation?play='.$tv->channel_slug) }}"><img src="{{ URL::asset('frontend/images/right-arrow.svg') }}" alt=""></a>
                         </div>
                     </div>
                 @endforeach
@@ -230,8 +235,34 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                 </div>
             </div>
             <!-- monthly plan -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 p-10" id="monthly_plan">
-                <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 p-10 sm:p-0" id="monthly_plan">
+                {{-- @foreach ($monthly_plan as $plan)
+                    <div class="bg-stone-800 p-5 flex flex-col text-white gap-5 rounded w-full sm:w-[450px]  ">
+                        <h2 class="text-2xl">{{ $plan->plan_name }}</h2>
+                        <p class="opacity-50">{{  $plan->description }}</p>
+                        <div class="">
+                            <span class="text-3xl ">{{  $plan->plan_price }}</span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="" class="py-2 px-2 bg-slate-900 rounded">Start Free Trail</a>
+                            <a href="" class="btn-red hover:opacity-50">Choose Plan</a>
+                        </div>
+                    </div>
+                @endforeach --}}
+                @foreach ($monthly_plan as $plan)
+                    <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
+                        <h2 class="text-2xl">{{ $plan->plan_name }}</h2>
+                        <p class="opacity-50">{{  $plan->description }}</p>
+                        <div class="">
+                            <span class="text-3xl ">{{  $plan->plan_price }}</span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between gap-5">
+                            <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
+                            <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
                     <h2 class="text-2xl">Basic Plan</h2>
                     <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                     <div class="">
@@ -241,23 +272,25 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
                         <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
                     </div>
-                </div>
-                <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$9.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between gap-5">
-                        <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
-                        <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
-                    </div>
-                </div>
+                </div> --}}
 
             </div>
             <!-- yearly plan -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 p-10" id="yearly_plan">
-                <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 p-10 sm:p-0" id="yearly_plan">
+                @foreach ($yearly_plan as $plan)
+                    <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
+                        <h2 class="text-2xl">{{ $plan->plan_name }}</h2>
+                        <p class="opacity-50">{{  $plan->description }}</p>
+                        <div class="">
+                            <span class="text-3xl ">{{  $plan->plan_price }}</span><span class="opacity-50">/month</span>
+                        </div>
+                        <div class="flex justify-between gap-5">
+                            <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
+                            <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
                     <h2 class="text-2xl">Basic Plan</h2>
                     <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                     <div class="">
@@ -267,18 +300,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                         <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
                         <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
                     </div>
-                </div>
-                <div class="bg-second_black p-5 flex flex-col text-white gap-5 rounded w-full ">
-                    <h2 class="text-2xl">Basic Plan</h2>
-                    <p class="opacity-50">Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <div class="">
-                        <span class="text-3xl ">$9.99</span><span class="opacity-50">/month</span>
-                    </div>
-                    <div class="flex justify-between gap-5">
-                        <a href="" class="w-full py-2 px-2 bg-first_black text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Start Free Trail</a>
-                        <a href="" class="w-full  py-2 px-2 bg-redcolor text-center rounded-md hover:scale-110 duration-300 ease-in hover:ease-out">Choose Plan</a>
-                    </div>
-                </div>
+                </div> --}}
             </div>
          </section>
         <!-- plan section end -->
@@ -290,7 +312,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                     <h2 class="font-bold text-3xl mb-2">Start browsing for free today!</h2>
                     <p class=" opacity-50 text-sm">This is a clear and concise call to action that encourages users to sign up for a free trial of StreamVibe.</p>
                 </div>
-                <a href="" class="btn-red hover:opacity-50">Stat a free trail</a>
+                <a href="" class="btn-red hover:opacity-50">Start a free trail</a>
             </div>
         </section>
         <!-- free trail section  end  -->
@@ -298,6 +320,345 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
 
     </div>
 </div>
+
+@endguest
+
+@auth
+
+<div class="slide">
+    <div class="h-[500px] w-full" style="background: url('./images/movie-slider.png'); background-size: cover;">
+        <div class="container mx-auto flex flex-col h-full py-10 justify-between">
+            <div class="flex flex-col gap-2">
+                <h2 class="text-4xl font-bold ">Hi Brandy!</h2>
+                <h4 class="text-xl "><span class="opacity-50">Free Account-</span> <span class="text-redcolor">Upgrade to Premiem</span></h4>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-black">
+    <div class="container mx-auto">
+        <!-- section recently watch start -->
+        <section class="py-10 space-y-5 p-10">
+            <div class="flex justify-between">
+                <h2 class="text-2xl font-bold">Recent Watch</h2>
+                <a class="text-redcolor font-xl underline underline-offset-4 font-bold" href="">View All</a>
+            </div>
+            <div class="slider1">
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class=" text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+        <!-- section recently watch start -->
+
+
+        <!-- section recently watch start -->
+        <section class="py-10 space-y-5 p-10">
+            <div class="flex justify-between">
+                <h2 class="text-2xl font-bold">Movies</h2>
+                <a class="text-redcolor font-xl underline underline-offset-4 font-bold" href="">View All</a>
+            </div>
+            <div class="slider1">
+
+
+                @foreach ($movies as $movie)
+                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                        <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between hover:scale-95 duration-300">
+                            <img class="w-full h-[250px]  duration-300 rounded-lg mb-2" src="{{ URL::asset('upload/source/'.$movie->video_image_thumb) }}" alt="">
+                            <div class="flex justify-between items-center text-sm">
+                                <div class="flex gap-1 text-white"><img src="{{ URL::asset('frontend/images/clock-icon.svg') }}" alt=""><span>{{ $movie->duration }}</span></div>
+                                <div class="text-white opacity-80">Movies</div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+
+                {{-- <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div> --}}
+
+
+
+            </div>
+        </section>
+        <!-- section recently watch start -->
+
+        <!-- section live show start -->
+        <section class="py-10 space-y-5 p-10">
+            <div class="flex justify-between">
+                <h2 class="text-2xl font-bold">Live</h2>
+                <a class="text-redcolor font-xl underline underline-offset-4 font-bold" href="">View All</a>
+            </div>
+            <div class="flex gap-5 flex-wrap">
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="border-4 border-redcolor rounded-full h-[120px] w-[120px] relative">
+                        <img class="h-full w-full" src="./images/profile1.png" alt="">
+                        <div class="bg-redcolor rounded-full inline-block text-sm text-white py-1 px-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2">Live</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <!-- section live show end -->
+
+        <!-- section show watch start -->
+        <section class="py-10 space-y-5 p-10">
+            <div class="flex justify-between">
+                <h2 class="text-2xl font-bold">Shows</h2>
+                <a class="text-redcolor font-xl underline underline-offset-4 font-bold" href="">View All</a>
+            </div>
+            <div class="slider1">
+
+
+
+                @foreach ($series as $show)
+                    <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between hover:scale-95 duration-300">
+                        <img class="w-full h-[250px]  duration-300 rounded-lg mb-2" src="{{ URL::asset('upload/source/'.$show->series_poster) }}" alt="">
+                        <div class="flex justify-between items-center text-sm">
+                            <div class="flex gap-1 text-white"><img src="{{ URL::asset('frontend/images/clock-icon.svg') }}" alt=""><span>{{ $show->duration }}</span></div>
+                            <div class="text-white opacity-80">Show</div>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between hover:scale-95 duration-300">
+                    <img class="w-full h-[250px]  duration-300 rounded-lg mb-2" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div>
+
+                <div class="h-[300px] w-[200px] mx-5 flex flex-col justify-between">
+                    <img class="w-full h-[250px] hover:scale-110 duration-300" src="./images/movie1.png" alt="">
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="flex gap-1 text-white"><img src="./images/clock-icon.svg" alt=""><span>1h30m</span></div>
+                        <div class="text-white opacity-80">Movies</div>
+                    </div>
+                </div> --}}
+
+
+
+            </div>
+        </section>
+        <!-- section show watch start -->
+    </div>
+</div>
+
+
+@endauth
 
 
 @endsection

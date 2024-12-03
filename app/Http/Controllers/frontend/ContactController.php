@@ -21,12 +21,37 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-        $attributes = $request->validate([
+        // $attributes = $request->validate([
+        //     'first_name' => ['required'],
+        //     'last_name' => ['required'],
+        //     'email' => ['required', 'email'],
+        //     'message' => ['required', 'min:15']
+        // ]);
+
+
+        $data = $request->except('_token');
+
+        // Define validation rules
+        $rules = [
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
-            'phone' => ['required'],
             'message' => ['required', 'min:15']
+        ];
+
+        // Run validation
+        $validator = Validator::make($data, $rules);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),  // Return the actual error messages
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'working this contact form'
         ]);
 
 

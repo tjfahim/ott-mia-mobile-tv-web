@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" href="{{ URL::asset('frontend/style.css') }}">
-    <title>Home Page</title>
+        <!-- Video JS -->
+        <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+        <script defer src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
 
-    <style>
-        [x-cloak] {
-            display: none;
-        }
-    </style>
+        <!-- Alpine.js -->
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
 
-</head>
-<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false}">
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <!-- Slick Carousel -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+        <!-- Custom Styles -->
+        <link rel="stylesheet" href="{{ URL::asset('frontend/style.css') }}">
+
+        <title>Home Page</title>
+
+        <style>
+            [x-cloak] {
+                display: none;
+            }
+        </style>
+    </head>
+
+<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false, contactForm: false}">
     <div class="background">
 
 
@@ -38,7 +50,7 @@
         </div>
     </div>
 
-    <div class="bg-black pb-20">
+    <div class="bg-black pb-20 z-0">
         <div class="container mx-auto">
 
             @yield('content')
@@ -429,9 +441,18 @@
 
 
     <!-- contact us section  start-->
-    <div class="hidden absolute top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
+    <div 
+        x-show="contactForm" 
+        x-transition:enter="transform transition ease-out duration-300"
+        x-transition:enter-start="-translate-x-full opacity-0"
+        x-transition:enter-end="translate-x-0 opacity-100"
+        x-transition:leave="transform transition ease-in duration-300"
+        x-transition:leave-start="translate-x-0 opacity-100"
+        x-transition:leave-end="translate-x-full opacity-0"
+        @click.outside="contactForm = false" 
+        class=" fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
         <!-- close button  -->
-        <button class="faq-close absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="./images/x.svg" alt=""></button>
+        <button @click="contactForm = false" class=" absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="{{ URL::asset('frontend/images/x.svg') }}" alt=""></button>
         <div class="flex flex-col h-full">
             <div>
                 <h2 class="text-2xl bold">Contact Us</h2>
@@ -440,7 +461,7 @@
             <div class="flex flex-col gap-7">
                 <div class="flex gap-3">
                     <div class="p-3 bg-second_black rounded-full">
-                        <img class="size-6" src="./images/mail-icon.svg" alt="">
+                        <img class="size-6" src="{{ URL::asset('frontend/images/mail-icon.svg') }}"  alt="">
                     </div>
                     <div>
                         <h2 class="opacity-80">Email:</h2>
@@ -449,7 +470,7 @@
                 </div>
                 <div class="flex gap-3">
                     <div class="p-3 bg-second_black rounded-full">
-                        <img class="size-6" src="./images/web-icon.svg" alt="">
+                        <img class="size-6" src="{{ URL::asset('frontend/images/web-icon.svg') }}" alt="">
                     </div>
                     <div>
                         <h2 class="opacity-80">Web:</h2>
@@ -457,28 +478,64 @@
                     </div>
                 </div>
             </div>
+            <div x-data="{
+                form: {
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    message: '',
+                },
+                errors: {},
 
-            <form class="flex-1 flex flex-col justify-between pt-10">
-                <div class="flex flex-col gap-5">
-                    <div class="flex w-full gap-3 justify-stretch items-center">
-                        <div class="w-full">
-                            <input type="text" name="first_name" placeholder="first name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
-                        </div>
-                        <div class="w-full">
-                            <input type="text" name="last_name" placeholder="last name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
-                        </div>
-                    </div>
-                    <div>
-                        <input type="email" name="email" placeholder="email" class="w-full p-2 bg-second_black border border-third_black rounded-md">
-                    </div>
-                    <div>
-                        <textarea name="message" id="" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[250px]" placeholder="message">
+                async submit(){
 
-                        </textarea>
+                    axios.post('{{ URL::to('contact') }}', this.form ,{
+                        headers: {
+                            'X-CSRF-TOKEN': this.csrfToken,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        console.log(response);
+                        if (response.data.status === 200) {
+                            location.reload()
+                            this.successMessage = 'Registration successful! You can now login.';
+                            this.errors = {};
+                            this.regform = false;  // Close the modal on success
+                            this.loading = false;
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                            this.showModal = true;  // Open the error modal on error
+                        }
+                        this.loading = false;
+                    });
+                }
+            }">
+                
+                <form @submit.prevent="submit" class="flex-1 flex flex-col justify-between pt-10" >
+                    <div class="flex flex-col gap-5">
+                        <div class="flex w-full gap-3 justify-stretch items-center">
+                            <div class="w-full">
+                                <input type="text" x-model="form.first_name" name="first_name" placeholder="first name" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
+                            </div>
+                            <div class="w-full">
+                                <input type="text" x-model="form.last_name" name="last_name" placeholder="last name" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
+                            </div>
+                        </div>
+                        <div>
+                            <input type="email" x-model="form.email" name="email" placeholder="email" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
+                        </div>
+                        <div>
+                            <textarea name="message" x-model="form.message" id="" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[150px] focus:outline-none focus:ring-0" placeholder="message"></textarea>
+                        </div>
                     </div>
-                </div>
-                <button class="bg-redcolor py-3 text-sm rounded-full text-center">Send</button>
-            </form>
+                    <button class="mt-5 bg-redcolor py-3 text-sm rounded-full text-center">Send</button>
+                </form>
+            </div>
         </div>
      </div>
     <!-- contact us section  end-->
@@ -531,7 +588,8 @@
      </div>
     <!-- feedback section end  -->
 
-
+    
+    <script src="{{ URL::asset('frontend/js/alpineJs.js') }}"></script>
     <script src="{{ URL::asset('frontend/js/jquery-code.js') }}"></script>
     <script src="{{ URL::asset('frontend/js/video.js') }}"></script>
 </body>

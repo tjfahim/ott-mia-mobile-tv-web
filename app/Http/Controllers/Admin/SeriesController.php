@@ -92,7 +92,8 @@ class SeriesController extends MainAdminController
                 $rule=array(
                 'language' => 'required',
                 'series_genres' => 'required',
-                'series_name' => 'required'
+                'series_name' => 'required',
+                'duration' => 'required'
                  );
         }else
         {
@@ -100,7 +101,8 @@ class SeriesController extends MainAdminController
                 'language' => 'required',
                 'series_genres' => 'required',
                 'series_name' => 'required',
-                'series_poster' => 'required'
+                'series_poster' => 'required',
+                'duration' => 'required'
                  );
         }
 
@@ -131,6 +133,7 @@ class SeriesController extends MainAdminController
          $series_obj->series_name = addslashes($inputs['series_name']);
          $series_obj->series_slug = $series_slug;
          $series_obj->series_url = $inputs['series_url'];
+         $series_obj->duration = $inputs['duration'];
          $series_obj->series_info = addslashes($inputs['series_info']);
          $series_obj->series_poster = $inputs['series_poster'];
          $series_obj->status = $inputs['status'];
