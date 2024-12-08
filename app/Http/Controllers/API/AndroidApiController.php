@@ -395,12 +395,14 @@ class AndroidApiController extends MainAPIController
         //exit;
 
         $name = $request->name;
+        $last_name = $request->last_name;
         $email = $request->email;
         $password = $request->password;
         $username = $request->username;
+        $phone = $request->phone;
 
 
-        if ($name == '' and $email == '' and $password == '') {
+        if ($name == '' and $email == '' and $password == '' and $phone == '') {
 
             $response[] = array('msg' => "All fields required", 'success' => '0');
 
@@ -410,17 +412,27 @@ class AndroidApiController extends MainAPIController
             ));
         }
 
-        $user_info = User::where('email', $email)->first();
-
-        if ($user_info) {
-            $response[] = array('msg' => "Email Adresse Already Exists", 'success' => '0');
-
-            return \Response::json(array(
-                'VIDEO_STREAMING_APP' => $response,
-                'status_code' => 701
-            ));
+        $user_info = User::where('email', $email)
+        ->orWhere('phone', $phone)
+        ->first();
+    
+    if ($user_info) {
+        $response = [];
+    
+        // Check what triggered the match
+        if ($user_info->email === $email) {
+            $response[] = array('msg' => "Email Address Already Exists", 'success' => '0');
         }
-
+    
+        if ($user_info->phone === $phone) {
+            $response[] = array('msg' => "Phone Address Already Exists", 'success' => '0');
+        }
+    
+        return \Response::json(array(
+            'VIDEO_STREAMING_APP' => $response,
+            'status_code' => 701
+        ));
+    }
         $user = new User;
 
         //$confirmation_code = str_random(30);
@@ -429,7 +441,9 @@ class AndroidApiController extends MainAPIController
         $user->usertype = 'User';
         $user->name = $name;
         $user->email = $email;
+        $user->last_name = $last_name;
         $user->status = 0;
+        $user->phone = $phone;
         $user->username = $username;
         $user->password = bcrypt($password);
         $user->save();
@@ -441,7 +455,7 @@ class AndroidApiController extends MainAPIController
         // Mail::to($user->email)->send(new UserSendEmailVerification($user, $otp));
 
         DB::table('password_resets')->updateOrInsert(
-            ['email' => $user->email],
+            ['email' => $user->phone],
             [
                 'token' => $otp,
                 'created_at' => now()
@@ -452,6 +466,26 @@ class AndroidApiController extends MainAPIController
         $response[] = array('msg' => trans('words.otp_send'), 'success' => '1', 'data' => $user);
         return \Response::json(array(
             'VIDEO_STREAMING_APP' => $response,
+            'status_code' => 200
+        ));
+    }
+    public function emailCheck(Request $request)
+    {
+        $email = $request->email;
+ 
+        $user_info = User::where('email', $email)->first();
+
+        if ($user_info) {
+            $response[] = array('msg' => "Email Adresse Already Exists", 'success' => '0');
+
+            return \Response::json(array(
+                'VIDEO_STREAMING_APP' => $response,
+                'status_code' => 701
+            ));
+        }
+
+        return \Response::json(array(
+            'VIDEO_STREAMING_APP' => 'Email is valid',
             'status_code' => 200
         ));
     }
@@ -1076,7 +1110,6 @@ class AndroidApiController extends MainAPIController
 
     public function home(Request $request)
     {
-
         // $get_data=checkSignSalt($_POST['data']);
 
         $slider = Slider::where('status', 1)->orderby('id', 'DESC')->get();
@@ -2074,7 +2107,54 @@ class AndroidApiController extends MainAPIController
             'status_code' => 200
         ));
     }
+    public function moviesalldata(Request $request)
+    {
+        $searchTerm = $request->input('search', null); // Get the search term for filtering
+        $genres = Genres::all(); // Fetch all genres to map with movies and series
+    
+        // Fetch and filter movies
+        $movies = Movies::when($searchTerm, function ($query, $searchTerm) {
+            $query->where('video_title', 'like', "%$searchTerm%");
+        })->get();
+    
+        // Fetch and filter series
+        $series = Series::when($searchTerm, function ($query, $searchTerm) {
+            $query->where('video_title', 'like', "%$searchTerm%");
+        })->get();
+    
+        // Fetch live TV data (filtering can be added if needed)
+        $liveTV = LiveTV::all();
+    
+        // Group movies by genres
+        $moviesByGenre = [];
+        foreach ($genres as $genre) {
+            $moviesByGenre[$genre->genre_slug] = $movies->filter(function ($movie) use ($genre) {
+                $movieGenreIds = explode(',', $movie->movie_genre_id);
+                return in_array($genre->id, $movieGenreIds);
+            });
+        }
+    
+        // Group series by genres
+        $seriesByGenre = [];
+        foreach ($genres as $genre) {
+            $seriesByGenre[$genre->genre_slug] = $series->filter(function ($serie) use ($genre) {
+                $serieGenreIds = explode(',', $serie->series_genre_id);
+                return in_array($genre->id, $serieGenreIds);
+            });
+        }
+    
+        // Return the data as JSON
+        return \Response::json([
+            'status_code' => 200,
+            'data' => [
+                'movies' => $moviesByGenre,
+                'series' => $seriesByGenre,
+                'liveTV' => $liveTV,
+            ],
+        ]);
+    }
 
+     
     public function movies_by_language(Request $request)
     {
         // $get_data=checkSignSalt($_POST['data']);

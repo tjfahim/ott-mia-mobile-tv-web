@@ -38,9 +38,6 @@ class TvstationController extends Controller
     public function index()
     {
         $query = request()->all();
-
-
-
         $tvUrl =  array_key_exists('play', $query) ? true : false ;
 
         $tvUrl ? $tv = LiveTV::where('channel_slug', $query['play'])->first() : $tv = LiveTV::first();
@@ -52,9 +49,6 @@ class TvstationController extends Controller
         $recent_shows = Series::all();
         $recent_lives = LiveBroadcastManage::all();
         $liveTV = LiveTV::all();
-
-
-
 
         return view('frontend.tvstation', [
             'recent_movies' => $recent_movies,

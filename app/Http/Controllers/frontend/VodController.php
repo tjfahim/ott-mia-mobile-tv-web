@@ -81,16 +81,6 @@ class VodController extends Controller
         $Apple_Movies_all  = count($Apple_Movies_all) > 5 ? array_slice($Apple_Movies_all, 0, 5) :  $Apple_Movies_all ;
 
 
-
-
-        // return $Netflix_Movies_genre_id;
-        // $Netflix_Movies = Movies::where('');
-        // // $4K_Netflix_Movies
-        // // $Disney_Kids
-        // // $Disney_Movies_en
-        // // $Gangster_Mafia
-        // // $Apple_Movies
-
         $sliders = Slider::all();
 
         return view('frontend.vod.movies', compact('sliders', 'Netflix_Movies_all', '_4k_netflix_movies', 'Disney_Kids_all', 'Disney_Movies_all', 'Gangster_Mafia_all', 'Apple_Movies_all'));

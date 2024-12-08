@@ -11,6 +11,7 @@ use App\LiveTV;
 use App\Movies;
 use App\Series;
 use App\SubscriptionPlan;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,10 @@ class HomeController extends Controller
         $genres = Genres::all();
         $liveStrim = LiveTV::all();
         $category = Category::all();
+        $category = $category->map(function ($category) {
+            $category->link = URL::to('vod/' . strtolower($category->name));
+            return $category;
+        });
         $movies = Movies::all();
         $series = Series::all();
 

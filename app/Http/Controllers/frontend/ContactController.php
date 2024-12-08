@@ -6,6 +6,7 @@ use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Faq;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -19,7 +20,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function storeOld(Request $request)
     {
         // $attributes = $request->validate([
         //     'first_name' => ['required'],
@@ -36,7 +37,7 @@ class ContactController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
-            'message' => ['required', 'min:15']
+            'message' => ['required']
         ];
 
         // Run validation
@@ -46,10 +47,9 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->errors(),  // Return the actual error messages
+                'errors' => $validator->errors(),
             ]);
         }
-
         return response()->json([
             'status' => 'working this contact form'
         ]);
@@ -61,4 +61,36 @@ class ContactController extends Controller
 
         return redirect('/');
     }
+
+
+public function store(Request $request)
+{
+    $data = $request->except('_token');
+
+    // Validation rules
+    $rules = [
+        'first_name' => ['required'],
+        'last_name' => ['required'],
+        'email' => ['required', 'email'],
+        'message' => ['required']
+    ];
+
+    // Validate data
+    $validator = Validator::make($data, $rules);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 400,
+            'errors' => $validator->errors(),
+        ]);
+    }
+
+    // Save the contact
+    Contact::create($data);
+
+    return response()->json([
+        'status' => 200,
+        'message' => 'Message sent successfully!',
+    ]);
+}
 }

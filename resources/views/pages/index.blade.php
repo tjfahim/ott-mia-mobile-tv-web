@@ -380,10 +380,7 @@
                                         @else
                                         <a href="{{ URL::to('movies/'.App\Movies::getMoviesInfo($popular_movie,'video_slug').'/'.App\Movies::getMoviesInfo($popular_movie,'id')) }}" class="cta-btn watch-btn" tabindex="-1">Watch</a>
                                         @endif
-                                        @endif
-
-
-
+                                    @endif
 
                                 </div>
                                 <div class="splide__icons">

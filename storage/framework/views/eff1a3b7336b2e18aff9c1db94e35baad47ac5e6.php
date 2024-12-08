@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
         <!-- Video JS -->
         <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
@@ -26,7 +26,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
         <!-- Custom Styles -->
-        <link rel="stylesheet" href="{{ URL::asset('frontend/style.css') }}">
+        <link rel="stylesheet" href="<?php echo e(URL::asset('frontend/style.css')); ?>">
 
         <title>Home Page</title>
 
@@ -44,7 +44,7 @@
     <div class="bg-black">
         <div class="container mx-auto">
             <!-- nav section  start -->
-            @include('client_site.components.navbar')
+            <?php echo $__env->make('client_site.components.navbar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
              <!-- nav section  end -->
 
         </div>
@@ -53,7 +53,7 @@
     <div class="bg-black pb-20 z-0">
         <div class="container mx-auto">
 
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
 
         </div>
     </div>
@@ -117,7 +117,7 @@
 
                     <div class="flex flex-col sm:flex-row gap-5 text-center justify-between py-5 text-white opacity-50">
                         <div>
-                            @2023 streamvib, All Rights Reserved
+                            @2023  streamvib, All Rights Reserved
                         </div>
                         <div class="px-3">
                             <a class="px-2 border-r" href="">Terms of Use</a>
@@ -144,7 +144,7 @@
                 password: '',
                 error_find: false,
                 error: '',
-                url: '{{ URL::to('login') }}',
+                url: '<?php echo e(URL::to('login')); ?>',
                 csrfToken: '',
                 submitForm() {
                     axios.post(this.url, {
@@ -229,7 +229,7 @@
             </div>
         </section>
 
-        <button @click="loginform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="{{ URL::asset('frontend/images/x.svg') }}" alt=""></button>
+        <button @click="loginform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt=""></button>
     </div>
     <!-- login section end -->
 
@@ -251,7 +251,7 @@
     showModal: false,
     submitForm() {
         this.loading = true;
-        axios.post('{{ URL::to('signup') }}', {
+        axios.post('<?php echo e(URL::to('signup')); ?>', {
             name: this.name,
             last_name: this.last_name,
             email: this.email,
@@ -378,7 +378,7 @@
 
         <!-- Close Button -->
         <button @click="regform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor">
-            <img src="{{ URL::asset('frontend/images/x.svg') }}" alt="">
+            <img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt="">
         </button>
     </div>
 
@@ -453,7 +453,7 @@
             class=" fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
             
             <!-- close button  -->
-            <button @click="contactForm = false" class=" absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="{{ URL::asset('frontend/images/x.svg') }}" alt=""></button>
+            <button @click="contactForm = false" class=" absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt=""></button>
             <div class="flex flex-col h-full">
                 <div>
                     <h2 class="text-2xl bold">Contact Us</h2>
@@ -462,7 +462,7 @@
                 <div class="flex flex-col gap-7">
                     <div class="flex gap-3">
                         <div class="p-3 bg-second_black rounded-full">
-                            <img class="size-6" src="{{ URL::asset('frontend/images/mail-icon.svg') }}"  alt="">
+                            <img class="size-6" src="<?php echo e(URL::asset('frontend/images/mail-icon.svg')); ?>"  alt="">
                         </div>
                         <div>
                             <h2 class="opacity-80">Email:</h2>
@@ -471,7 +471,7 @@
                     </div>
                     <div class="flex gap-3">
                         <div class="p-3 bg-second_black rounded-full">
-                            <img class="size-6" src="{{ URL::asset('frontend/images/web-icon.svg') }}" alt="">
+                            <img class="size-6" src="<?php echo e(URL::asset('frontend/images/web-icon.svg')); ?>" alt="">
                         </div>
                         <div>
                             <h2 class="opacity-80">Web:</h2>
@@ -502,7 +502,7 @@
 
         try {
             // Send the form data to the server
-            const response = await axios.post('{{ URL::to('contact') }}', this.form, {
+            const response = await axios.post('<?php echo e(URL::to('contact')); ?>', this.form, {
                 headers: {
                     'X-CSRF-TOKEN': this.csrfToken,
                     'Content-Type': 'application/json',
@@ -625,8 +625,9 @@
     <!-- feedback section end  -->
 
     
-    <script src="{{ URL::asset('frontend/js/alpineJs.js') }}"></script>
-    <script src="{{ URL::asset('frontend/js/jquery-code.js') }}"></script>
-    <script src="{{ URL::asset('frontend/js/video.js') }}"></script>
+    <script src="<?php echo e(URL::asset('frontend/js/alpineJs.js')); ?>"></script>
+    <script src="<?php echo e(URL::asset('frontend/js/jquery-code.js')); ?>"></script>
+    <script src="<?php echo e(URL::asset('frontend/js/video.js')); ?>"></script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\ott\resources\views/client_site/layouts/app.blade.php ENDPATH**/ ?>

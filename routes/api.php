@@ -37,6 +37,7 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
 
     Route::post('login', 'AndroidApiController@postLogin');
     Route::post('signup', 'AndroidApiController@postSignup');
+    Route::post('emailCheck', 'AndroidApiController@emailCheck');
     Route::post('verify_signup', 'AndroidApiController@verify_signup');
 
     Route::post('login_social', 'AndroidApiController@postSocialLogin');
@@ -78,6 +79,7 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     //Route::post('episodes_details', 'AndroidApiController@episodes_details');
 
     Route::post('movies', 'AndroidApiController@movies');
+    Route::post('moviesalldata', 'AndroidApiController@moviesalldata');
     Route::post('movies_by_language', 'AndroidApiController@movies_by_language');
     Route::post('movies_by_genre', 'AndroidApiController@movies_by_genre');
     Route::post('movies_details', 'AndroidApiController@movies_details');
@@ -129,7 +131,3 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::get('get_channel_data', 'AndroidApiController@get_channel_data');
 
 });
-
-
-// h
-
