@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AndroidApiController;
 use Illuminate\Http\Request;
 
 /*
@@ -57,6 +58,8 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::post('subscription_plan', 'AndroidApiController@subscription_plan');
     Route::post('transaction_add', 'AndroidApiController@transaction_add');
 
+    Route::get('user-settings/{userId}', [AndroidApiController::class, 'getUserSettings']);
+    Route::post('user-settings/{userId}', [AndroidApiController::class, 'postUserSettings']);
 
     Route::post('home', 'AndroidApiController@home');
     Route::post('latest_movies', 'AndroidApiController@latest_movies');
@@ -79,7 +82,7 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     //Route::post('episodes_details', 'AndroidApiController@episodes_details');
 
     Route::post('movies', 'AndroidApiController@movies');
-    Route::post('moviesalldata', 'AndroidApiController@moviesalldata');
+    Route::get('moviesalldata', 'AndroidApiController@moviesalldata');
     Route::post('movies_by_language', 'AndroidApiController@movies_by_language');
     Route::post('movies_by_genre', 'AndroidApiController@movies_by_genre');
     Route::post('movies_details', 'AndroidApiController@movies_details');

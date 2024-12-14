@@ -34,7 +34,7 @@ class HomeController extends Controller
 
 
         $monthly_plan = SubscriptionPlan::where('plan_days', 30)->where('status', 1)->get();
-        $yearly_plan = SubscriptionPlan::where('plan_days', 365)->get();
+        $yearly_plan = SubscriptionPlan::where('plan_days', 365)->where('status', 1)->get();
 
 
 

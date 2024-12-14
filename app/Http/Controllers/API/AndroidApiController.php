@@ -47,6 +47,8 @@ use App\Mail\UserSendEmailVerification;
 use App\RecentWatch;
 use App\UserBroadcast;
 use App\ChannelManage;
+use App\UserSetting;
+use App\DeviceManage;
 use App\UserBroadcastComments;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
@@ -259,61 +261,65 @@ class AndroidApiController extends MainAPIController
         ));
     }
 
+
     public function postLogin(Request $request)
     {
-
-        // $get_data=checkSignSalt($_POST['data']);
-
-
-        // $email=isset($get_data['email'])?$get_data['email']:'';
-        // $password=isset($get_data['password'])?$get_data['password']:'';
-
         $email = $request->email;
         $password = $request->password;
-
-        if ($email == '' and $password == '') {
-
-            $response[] = array('msg' => "All field required", 'success' => '0');
-
-            return \Response::json(array(
+    
+        if ($email == '' || $password == '') {
+            $response[] = array('msg' => "All fields are required", 'success' => '0');
+            return response()->json([
                 'VIDEO_STREAMING_APP' => $response,
-                'status_code' => 401
-            ));
+                'status_code' => 401,
+            ]);
         }
-
+    
         $user_info = User::where('email', $email)->first();
-
-
-        if (Hash::check($password, $user_info->password)) {
-
+    
+        if ($user_info && Hash::check($password, $user_info->password)) {
             if ($user_info->status == 0) {
-                //\Auth::logout();
-
                 $response[] = array('msg' => trans('words.account_banned'), 'success' => '0');
             } else {
                 $user_id = $user_info->id;
                 $user = User::findOrFail($user_id);
-
-
-                if ($user->user_image != '') {
-                    $user_image = \URL::asset('upload/' . $user->user_image);
-                } else {
-                    $user_image = \URL::asset('upload/profile.png');
-                }
-
+    
+                $user_image = $user->user_image != '' 
+                    ? \URL::asset('upload/' . $user->user_image) 
+                    : \URL::asset('upload/profile.png');
+    
+                // Device management logic
+                $device_id = $request->device_id;
+                $device_name = $request->device_name;
+                $ip_address = $request->ip();
+    
+                // Create or update device_manage record
+                $device = DeviceManage::updateOrCreate(
+                    [
+                        'user_id' => $user_id,
+                        'device_id' => $device_id,
+                    ],
+                    [
+                        'username' => $user->name,
+                        'device_name' => $device_name,
+                        'ip_address' => $ip_address,
+                        'is_login' => true,
+                    ]
+                );
+    
                 $response[] = array('user_id' => $user, 'msg' => 'Login successfully...', 'success' => '701');
             }
         } else {
             $response[] = array('msg' => trans('words.email_password_invalid'), 'success' => '0');
         }
-
-
-        return \Response::json(array(
+    
+        return response()->json([
             'VIDEO_STREAMING_APP' => $response,
-            'status_code' => 200
-        ));
+            'Device data' =>  $device,
+            'status_code' => 200,
+        ]);
     }
-
+    
     public function postSocialLogin(Request $request)
     {
 
@@ -451,7 +457,7 @@ class AndroidApiController extends MainAPIController
         //Welcome Email
 
         // $otp = rand(100000, 999999);
-        $otp = 1234;
+        $otp = 12345;
         // Mail::to($user->email)->send(new UserSendEmailVerification($user, $otp));
 
         DB::table('password_resets')->updateOrInsert(
@@ -469,25 +475,93 @@ class AndroidApiController extends MainAPIController
             'status_code' => 200
         ));
     }
+
+
+    public function getUserSettings($userId)
+    {
+        // Fetch user settings for the given user ID
+        $userSettings = UserSetting::where('user_id', $userId)->first();
+
+        if ($userSettings) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User settings retrieved successfully',
+                'data' => $userSettings
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User settings not found'
+            ], 404);
+        }
+    }
+
+    // Post (Create or Update) User Settings
+    public function postUserSettings(Request $request, $userId)
+    {
+        // Validate the incoming data
+        $validator = Validator::make($request->all(), [
+            'display_language' => 'nullable|string',
+            'default_audio_language' => 'nullable|string',
+            'default_subtitle_language' => 'nullable|string',
+            'auto_play_next_episode' => 'nullable|boolean',
+            'auto_play_preview' => 'nullable|boolean',
+            'data_usage_per_screen' => 'nullable|boolean',
+            'notification_new_series_or_episode' => 'nullable|boolean',
+            'notification_new_recommendation_or_arrival' => 'nullable|boolean',
+            'notification_survey_and_research' => 'nullable|boolean',
+            'notification_membership_offer_and_promo' => 'nullable|boolean',
+            'notification_account_updates' => 'nullable|boolean',
+            'notification_email_1' => 'nullable',
+            'notification_email_2' => 'nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        // Create or update the user settings
+        $userSetting = UserSetting::updateOrCreate(
+            ['user_id' => $userId],  // Check for existing record with user_id
+            $request->all()  // Update fields with incoming request data
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User settings updated successfully',
+            'data' => $userSetting
+        ], 200);
+    }
+
+
+
     public function emailCheck(Request $request)
     {
         $email = $request->email;
- 
+    
         $user_info = User::where('email', $email)->first();
-
+    
         if ($user_info) {
-            $response[] = array('msg' => "Email Adresse Already Exists", 'success' => '0');
-
-            return \Response::json(array(
-                'VIDEO_STREAMING_APP' => $response,
-                'status_code' => 701
-            ));
+            return response()->json([
+                'VIDEO_STREAMING_APP' => [
+                    'msg' => "Email Address Already Exists",
+                    'success' => '0',
+                ],
+                'status_code' => 409
+            ], 409); // Set HTTP status code to 409
         }
-
-        return \Response::json(array(
-            'VIDEO_STREAMING_APP' => 'Email is valid',
+    
+        return response()->json([
+            'VIDEO_STREAMING_APP' => [
+                'msg' => "Email is valid",
+                'success' => '1',
+            ],
             'status_code' => 200
-        ));
+        ], 200); // Set HTTP status code to 200
     }
     public function verify_signup(Request $request)
     {
@@ -510,8 +584,10 @@ class AndroidApiController extends MainAPIController
         if (!$otpRecord) {
             return response()->json(['message' => 'Invalid OTP'], 400);
         }
+        $user = User::where('email', $request->email)
+        ->orWhere('phone', $request->email)
+        ->first();
 
-        $user = User::where('email', $request->email)->first();
         $user->status = 1;
         $user->save();
         DB::table('password_resets')->where('email', $user->email)->delete();
@@ -975,32 +1051,46 @@ class AndroidApiController extends MainAPIController
     }
 
     public function subscription_plan(Request $request)
-    {
-        // $get_data=checkSignSalt($_POST['data']);
+{
+    $plan_list = SubscriptionPlan::where('status', '1')->orderby('id')->get();
+    $settings = Settings::findOrFail('1');
+    $currency_code = $settings->currency_code;
 
-        $plan_list = SubscriptionPlan::where('status', '1')->orderby('id')->get();
+    $monthly_plans = [];
+    $yearly_plans = [];
 
+    foreach ($plan_list as $plan_data) {
+        $plan_id = $plan_data->id;
+        $plan_name = $plan_data->plan_name;
+        $plan_duration = SubscriptionPlan::getPlanDuration($plan_data->id); // Assuming it returns "1 Month(s)", "30 Day(s)", or "1 Year(s)"
+        $plan_price = $plan_data->plan_price;
+        $finalprice = $plan_data->finalprice ?? null;
 
-        $settings = Settings::findOrFail('1');
+        $plan_info = [
+            "plan_id" => $plan_id,
+            "plan_name" => $plan_name,
+            "plan_duration" => $plan_duration,
+            "plan_price" => $plan_price,
+            "finalprice" => $finalprice,
+            "currency_code" => $currency_code,
+        ];
 
-        $currency_code = $settings->currency_code;
-
-        foreach ($plan_list as $plan_data) {
-            $plan_id = $plan_data->id;
-            $plan_name = $plan_data->plan_name;
-            $plan_duration = SubscriptionPlan::getPlanDuration($plan_data->id);
-            $plan_price = $plan_data->plan_price;
-            $finalprice = $plan_data->finalprice ?? null;
-
-            $response[] = array("plan_id" => $plan_id, "plan_name" => $plan_name, "plan_duration" => $plan_duration, "plan_price" => $plan_price, "finalprice"=> $finalprice,"currency_code" => $currency_code);
+        // Updated classification logic
+        if (str_contains(strtolower($plan_duration), 'month') || str_contains(strtolower($plan_duration), 'day')) {
+            $monthly_plans[] = $plan_info;
+        } elseif (str_contains(strtolower($plan_duration), 'year')) {
+            $yearly_plans[] = $plan_info;
         }
-
-        return \Response::json(array(
-            'VIDEO_STREAMING_APP' => $response,
-            'status_code' => 200
-        ));
     }
 
+    return \Response::json([
+        'VIDEO_STREAMING_APP' => [
+            'monthly_plans' => $monthly_plans,
+            'yearly_plans' => $yearly_plans,
+        ],
+        'status_code' => 200,
+    ]);
+}
     public function stripe_token_get(Request $request)
     {
 
@@ -2128,19 +2218,33 @@ class AndroidApiController extends MainAPIController
         // Group movies by genres
         $moviesByGenre = [];
         foreach ($genres as $genre) {
-            $moviesByGenre[$genre->genre_slug] = $movies->filter(function ($movie) use ($genre) {
+            $filteredMovies = $movies->filter(function ($movie) use ($genre) {
                 $movieGenreIds = explode(',', $movie->movie_genre_id);
                 return in_array($genre->id, $movieGenreIds);
-            });
+            })->values();
+    
+            if ($filteredMovies->isNotEmpty()) {
+                $moviesByGenre[$genre->genre_slug] = [
+                    'title' => $genre->genre_name,
+                    'movies' => $filteredMovies,
+                ];
+            }
         }
     
         // Group series by genres
         $seriesByGenre = [];
         foreach ($genres as $genre) {
-            $seriesByGenre[$genre->genre_slug] = $series->filter(function ($serie) use ($genre) {
+            $filteredSeries = $series->filter(function ($serie) use ($genre) {
                 $serieGenreIds = explode(',', $serie->series_genre_id);
                 return in_array($genre->id, $serieGenreIds);
-            });
+            })->values();
+    
+            if ($filteredSeries->isNotEmpty()) {
+                $seriesByGenre[$genre->genre_slug] = [
+                    'title' => $genre->genre_name,
+                    'series' => $filteredSeries,
+                ];
+            }
         }
     
         // Return the data as JSON

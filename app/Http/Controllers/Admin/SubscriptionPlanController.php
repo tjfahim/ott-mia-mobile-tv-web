@@ -46,7 +46,6 @@ class SubscriptionPlanController extends MainAdminController
         
         if(Auth::User()->usertype!="Admin")
         {
-
             \Session::flash('flash_message', trans('words.access_denied'));
 
             return redirect('dashboard');
