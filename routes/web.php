@@ -53,6 +53,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     // h
 
+
+	Route::get('/qrtesting2', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'qr']);
+	Route::get('/qrscanner', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'qrscanner']);
+	Route::post('web/login/entry/login', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'loginEntry']);
+
 	Route::get('/', 'IndexController@index');
 
 	Route::get('login', [ 'as' => 'login', 'uses' => 'IndexController@index']);

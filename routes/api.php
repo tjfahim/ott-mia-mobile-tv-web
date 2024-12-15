@@ -25,6 +25,13 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
 
     //Route::apiResource('customers', 'AndroidApiController');
 
+    Route::post('/login/create/qrcode', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'CreateQrcodeAction']); 
+    Route::post('/login/mobile/scan/qrcode',[App\Http\Controllers\Admin\QRLoginTwoController::class, 'mobileScanQrcodeAction']); 
+    Route::post('/login/qrcodedoLogin',[App\Http\Controllers\Admin\QRLoginTwoController::class, 'qrcodeDoLoginAction']); 
+    Route::post('/login/scan/qrcode',[App\Http\Controllers\Admin\QRLoginTwoController::class, 'isScanQrcodeAction']); 
+
+
+
     Route::get('/', 'AndroidApiController@index');
     Route::post('app_details', 'AndroidApiController@app_details');
     Route::post('player_settings', 'AndroidApiController@player_settings');
@@ -58,7 +65,7 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::post('subscription_plan', 'AndroidApiController@subscription_plan');
     Route::post('transaction_add', 'AndroidApiController@transaction_add');
 
-    Route::get('user-settings/{userId}', [AndroidApiController::class, 'getUserSettings']);
+    Route::get('user-settings/{userId}/{device_id}', [AndroidApiController::class, 'getUserSettings']);
     Route::post('user-settings/{userId}', [AndroidApiController::class, 'postUserSettings']);
 
     Route::post('home', 'AndroidApiController@home');

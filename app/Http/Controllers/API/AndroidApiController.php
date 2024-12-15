@@ -291,6 +291,7 @@ class AndroidApiController extends MainAPIController
                 // Device management logic
                 $device_id = $request->device_id;
                 $device_name = $request->device_name;
+                $device_type = $request->device_type;
                 $ip_address = $request->ip();
     
                 // Create or update device_manage record
@@ -302,12 +303,18 @@ class AndroidApiController extends MainAPIController
                     [
                         'username' => $user->name,
                         'device_name' => $device_name,
+                        'device_type' => $device_type,
                         'ip_address' => $ip_address,
                         'is_login' => true,
                     ]
                 );
     
                 $response[] = array('user_id' => $user, 'msg' => 'Login successfully...', 'success' => '701');
+                 // Create or update the user settings
+            $userSetting = UserSetting::updateOrCreate(
+                ['user_id' => $user_id],  // Check for existing record with user_id
+                $request->all()  // Update fields with incoming request data
+            );
             }
         } else {
             $response[] = array('msg' => trans('words.email_password_invalid'), 'success' => '0');
@@ -316,6 +323,7 @@ class AndroidApiController extends MainAPIController
         return response()->json([
             'VIDEO_STREAMING_APP' => $response,
             'Device data' =>  $device,
+            'User Setting Data' =>  $userSetting,
             'status_code' => 200,
         ]);
     }
@@ -477,16 +485,31 @@ class AndroidApiController extends MainAPIController
     }
 
 
-    public function getUserSettings($userId)
+    public function getUserSettings($userId, Request $request, $device_id)
     {
         // Fetch user settings for the given user ID
         $userSettings = UserSetting::where('user_id', $userId)->first();
-
+    
+        // Fetch DeviceManage records for the user
+        $DeviceManage = DeviceManage::where('user_id', $userId)->get();
+    
+        // Prioritize the device with the matching device_id
+        $DeviceManage = $DeviceManage->sortByDesc(function ($device) use ($device_id) {
+            return $device->device_id == $device_id ? 1 : 0;
+        })->values(); // Reset keys for sorted collection
+    
+        // Create or update the user settings with the incoming request data
+        $userSetting = UserSetting::updateOrCreate(
+            ['user_id' => $userId],  // Check for existing record with user_id
+            $request->all()  // Update fields with incoming request data
+        );
+    
         if ($userSettings) {
             return response()->json([
                 'success' => true,
                 'message' => 'User settings retrieved successfully',
-                'data' => $userSettings
+                'data' => $userSettings,
+                'DeviceManage' => $DeviceManage
             ], 200);
         } else {
             return response()->json([
@@ -495,48 +518,92 @@ class AndroidApiController extends MainAPIController
             ], 404);
         }
     }
-
     // Post (Create or Update) User Settings
     public function postUserSettings(Request $request, $userId)
     {
-        // Validate the incoming data
-        $validator = Validator::make($request->all(), [
-            'display_language' => 'nullable|string',
-            'default_audio_language' => 'nullable|string',
-            'default_subtitle_language' => 'nullable|string',
-            'auto_play_next_episode' => 'nullable|boolean',
-            'auto_play_preview' => 'nullable|boolean',
-            'data_usage_per_screen' => 'nullable|boolean',
-            'notification_new_series_or_episode' => 'nullable|boolean',
-            'notification_new_recommendation_or_arrival' => 'nullable|boolean',
-            'notification_survey_and_research' => 'nullable|boolean',
-            'notification_membership_offer_and_promo' => 'nullable|boolean',
-            'notification_account_updates' => 'nullable|boolean',
-            'notification_email_1' => 'nullable',
-            'notification_email_2' => 'nullable',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 400);
+        if ($request->device_id && $request->is_login == 1) {
+            // Find the device entry for the user
+            $login = DeviceManage::where('user_id', $userId)
+                ->where('device_id', $request->device_id)
+                ->first();
+        
+            if ($login) {
+                // Delete the device entry
+                $login->delete();
+        
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Device data deleted successfully',
+                    'data' => null
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Device not found for the user',
+                    'data' => null
+                ], 404);
+            }
         }
+    // Define the fields that should be treated as booleans and converted to integers
+    $booleanFields = [
+        'auto_play_next_episode',
+        'auto_play_preview',
+        'notification_new_series_or_episode',
+        'notification_new_recommendation_or_arrival',
+        'notification_survey_and_research',
+        'notification_membership_offer_and_promo',
+        'notification_account_updates',
+    ];
 
-        // Create or update the user settings
-        $userSetting = UserSetting::updateOrCreate(
-            ['user_id' => $userId],  // Check for existing record with user_id
-            $request->all()  // Update fields with incoming request data
-        );
-
-        return response()->json([
-            'success' => true,
-            'message' => 'User settings updated successfully',
-            'data' => $userSetting
-        ], 200);
+    // Preprocess the request data to convert boolean fields to 0 or 1
+    $data = $request->all();
+    foreach ($booleanFields as $field) {
+        if (isset($data[$field])) {
+            $data[$field] = filter_var($data[$field], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
+        }
     }
 
+    // Validate the processed data
+    $validator = Validator::make($data, [
+        'display_language' => 'nullable|string',
+        'default_audio_language' => 'nullable|string',
+        'default_subtitle_language' => 'nullable|string',
+        'auto_play_next_episode' => 'nullable|boolean',
+        'auto_play_preview' => 'nullable|boolean',
+        'data_usage_per_screen' => 'nullable|string',
+        'notification_new_series_or_episode' => 'nullable|boolean',
+        'notification_new_recommendation_or_arrival' => 'nullable|boolean',
+        'notification_survey_and_research' => 'nullable|boolean',
+        'notification_membership_offer_and_promo' => 'nullable|boolean',
+        'notification_account_updates' => 'nullable|boolean',
+        'notification_email_1' => 'nullable|string',
+        'notification_email_2' => 'nullable|string',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $validator->errors(),
+        ], 400);
+    }
+
+    // Update or create user settings in the database
+    $userSetting = DB::table('user_settings')
+        ->updateOrInsert(
+            ['user_id' => $userId], // Check for existing user setting by user_id
+            $data // Update or insert with the processed data
+        );
+
+    // Fetch the updated record
+    $updatedSetting = DB::table('user_settings')->where('user_id', $userId)->first();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'User settings updated successfully',
+        'data' => $updatedSetting,
+    ], 200);
+}
 
 
     public function emailCheck(Request $request)
@@ -2209,7 +2276,7 @@ class AndroidApiController extends MainAPIController
     
         // Fetch and filter series
         $series = Series::when($searchTerm, function ($query, $searchTerm) {
-            $query->where('video_title', 'like', "%$searchTerm%");
+            $query->where('series_name', 'like', "%$searchTerm%"); // Ensure correct column name
         })->get();
     
         // Fetch live TV data (filtering can be added if needed)
@@ -2224,9 +2291,18 @@ class AndroidApiController extends MainAPIController
             })->values();
     
             if ($filteredMovies->isNotEmpty()) {
-                $moviesByGenre[$genre->genre_slug] = [
-                    'title' => $genre->genre_name,
-                    'movies' => $filteredMovies,
+                $moviesByGenre[] = [
+                    'category_name' => $genre->genre_name, // Category name like Drama, Action, etc.
+                    'movies' => $filteredMovies->map(function ($movie) {
+                        // Ensure full URL is generated for images
+                        if (strpos($movie->video_image_thumb, 'http') === false) {
+                            $movie->video_image_thumb = asset('upload/source/' . $movie->video_image_thumb);
+                        }
+                        if (strpos($movie->video_image, 'http') === false) {
+                            $movie->video_image = asset('upload/source/' . $movie->video_image);
+                        }
+                        return $movie;
+                    }), // List of movies under this category
                 ];
             }
         }
@@ -2235,14 +2311,20 @@ class AndroidApiController extends MainAPIController
         $seriesByGenre = [];
         foreach ($genres as $genre) {
             $filteredSeries = $series->filter(function ($serie) use ($genre) {
-                $serieGenreIds = explode(',', $serie->series_genre_id);
+                $serieGenreIds = explode(',', $serie->series_genres);
                 return in_array($genre->id, $serieGenreIds);
             })->values();
     
             if ($filteredSeries->isNotEmpty()) {
-                $seriesByGenre[$genre->genre_slug] = [
-                    'title' => $genre->genre_name,
-                    'series' => $filteredSeries,
+                $seriesByGenre[] = [
+                    'category_name' => $genre->genre_name, // Category name like Drama, Comedy, etc.
+                    'series' => $filteredSeries->map(function ($serie) {
+                        // Ensure full URL is generated for images
+                        if (strpos($serie->series_poster, 'http') === false) {
+                            $serie->series_poster = asset('upload/source/' . $serie->series_poster);
+                        }
+                        return $serie;
+                    }), // List of series under this category
                 ];
             }
         }
@@ -2257,7 +2339,8 @@ class AndroidApiController extends MainAPIController
             ],
         ]);
     }
-
+    
+    
      
     public function movies_by_language(Request $request)
     {
