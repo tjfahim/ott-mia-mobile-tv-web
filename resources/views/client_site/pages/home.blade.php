@@ -11,12 +11,17 @@
 <div class="h-[calc(100vh-90px)]"
 style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), url('{{ URL::asset('frontend/images/bg-hero.png') }}'); background-size: cover; background-position: center;">
     <div class="h-full w-3/4 mx-auto flex flex-col gap-5 justify-center items-center">
-        <img class="" src="{{  URL::asset('frontend/images/logo-hero.svg') }}" alt="">
-        <h1 class="font-manrope text-4xl text-white font-bold text-center">Welcome To Silk Road Television</h1>
-        <p class="text-white opacity-50 text-sm text-center md:w-3/4">
+        <img class="w-[450px]" src="{{  URL::asset('frontend/images/logo-hero.svg') }}" alt="">
+        <h1 class="font-manrope text-6xl text-white font-bold text-center">Welcome To Silk Road Television</h1>
+        <p class="text-[#999999] text-xl text-center md:w-4/5 tracking-wider">
             StreamVibe is the best streaming experience for watching your favorite movies and shows on demand, anytime, anywhere. With StreamVibe, you can enjoy a wide variety of content, including the latest blockbusters, classic movies, popular TV shows, and more. You can also create your own watchlists, so you can easily find the content you want to watch.
         </p>
-        <a href="{{ URL::to('vod/movies')}} " class="btn-red">Start watching Now</a>
+        <a  href="{{ URL::to('vod/movies')}} " class="btn-red">
+            <div class="flex gap-2 items-center">
+                <img class="size-6" src="{{ URL::asset('frontend/images/play-icon.svg') }}" alt="" srcset="">
+                <div>Start watching Now</div>
+            </div>
+        </a>
     </div>
 </div>
 <!-- hero section end -->

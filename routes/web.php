@@ -24,6 +24,8 @@ use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
 use Illuminate\Support\Facades\Route;
 
+use Intervention\Image\Facades\Image;
+
 Route::post('/reels/{id}/like', [ReelsController::class, 'postLike']);
 Route::get('/reels/{id}/likes', [ReelsController::class, 'ReelLike']);
 Route::post('/reels/{id}/comments', [ReelsController::class, 'postComment']);
@@ -52,11 +54,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 
     // h
-
-
-	Route::get('/qrtesting2', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'qr']);
-	Route::get('/qrscanner', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'qrscanner']);
-	Route::post('web/login/entry/login', [App\Http\Controllers\Admin\QRLoginTwoController::class, 'loginEntry']);
 
 	Route::get('/', 'IndexController@index');
 
@@ -441,5 +438,31 @@ Route::get('account/device', [App\Http\Controllers\frontend\user\AccountControll
 Route::get('account/preferences', [App\Http\Controllers\frontend\user\AccountController::class, 'preferences'])->middleware('authUser');
 Route::get('favorite', [App\Http\Controllers\frontend\user\AccountController::class, 'favorite']);
 
+
+// create image api
+
+
+Route::get('test', function(){
+    $url1 = 'https://placehold.co/400x600?text=hadi.png';
+    $url2 = 'https://placehold.co/400x600?text=rony';
+    $url3 = 'https://placehold.co/400x600?text=zaman';
+
+
+
+    $img = Image::make(asset('frontend/images/bg-hero.png'));
+
+    return 1;
+
+    $img->resize(300, null, function ($constraint) {
+        $constraint->aspectRatio();
+    });
+
+
+    $fileName = 'resized_image_' . time() . '.jpg';
+    $img->save(public_path('images/' . $fileName));
+
+
+    return "image genrate successfully";
+});
 
 // h

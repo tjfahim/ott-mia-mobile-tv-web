@@ -11,7 +11,6 @@ class DeviceManage extends Model
         'username',
         'device_id',
         'device_name',
-        'device_type',
         'ip_address',
         'is_login',
     ];

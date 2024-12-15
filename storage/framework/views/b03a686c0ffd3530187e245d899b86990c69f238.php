@@ -9,12 +9,17 @@
 <div class="h-[calc(100vh-90px)]"
 style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%), url('<?php echo e(URL::asset('frontend/images/bg-hero.png')); ?>'); background-size: cover; background-position: center;">
     <div class="h-full w-3/4 mx-auto flex flex-col gap-5 justify-center items-center">
-        <img class="" src="<?php echo e(URL::asset('frontend/images/logo-hero.svg')); ?>" alt="">
-        <h1 class="font-manrope text-4xl text-white font-bold text-center">Welcome To Silk Road Television</h1>
-        <p class="text-white opacity-50 text-sm text-center md:w-3/4">
+        <img class="w-[450px]" src="<?php echo e(URL::asset('frontend/images/logo-hero.svg')); ?>" alt="">
+        <h1 class="font-manrope text-6xl text-white font-bold text-center">Welcome To Silk Road Television</h1>
+        <p class="text-[#999999] text-xl text-center md:w-4/5 tracking-wider">
             StreamVibe is the best streaming experience for watching your favorite movies and shows on demand, anytime, anywhere. With StreamVibe, you can enjoy a wide variety of content, including the latest blockbusters, classic movies, popular TV shows, and more. You can also create your own watchlists, so you can easily find the content you want to watch.
         </p>
-        <a href="" class="btn-red">Start watching Now</a>
+        <a  href="<?php echo e(URL::to('vod/movies')); ?> " class="btn-red">
+            <div class="flex gap-2 items-center">
+                <img class="size-6" src="<?php echo e(URL::asset('frontend/images/play-icon.svg')); ?>" alt="" srcset="">
+                <div>Start watching Now</div>
+            </div>
+        </a>
     </div>
 </div>
 <!-- hero section end -->
@@ -37,7 +42,7 @@ style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0,
                         <img class="w-full h-[300px] rounded-md" src="<?php echo e(URL::to('upload/source/'.$cat->image)); ?>" alt="" style="background: linear-gradient(to bottom, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 1) 100%);">
                         <div class="flex justify-between items-center">
                             <h2><?php echo e($cat->name); ?></h2>
-                            <a href=""><img src="<?php echo e(URL::asset('frontend/images/right-arrow.svg')); ?>" alt=""></a>
+                            <a href="<?php echo e($cat->link); ?>"><img src="<?php echo e(URL::asset('frontend/images/right-arrow.svg')); ?>" alt=""></a>
                         </div>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -126,7 +131,8 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                     <h2 class="font-bold text-3xl mb-2">Frequently Asked Questions</h2>
                     <div class="text-sm opacity-50">Got questions? We've got answers! Check out our FAQ section to find answers to the most common questions about StreamVibe.</div>
                 </div>
-                <a href="" class="btn-red hover:opacity-50">Ask a Question</a>
+                <a href="" class="px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Notification</a>
+                <a @click="contactForm = true" class=" btn-red hover:opacity-50">Ask a Question</a>
             </div>
             <div class="space-y-5 grid grid-cols-1  sm:grid-cols-2 gap-5">
                 <!-- single question  -->
@@ -211,7 +217,7 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                     <h2 class="font-bold text-3xl mb-2">Start browsing for free today!</h2>
                     <p class=" opacity-50 text-sm">This is a clear and concise call to action that encourages users to sign up for a free trial of StreamVibe.</p>
                 </div>
-                <a href="" class="btn-red hover:opacity-50">Stat a free trail</a>
+                <a  href="" class="btn-red hover:opacity-50">Start a free trail</a>
             </div>
         </section>
         <!-- free trail section  end  -->

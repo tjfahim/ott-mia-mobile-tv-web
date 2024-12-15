@@ -37,7 +37,7 @@
         </style>
     </head>
 
-<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false}">
+<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false, contactForm: false}">
     <div class="background">
 
 
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="bg-black pb-20">
+    <div class="bg-black pb-20 z-0">
         <div class="container mx-auto">
 
             <?php echo $__env->yieldContent('content'); ?>
@@ -440,60 +440,141 @@
     <!-- faq ask question sidebar end  -->
 
 
-    <!-- contact us section  start-->
-    <div class="hidden absolute top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
-        <!-- close button  -->
-        <button class="faq-close absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="./images/x.svg" alt=""></button>
-        <div class="flex flex-col h-full">
-            <div>
-                <h2 class="text-2xl bold">Contact Us</h2>
-                <p class="text-sm opacity-50 mb-10">Contact us if your have any query or issue</p>
-            </div>
-            <div class="flex flex-col gap-7">
-                <div class="flex gap-3">
-                    <div class="p-3 bg-second_black rounded-full">
-                        <img class="size-6" src="./images/mail-icon.svg" alt="">
+        <!-- contact us section  start-->
+        <div 
+            x-show="contactForm" 
+            x-transition:enter="transform transition ease-out duration-300"
+            x-transition:enter-start="-translate-x-full opacity-0"
+            x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:leave="transform transition ease-in duration-300"
+            x-transition:leave-start="translate-x-0 opacity-100"
+            x-transition:leave-end="translate-x-full opacity-0"
+            @click.outside="contactForm = false" 
+            class=" fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
+            
+            <!-- close button  -->
+            <button @click="contactForm = false" class=" absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="<?php echo e(URL::asset('frontend/images/x.svg')); ?>" alt=""></button>
+            <div class="flex flex-col h-full">
+                <div>
+                    <h2 class="text-2xl bold">Contact Us</h2>
+                    <p class="text-sm opacity-50 mb-10">Contact us if your have any query or issue</p>
+                </div>
+                <div class="flex flex-col gap-7">
+                    <div class="flex gap-3">
+                        <div class="p-3 bg-second_black rounded-full">
+                            <img class="size-6" src="<?php echo e(URL::asset('frontend/images/mail-icon.svg')); ?>"  alt="">
+                        </div>
+                        <div>
+                            <h2 class="opacity-80">Email:</h2>
+                            <div class="font-semibold text-lg">info@silkroad.tv</div>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="opacity-80">Email:</h2>
-                        <div class="font-semibold text-lg">info@silkroad.tv</div>
+                    <div class="flex gap-3">
+                        <div class="p-3 bg-second_black rounded-full">
+                            <img class="size-6" src="<?php echo e(URL::asset('frontend/images/web-icon.svg')); ?>" alt="">
+                        </div>
+                        <div>
+                            <h2 class="opacity-80">Web:</h2>
+                            <div class="font-semibold text-lg">www.silkroadtv.com</div>
+                        </div>
                     </div>
                 </div>
-                <div class="flex gap-3">
-                    <div class="p-3 bg-second_black rounded-full">
-                        <img class="size-6" src="./images/web-icon.svg" alt="">
-                    </div>
-                    <div>
-                        <h2 class="opacity-80">Web:</h2>
-                        <div class="font-semibold text-lg">www.silkroadtv.com</div>
-                    </div>
-                </div>
-            </div>
+                <div x-data="{
+    contactForm: false,
+    form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        message: '',
+    },
+    errors: {},
+    successMessage: '',
 
-            <form class="flex-1 flex flex-col justify-between pt-10">
+    // Method to toggle the modal visibility
+    openModal() {
+        this.contactForm = true;
+    },
+
+    async submit() {
+        // Reset previous success/error messages
+        this.successMessage = '';
+        this.errors = {};
+
+        try {
+            // Send the form data to the server
+            const response = await axios.post('<?php echo e(URL::to('contact')); ?>', this.form, {
+                headers: {
+                    'X-CSRF-TOKEN': this.csrfToken,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+            });
+
+            // If submission is successful
+            if (response.data.status === 200) {
+                // Show success message
+                this.successMessage = 'Message sent successfully!';
+
+                // Reset the form
+                this.form.first_name = '';
+                this.form.last_name = '';
+                this.form.email = '';
+                this.form.message = '';
+                
+                // Optionally close the modal here
+                this.contactForm = false;
+            }
+
+        } catch (error) {
+            // Handle any errors (validation or others)
+            if (error.response && error.response.data.errors) {
+                this.errors = error.response.data.errors;
+            } else {
+                this.errors = { message: ['An unexpected error occurred.'] };
+            }
+        }
+    }
+}">
+                    
+                    
+            <!-- Contact Form -->
+            <form @submit.prevent="submit" class="flex-1 flex flex-col justify-between pt-10">
                 <div class="flex flex-col gap-5">
                     <div class="flex w-full gap-3 justify-stretch items-center">
                         <div class="w-full">
-                            <input type="text" name="first_name" placeholder="first name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                            <input type="text" required x-model="form.first_name" name="first_name" placeholder="First name" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
                         </div>
                         <div class="w-full">
-                            <input type="text" name="last_name" placeholder="last name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                            <input type="text" required x-model="form.last_name" name="last_name" placeholder="Last name" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
                         </div>
                     </div>
                     <div>
-                        <input type="email" name="email" placeholder="email" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                        <input type="email" required x-model="form.email" name="email" placeholder="Email" class="w-full p-2 bg-second_black border border-third_black rounded-md focus:outline-none focus:ring-0">
                     </div>
                     <div>
-                        <textarea name="message" id="" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[250px]" placeholder="message">
-
-                        </textarea>
+                        <textarea name="message" required x-model="form.message" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[150px] focus:outline-none focus:ring-0" placeholder="Message"></textarea>
                     </div>
                 </div>
-                <button class="bg-redcolor py-3 text-sm rounded-full text-center">Send</button>
+                <button class="mt-5 bg-redcolor py-3 text-sm rounded-full text-center">Send</button>
+                
+                <!-- Success Message -->
+                <div x-show="successMessage" class="mt-5 text-green-500 text-center">
+                    <p x-text="successMessage"></p>
+                </div>
+                
+                <!-- Error Messages -->
+                <div x-show="Object.keys(errors).length > 0" class="mt-5 text-red-500 text-center">
+                    <ul>
+                        <template x-for="(error, key) in errors" :key="key">
+                            <li x-text="error[0]"></li>
+                        </template>
+                    </ul>
+                </div>
             </form>
+                </div>
+            </div>
         </div>
-     </div>
-    <!-- contact us section  end-->
+        <!-- contact us section  end-->
 
 
     <!-- feedback section start  -->
@@ -543,7 +624,8 @@
      </div>
     <!-- feedback section end  -->
 
-
+    
+    <script src="<?php echo e(URL::asset('frontend/js/alpineJs.js')); ?>"></script>
     <script src="<?php echo e(URL::asset('frontend/js/jquery-code.js')); ?>"></script>
     <script src="<?php echo e(URL::asset('frontend/js/video.js')); ?>"></script>
 </body>
