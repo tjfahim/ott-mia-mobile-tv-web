@@ -27,6 +27,8 @@ class HomeController extends Controller
         $movies = Movies::all();
         $series = Series::all();
 
+
+
         //$plan = SubscriptionPlan::all();
 
         $faq = Faq::where('status', '1')->get();
@@ -46,7 +48,7 @@ class HomeController extends Controller
             'category' => $category,
             'faqs' => $faq,
             'movies' => $movies,
-            'series' => $series
+            'series' => $series,
         ]);
 
 

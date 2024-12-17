@@ -85,43 +85,53 @@ class CategoriesController extends Controller
 
 
 
+        // if ($request->hasFile('image')) {
+
+        //     return 1;
+        //     $image = $request->file('image');
 
 
+        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
 
 
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-
-
-            if (file_exists(public_path('upload/source/' . $category->image))) {
-                unlink(public_path('upload/source/' . $category->image));
-            }
+        //     $image->move(public_path('upload/source'), $imageName);
 
 
-            $image = $request->file('image');
+        //     $attributes['image'] = $imageName;
+        // }
 
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+        // return $attributes;
 
-            $image->move(public_path('upload/source'), $imageName);
+        // Check for image upload
+        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
 
-            $attributes['image'] = $imageName;
-        }
+        //     return 1;
+
+        //     // Delete old image if exists
+        //     if (!empty($category->image) && file_exists(public_path('upload/source/' . $category->image))) {
+        //         unlink(public_path('upload/source/' . $category->image));
+        //     }
+
+        //     // Upload new image
+        //     $image = $request->file('image');
+        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('upload/source'), $imageName);
+
+        //     $attributes['image'] = $imageName;
+        // }
+
+        // Update the category
+        $category->update([
+            'name' => $request->name,
+            'image' => $request->image ?? $category->image
+        ]);
 
 
-
-
-
-        $category = $category->update($attributes);
-
-
-        if ($category) {
-            Session::flash('flash_message', 'Category update  successfully ');
-            return redirect('admin/categories');
-        }
-
-
-        return redirect()->back()->with('error', 'There was an issue creating the member.');
+        // Check update success
+        Session::flash('flash_message', 'Category updated successfully');
+        return redirect('admin/categories');
     }
+
 
     public function destroy(Category $category)
     {
