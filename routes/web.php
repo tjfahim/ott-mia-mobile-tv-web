@@ -416,6 +416,7 @@ Route::get('/lives', [App\Http\Controllers\frontend\LiveController::class, 'inde
 
 // Route::get('contact', [App\Http\Controllers\frontend\ContactController::class, 'index']);
 Route::post('contact', [App\Http\Controllers\frontend\ContactController::class, 'store']);
+Route::post('feedback', [App\Http\Controllers\frontend\ContactController::class, 'feedbackStore']);
 
 Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
 Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);

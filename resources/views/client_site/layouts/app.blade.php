@@ -64,7 +64,7 @@
         </style>
     </head>
 
-<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false, contactForm: false}">
+<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false, contactForm: false, feedback: false}">
 
 
     <div class="bg-black">
@@ -119,7 +119,8 @@
                      <div class="col">
                          <h3 class="text-xl font-medium mb-2">Support</h3>
                          <div class="flex flex-col gap-2 opacity-75 ">
-                             <a class="" href="">Contact Us</a>
+                             <Button type="button" class="" @click="contactForm = true" >Contact Us</Button>
+                             <Button type="button" @click="feedback = true" >Feedback</Button>
 
                          </div>
                      </div>
@@ -468,6 +469,7 @@
 
            <!-- contact us section  start-->
            <div
+                x-cloak
                 x-show="contactForm"
                 x-transition:enter="transform transition ease-out duration-300"
                 x-transition:enter-start="-translate-x-full opacity-0"
@@ -476,7 +478,7 @@
                 x-transition:leave-start="translate-x-0 opacity-100"
                 x-transition:leave-end="translate-x-full opacity-0"
                 @click.outside="contactForm = false"
-                class="fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 "
+                class=" fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 "
             >
 
                     <!-- close button  -->
@@ -551,7 +553,7 @@
                                         this.form.message = '';
 
                                         // Optionally close the modal here
-                                        this.contactForm = false;
+                                        $root.contactForm = false;
                                     }
 
                                 } catch (error) {
@@ -607,9 +609,73 @@
 
 
     <!-- feedback section start  -->
-    <div class="hidden absolute top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 ">
+    <div x-cloak x-show="feedback" @click.outside="feedback=false" class="fixed top-0 h-screen right-0 w-1/3 bg-first_black faq-div px-10 py-20 "
+            x-data="{
+                form : {
+                    rating: 0,
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    message: '',
+                },
+
+                ratingS(e){
+                    console.log(e.target)
+                    let id = e.target.id
+                    this.form.rating = id.replace('r_', '')
+                    console.log(this.form.rating)
+                },
+
+                successMessage: '',
+                errors: {},
+
+                async submitFeedback(){
+
+                    this.successMessage = '';
+                    this.errors = {};
+
+                    try {
+                        // Send the form data to the server
+                        const response = await axios.post('{{ URL::to('feedback') }}', this.form, {
+                            headers: {
+                                'X-CSRF-TOKEN': this.csrfToken,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                            },
+                        });
+
+                        // If submission is successful
+                        if (response.data.status === 200) {
+
+
+                            this.successMessage = response.data.message;
+
+
+                            this.form.first_name = '';
+                            this.form.last_name = '';
+                            this.form.email = '';
+                            this.form.message = '';
+
+                            // Optionally close the modal here
+                            $root.contactForm = false;
+                        }
+                        if(response.data.status === 400){
+                            this.errors = response.data.errors
+                        }
+
+                    } catch (error) {
+                        // Handle any errors (validation or others)
+                        if (error.response && error.response.data.errors) {
+                            this.errors = error.response.data.errors;
+                        } else {
+                            this.errors = { message: ['An unexpected error occurred.'] };
+                        }
+                    }
+                },
+            }"
+    >
         <!-- close button  -->
-        <button class="faq-close absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="./images/x.svg" alt=""></button>
+        <button @click="feedback=false" class="absolute top-3 left-3 p-2 hover:scale-90 duration-300 rounded-full bg-redcolor"><img src="{{ URL::asset('frontend/images/x.svg') }}" alt=""></button>
         <div class="flex flex-col h-full">
             <div>
                 <h2 class="text-2xl bold">Feedback</h2>
@@ -619,33 +685,63 @@
             <div class="flex flex-col items-center gap-7">
                 <h2 class="text-center text-lg">Add Rating</h2>
                 <div class="flex items-center justify-evenly gap-2">
-                    <img src="./images/start-icon.svg" alt="">
-                    <img src="./images/start-icon.svg" alt="">
-                    <img src="./images/start-icon.svg" alt="">
-                    <img src="./images/start-icon.svg" alt="">
-                    <img src="./images/start-icon-w.svg" alt="">
 
+                    <div x-data="{ numbers: Array.from({ length: 5 }, (_, i) => i), rating: 0 }" class="flex items-center justify-evenly gap-2">
+                        <template x-for="(number, index) in numbers" :key="number">
+
+
+
+                                <img
+                                    @click="ratingS"
+                                    :id="'r_' + index"
+
+                                    src="{{ URL::asset('frontend/images/start-icon.svg') }}"
+                                    alt=""
+                                    :class="{ 'bg-yellow-500': rating >= number }"
+                                >
+                            
+                        </template>
+                    </div>
+
+
+                    {{-- <img  @click="rating" id="r_2" src="{{ URL::asset('frontend/images/start-icon.svg') }}" alt="">
+                    <img  @click="rating" id="r_3" src="{{ URL::asset('frontend/images/start-icon.svg') }}" alt="">
+                    <img  @click="rating" id="r_4" src="{{ URL::asset('frontend/images/start-icon.svg') }}" alt="">
+                    <img  @click="rating" id="r_5" src="{{ URL::asset('frontend/images/start-icon-w.svg') }}" alt=""> --}}
                 </div>
             </div>
 
-            <form class="flex-1 flex flex-col justify-between pt-10">
+            <form class="flex-1 flex flex-col justify-between pt-10" @submit.prevent="submitFeedback">
                 <div class="flex flex-col gap-5">
                     <div class="flex w-full gap-3 justify-stretch items-center">
                         <div class="w-full">
-                            <input type="text" name="first_name" placeholder="first name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                            <input type="text" x-model="form.first_name" name="first_name" placeholder="first name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
                         </div>
                         <div class="w-full">
-                            <input type="text" name="last_name" placeholder="last name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                            <input type="text" x-model="form.last_name" name="last_name" placeholder="last name" class="w-full p-2 bg-second_black border border-third_black rounded-md">
                         </div>
                     </div>
                     <div>
-                        <input type="email" name="email" placeholder="email" class="w-full p-2 bg-second_black border border-third_black rounded-md">
+                        <input type="email" x-model="form.email" name="email" placeholder="email" class="w-full p-2 bg-second_black border border-third_black rounded-md">
                     </div>
                     <div>
-                        <textarea name="message" id="" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[250px]" placeholder="message">
+                        <textarea name="message" id="" x-model="form.message" class="w-full p-2 bg-second_black border border-third_black rounded-md h-[250px]" placeholder="message">
 
                         </textarea>
                     </div>
+                </div>
+
+
+                <div x-show="successMessage" class="mt-5 text-green-500 text-center">
+                    <p x-text="successMessage"></p>
+                </div>
+
+                <div x-show="Object.keys(errors).length > 0" class="mt-5 text-red-500 text-center">
+                    <ul>
+                        <template x-for="(error, key) in errors" :key="key">
+                            <li x-text="error[0]"></li>
+                        </template>
+                    </ul>
                 </div>
                 <button class="bg-redcolor py-3 text-sm rounded-full text-center">Submit</button>
             </form>

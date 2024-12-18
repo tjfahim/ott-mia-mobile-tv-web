@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Contact;
+use App\Feedback;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Faq;
@@ -67,7 +68,7 @@ public function store(Request $request)
 {
     $data = $request->except('_token');
 
-    // Validation rules
+
     $rules = [
         'first_name' => ['required'],
         'last_name' => ['required'],
@@ -75,7 +76,7 @@ public function store(Request $request)
         'message' => ['required']
     ];
 
-    // Validate data
+
     $validator = Validator::make($data, $rules);
 
     if ($validator->fails()) {
@@ -85,7 +86,7 @@ public function store(Request $request)
         ]);
     }
 
-    // Save the contact
+
     Contact::create($data);
 
     return response()->json([
@@ -93,4 +94,37 @@ public function store(Request $request)
         'message' => 'Message sent successfully!',
     ]);
 }
+
+
+
+    public function feedbackStore(Request $request)
+    {
+        $data = $request->except('_token');
+
+
+        $rules = [
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'email' => ['required', 'email'],
+            'message' => ['required'],
+            'rating' => ['required']
+        ];
+
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ]);
+        }
+
+        Feedback::create($data);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Feedback sent successfully!',
+        ]);
+    }
 }
