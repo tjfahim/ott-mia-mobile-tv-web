@@ -1,20 +1,18 @@
-@extends('client_site.layouts.app')
+<?php $__env->startSection('head_title', getcong('site_name') ); ?>
 
-@section('head_title', getcong('site_name') )
-
-@section('head_url', Request::url())
+<?php $__env->startSection('head_url', Request::url()); ?>
 
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
-{{-- head section  --}}
+
 <div class="flex flex-col gap-10 justify-between items-center pt-10 ">
     <div class="text-white text-sm p-1 bg-second_black font-normal flex gap-2 rounded-full">
 
-        <a href="{{ URL::to('vod/movies') }}" class="{{  request()->is('vod/movies') ? 'bg-redcolor' : 'hover:bg-redcolor'  }} px-10 py-3 text-sm rounded-full text-gray-200  hover:translate-x-1 duration-300 ">Movies</a>
-        <a href="{{ URL::to('vod/shows') }}" class="{{  request()->is('vod/shows') ? 'bg-redcolor' : 'hover:bg-redcolor'  }} px-10 py-3 text-sm rounded-full text-gray-200 hover:bg-redcolor hover:translate-x-1 duration-300">TV Shows</a>
-        <a href="{{ URL::to('vod/lives') }}" class="{{  request()->is('vod/lives') ? 'bg-redcolor' : 'hover:bg-redcolor'  }} px-10 py-3 text-sm rounded-full text-gray-200 hover:bg-redcolor hover:translate-x-1 duration-300">Live</a>
+        <a href="<?php echo e(URL::to('vod/movies')); ?>" class="<?php echo e(request()->is('vod/movies') ? 'bg-redcolor' : 'hover:bg-redcolor'); ?> px-10 py-3 text-sm rounded-full text-gray-200  hover:translate-x-1 duration-300 ">Movies</a>
+        <a href="<?php echo e(URL::to('vod/shows')); ?>" class="<?php echo e(request()->is('vod/shows') ? 'bg-redcolor' : 'hover:bg-redcolor'); ?> px-10 py-3 text-sm rounded-full text-gray-200 hover:bg-redcolor hover:translate-x-1 duration-300">TV Shows</a>
+        <a href="<?php echo e(URL::to('vod/lives')); ?>" class="<?php echo e(request()->is('vod/lives') ? 'bg-redcolor' : 'hover:bg-redcolor'); ?> px-10 py-3 text-sm rounded-full text-gray-200 hover:bg-redcolor hover:translate-x-1 duration-300">Live</a>
     </div>
     <div class="text-center">
         <h2 class="text-5xl font-bold text-white">Movies</h2>
@@ -23,16 +21,15 @@
 </div>
 
 <div class="main-slider container mx-auto py-10">
-    @foreach ($sliders as $slide)
-        <img class="px-5 rounded-lg container mx-auto h-[600px]" src="{{ URL::to( 'upload/source/'.$slide->slider_image )}}" alt="">
-    @endforeach
-    {{-- <img class="px-5 rounded-lg container mx-auto h-[600px]" src="./images/main-slider1.png" alt="">
-    <img class="px-5 rounded-lg container mx-auto h-[600px]" src="./images/main-slider1.png" alt=""> --}}
+    <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <img class="px-5 rounded-lg container mx-auto h-[600px]" src="<?php echo e(URL::to( 'upload/source/'.$slide->slider_image )); ?>" alt="">
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    
 </div>
 
 
 
-{{-- content section  --}}
+
 
      <!-- search option add  -->
      <div class="flex items-center gap-3 justify-end py-5">
@@ -399,5 +396,7 @@
  </div>
 <!-- vod content end -->
 
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('client_site.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ott-mia\ott-mia-mobile-tv-web\resources\views/frontend/vod/lives.blade.php ENDPATH**/ ?>

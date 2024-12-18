@@ -1,3 +1,7 @@
+<?php $__env->startSection('head_title', getcong('site_name') ); ?>
+
+<?php $__env->startSection('head_url', Request::url()); ?>
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -126,14 +130,14 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
 
 
             <!-- ask question section start  -->
-            <section class="space-y-10 py-10 p-10 sm:p-0">
+            <section class="space-y-10 py-10  sm:py-20">
                 <div class=" flex flex-col sm:flex-row gap-5 justify-between items-start sm:items-center ">
                     <div class="text-white">
                         <h2 class="font-bold text-3xl mb-2">Frequently Asked Questions</h2>
                         <div class="text-sm opacity-50">Got questions? We've got answers! Check out our FAQ section to find answers to the most common questions about StreamVibe.</div>
                     </div>
 
-                    <a @click="contactForm = true" class=" btn-red hover:opacity-50">Ask a Question</a>
+                    <button @click="contactForm = true" class="btn-red cursor-pointer">Ask a Question</button>
                 </div>
                 <div class="space-y-5 grid grid-cols-1  sm:grid-cols-2 gap-5">
                     <!-- single question  -->
@@ -155,8 +159,8 @@ background: linear-gradient(59deg, rgba(16,8,8,0.9136029411764706) 31%, rgba(8,8
                                         x-transition:enter-start="opacity-0 scale-90"
                                         x-transition:enter-end="opacity-100 scale-100"
                                         x-transition:leave="transition ease-in duration-500"
-                                        x-transition:leave-start="opacity-100 scale-100"
-                                        x-transition:leave-end="opacity-0 scale-100"
+                                        x-transition:leave-start="opacity-80 scale-100"
+                                        x-transition:leave-end="opacity-0 scale-50"
                                     ><?php echo e($faq->description); ?></p>
                                 </div>
                                 <button class="text-white showQ font-thin text-4xl"

@@ -1,5 +1,9 @@
 @extends('client_site.layouts.app')
 
+@section('head_title', getcong('site_name') )
+
+@section('head_url', Request::url())
+
 
 @section('content')
 
@@ -258,14 +262,14 @@
        <!-- Disney+ Kids card end -->
 
         <!-- Disney+ shows card start -->
-        
+
         <section class="py-[50px]">
            <div class="flex justify-between items-center text-white mb-10">
                <h2 class="text-3xl font-bold ">Disney+ shows</h2>
                <a href="{{ URL::to('vod/shows/all?&categorie=Disney shows')}} " class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
            </div>
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            
+
                 @foreach ($Disney_shows_all as $show)
                     <a href="{{ URL::to('show/'.$show->series_slug)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
@@ -454,7 +458,7 @@
        <!-- Apple+ shows  card end -->
 
 
- </div>      
+ </div>
 <!-- vod content end -->
 
 @endsection

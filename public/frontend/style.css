@@ -592,6 +592,10 @@
     visibility: visible;
   }
 
+  .fixed {
+    position: fixed;
+  }
+
   .absolute {
     position: absolute;
   }
@@ -825,6 +829,10 @@
     height: 120px;
   }
 
+  .h-\[1px\] {
+    height: 1px;
+  }
+
   .h-\[200px\] {
     height: 200px;
   }
@@ -835,10 +843,6 @@
 
   .h-\[250px\] {
     height: 250px;
-  }
-
-  .h-\[2px\] {
-    height: 2px;
   }
 
   .h-\[300px\] {
@@ -879,10 +883,6 @@
 
   .h-screen {
     height: 100vh;
-  }
-
-  .h-\[1px\] {
-    height: 1px;
   }
 
   .min-h-\[350px\] {
@@ -1004,6 +1004,12 @@
   .scale-100 {
     --tw-scale-x: 1;
     --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .scale-50 {
+    --tw-scale-x: .5;
+    --tw-scale-y: .5;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
@@ -1238,11 +1244,6 @@
   .border-gray-500 {
     --tw-border-opacity: 1;
     border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
-  }
-
-  .border-red-600 {
-    --tw-border-opacity: 1;
-    border-color: rgb(220 38 38 / var(--tw-border-opacity, 1));
   }
 
   .border-redcolor {
@@ -1505,10 +1506,6 @@
 
   .pb-20 {
     padding-bottom: 5rem;
-  }
-
-  .pb-3 {
-    padding-bottom: 0.75rem;
   }
 
   .pb-5 {
@@ -2010,6 +2007,11 @@
     .sm\:px-0 {
       padding-left: 0px;
       padding-right: 0px;
+    }
+
+    .sm\:py-20 {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
     }
 
     .sm\:text-left {

@@ -1,3 +1,8 @@
+<?php $__env->startSection('head_title', getcong('site_name') ); ?>
+
+<?php $__env->startSection('head_url', Request::url()); ?>
+
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -41,7 +46,7 @@
                 <button @click="open = !open" class="p-4 bg-second_black rounded-full"><img  src="<?php echo e(URL::asset('frontend/images/filter-icon.svg')); ?>" class="size-5" alt=""></button>
                 <div
                     x-show="open"
-                    
+
                     x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 scale-90"
                     x-transition:enter-end="opacity-100 scale-100"
@@ -147,14 +152,14 @@
        <!-- Disney+ Kids card end -->
 
         <!-- Disney+ Movies card start -->
-        
+
         <section class="py-[50px]">
            <div class="flex justify-between items-center text-white mb-10">
                <h2 class="text-3xl font-bold ">Disney+ Movies</h2>
                <a href="<?php echo e(URL::to('vod/movies/all?&categorie=Disney Movies')); ?> " class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
            </div>
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-            
+
                 <?php $__currentLoopData = $Disney_Movies_all; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <a href="<?php echo e(URL::to('movie/'.$movie->video_slug)); ?> ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">

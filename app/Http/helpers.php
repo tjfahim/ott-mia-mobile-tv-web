@@ -5,11 +5,23 @@ use App\Transactions;
 use App\Episodes;
 use App\Movies;
 use App\Sports;
-use App\RecentlyWatched; 
+use App\RecentlyWatched;
 use App\User;
 use App\Ads;
-use App\LiveTV; 
-use App\Player; 
+use App\LiveTV;
+use App\Player;
+
+
+
+// h
+
+if(!function_exists('social_link')){
+    function social_link(){
+        return Settings::all();
+    }
+}
+
+// h
 
 if (! function_exists('recently_watched_info')) {
 
@@ -18,7 +30,7 @@ if (! function_exists('recently_watched_info')) {
         if($video_type=="Movies")
         {
             $recently_info = Movies::where('id',$video_id)->first();
-        } 
+        }
         else if($video_type=="Sports")
         {
             $recently_info = Sports::where('id',$video_id)->first();
@@ -31,7 +43,7 @@ if (! function_exists('recently_watched_info')) {
         {
             $recently_info = Episodes::where('id',$video_id)->first();
         }
-        
+
 
         return $recently_info;
     }
@@ -58,8 +70,8 @@ if (! function_exists('getcong')) {
 
     function getcong($key)
     {
-    	 
-        $settings = Settings::findOrFail('1'); 
+
+        $settings = Settings::findOrFail('1');
 
         return $settings->$key;
     }
@@ -69,13 +81,13 @@ if (! function_exists('get_player_cong')) {
 
     function get_player_cong($key)
     {
-         
-        $settings = Player::findOrFail('1'); 
+
+        $settings = Player::findOrFail('1');
 
         return $settings->$key;
     }
 }
- 
+
 
 if (!function_exists('classActivePath')) {
     function classActivePath($path)
@@ -182,16 +194,16 @@ function generate_timezone_list()
     return $timezone_list;
 }
 
-} 
+}
 
 if (!function_exists('plan_count_by_month')) {
     function plan_count_by_month($plan_id,$month_name)
-    {       
+    {
             //echo $month_name;
 
              $start_month = date('Y-m-d', strtotime('first day of '.$month_name.''));
              $finish_month = date('Y-m-d', strtotime('last day of '.$month_name.''));
-             
+
             $monthly_plan_purchase = Transactions::where('plan_id',$plan_id)->whereBetween('date', array(strtotime($start_month), strtotime($finish_month)))->count();
 
             return $monthly_plan_purchase;
@@ -201,32 +213,32 @@ if (!function_exists('plan_count_by_month')) {
 if (! function_exists('check_verify_purchase')) {
 
     function check_verify_purchase()
-    { 
+    {
        /* $api = new LicenseBoxAPI();
         $verify_obj=$api->verify_license(false);
 
         //print_r($verify_obj);
         //exit;
 
- 
+
         if($verify_obj["status"]==1)
         {
             return true;
         }
         else
-        {    
-            \Redirect::to('admin/verify_purchase')->send();             
+        {
+            \Redirect::to('admin/verify_purchase')->send();
             exit;
         }*/
-        
-        return true; 
+
+        return true;
     }
 }
 
 if (! function_exists('verify_envato_purchase_code')) {
 function verify_envato_purchase_code($product_code)
-    { 
-      
+    {
+
         $url = "https://api.envato.com/v3/market/author/sale?code=".$product_code;
         $curl = curl_init($url);
 
@@ -242,12 +254,12 @@ function verify_envato_purchase_code($product_code)
         $envatoRes = curl_exec($curl);
         curl_close($curl);
         $envatoRes = json_decode($envatoRes);
-         
+
 
          return $envatoRes;
-      
+
     }
-} 
+}
 
 if (! function_exists('grab_image')) {
 function grab_image($file_url,$save_to){
@@ -260,7 +272,7 @@ function grab_image($file_url,$save_to){
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         $output = curl_exec($ch);
         $file = fopen($save_to, "w+");
@@ -283,7 +295,7 @@ function checkSignSalt($data_info){
 
         if($data_arr['sign'] == '' && $data_arr['salt'] == '' ){
             //$data['data'] = array("status" => -1, "message" => "Invalid sign salt.");
-        
+
             $set['VIDEO_STREAMING_APP'][] = array("status" => -1, "message" => "Invalid sign salt.");
             header( 'Content-Type: application/json; charset=utf-8' );
             echo $val= str_replace('\\/', '/', json_encode($set,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
@@ -291,25 +303,25 @@ function checkSignSalt($data_info){
 
 
         }else{
-            
-            $data_arr['salt'];    
-            
+
+            $data_arr['salt'];
+
             $md5_salt=md5($key.$data_arr['salt']);
 
             if($data_arr['sign']!=$md5_salt){
 
                 //$data['data'] = array("status" => -1, "message" => "Invalid sign salt.");
-                $set['VIDEO_STREAMING_APP'][] = array("status" => -1, "message" => "Invalid sign salt.");   
+                $set['VIDEO_STREAMING_APP'][] = array("status" => -1, "message" => "Invalid sign salt.");
                 header( 'Content-Type: application/json; charset=utf-8' );
                 echo $val= str_replace('\\/', '/', json_encode($set,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
                 exit();
             }
         }
-        
+
         return $data_arr;
-        
+
     }
-}    
+}
 
 if (! function_exists('check_app_user_plan')) {
 
@@ -321,10 +333,10 @@ if (! function_exists('check_app_user_plan')) {
         $user_info = User::findOrFail($user_id);
         $user_plan_id=$user_info->plan_id;
         $user_plan_exp_date=$user_info->exp_date;
- 
+
 
         if($user_plan_id==0 OR $user_plan_id==5)
-        {          
+        {
              return false;
         }
         else if(strtotime(date('m/d/Y'))>$user_plan_exp_date)
@@ -336,7 +348,7 @@ if (! function_exists('check_app_user_plan')) {
         {
                 return true;
         }
-         
+
     }
 }
 
@@ -344,8 +356,8 @@ if (! function_exists('get_ads')) {
 
     function get_ads($key)
     {
-         
-        $ad_obj = Ads::where('ad_key',$key)->first(); 
+
+        $ad_obj = Ads::where('ad_key',$key)->first();
 
         return $ad_obj;
     }
