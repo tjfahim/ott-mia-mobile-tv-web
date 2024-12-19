@@ -69,9 +69,6 @@
 
  <div class="border border-second_black p-10 " >
 
-
-
-
         <!-- Netflix Movies cart start -->
         <section class="py-[50px]">
            <div class="flex justify-between items-center text-white mb-10">

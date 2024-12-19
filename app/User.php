@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Favourite;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -39,9 +41,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function favorites()
+    // public function favorites()
+    // {
+    //     return $this->hasMany(MovieSeriesFavorite::class);
+    // }
+
+    public function favourites()
     {
-        return $this->hasMany(MovieSeriesFavorite::class);
+        return $this->hasMany(Favourite::class, 'user_id', 'id');
     }
 
     public static function getUserInfo($id)

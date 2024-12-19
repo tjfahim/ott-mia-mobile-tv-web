@@ -46,6 +46,9 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
+        <!-- toastify-js -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
         <!-- Slick Carousel -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
@@ -161,7 +164,15 @@
 
 
      <!-- login section start -->
-    <div x-cloak class="popup-login bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="loginform" @click.away="loginform = false">
+    <div x-cloak class="popup-login bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="loginform"
+        @click.away="loginform = false"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        >
         <section class="p-10 w-full ">
             <div class="text-center text-white space-y-5">
                 <h2 class="text-2xl font-normal ">Login form</h2>
@@ -225,7 +236,23 @@
                         </div>
                     </div>
 
-                    <div class="btn-login" >
+                    <div class="border border-[#FFFFFF1A]  hover:border-[#ED2024] rounded-md p-3   gap-3 flex items-center justify-start" >
+                        <div class=" border-r pr-3 border-[#FFFFFF1A]">
+                            <img src="./images/email.svg" alt="">
+                        </div>
+                        <div class="flex-1 flex-col gap-2 text-[#FFFFFF66]">
+                            <label for="" class=" text-md">Password</label>
+                            <input type="password" name="email" x-model="password" class="border-none bg-[#141414] p-2 w-full focus:outline-none" placeholder="example@gmail.com" >
+
+                                <small x-show="error_find" class="text-sm text-redColor" x-text="error"></small>
+
+                        </div>
+                        <div>
+                            <img src="./images/success.svg" alt="">
+                        </div>
+                    </div>
+
+                    {{-- <div class="btn-login" >
                         <div class=" border-r pr-3 border-[#FFFFFF1A]">
                             <img src="./images/email.svg" alt="">
                         </div>
@@ -236,7 +263,7 @@
                         <div>
                             <img src="./images/eye-off.svg" alt="">
                         </div>
-                    </div>
+                    </div> --}}
                     <div  class="flex gap-5 flex-col md:flex-row justify-between text-sm text-[#999999]">
                         <div>
                             <input type="checkbox" name="" value="" class="bg-red-500">
@@ -699,7 +726,7 @@
                                     alt=""
                                     :class="{ 'bg-yellow-500': rating >= number }"
                                 >
-                            
+
                         </template>
                     </div>
 
@@ -748,6 +775,8 @@
         </div>
      </div>
     <!-- feedback section end  -->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <script src="{{ URL::asset('frontend/js/alpineJs.js') }}"></script>

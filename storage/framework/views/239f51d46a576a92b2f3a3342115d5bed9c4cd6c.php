@@ -59,7 +59,7 @@
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out">Account</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Settings</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Contacts</a>
-                            <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Favorites</a>
+                            <a href="<?php echo e(URL::to('favorite')); ?>" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Favorites</a>
                             <a href="<?php echo e(URL::to('logout')); ?>" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out text-redcolor">Logout</a>
                         </div>
                     </div>

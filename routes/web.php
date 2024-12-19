@@ -438,6 +438,8 @@ Route::get('account/subscription', [App\Http\Controllers\frontend\user\AccountCo
 Route::get('account/device', [App\Http\Controllers\frontend\user\AccountController::class, 'deviceInfo'])->middleware('authUser');
 Route::get('account/preferences', [App\Http\Controllers\frontend\user\AccountController::class, 'preferences'])->middleware('authUser');
 Route::get('favorite', [App\Http\Controllers\frontend\user\AccountController::class, 'favorite']);
+Route::post('favorite', [App\Http\Controllers\frontend\user\AccountController::class, 'storefavourite']);
+Route::post('favorite/remove', [App\Http\Controllers\frontend\user\AccountController::class, 'removeFavourite']);
 
 
 // create image api
