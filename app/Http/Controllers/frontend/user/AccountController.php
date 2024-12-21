@@ -22,6 +22,43 @@ class AccountController extends Controller
     }
 
 
+    public function updateProfile(Request $request)
+    {
+        $attributes = $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'phone' => '',
+            'email' => 'required',
+        ]);
+
+
+        $user = Auth::user();
+
+
+        $user->name =  $request->firstname;
+        $user->last_name =  $request->lastname;
+        $user->phone =  $request->phone;
+        $user->name =  $request->firstname;
+
+
+        if ($request->hasFile('image')) {
+            $ext = $request->image->extension();
+
+            $path = time() . '.'. $ext;
+
+            $file = $request->file('image');
+
+            $path = $file->store('profile', 'public');
+
+            $user->user_image = $path;
+        }
+        $user->save();
+
+        return redirect()->back();
+
+    }
+
+
     public function subscripbtion()
     {
         return view('frontend.user.subScripPlan');

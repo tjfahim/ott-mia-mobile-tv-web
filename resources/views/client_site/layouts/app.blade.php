@@ -67,7 +67,7 @@
         </style>
     </head>
 
-<body class="font-manrope text-white relative"  x-data="{loginform: false, regform: false, contactForm: false, feedback: false}">
+<body class="font-manrope text-white relative"  x-data="{loginform: false, registerForm: false, contactForm: false, feedback: false}">
 
 
     <div class="bg-black">
@@ -175,7 +175,7 @@
         >
         <section class="p-10 w-full ">
             <div class="text-center text-white space-y-5">
-                <h2 class="text-2xl font-normal ">Login form</h2>
+                <h2 class="text-2xl font-normal ">Welcome to Silk Road Television </h2>
                 <p class="opacity-50 text-sm">Enter following details to login.</p>
             </div>
             <div x-data="{
@@ -305,6 +305,7 @@
 
         showModal: false,
         submitForm() {
+
             this.loading = true;
             axios.post('{{ URL::to('signup') }}', {
                 name: this.name,
@@ -321,8 +322,10 @@
             })
             .then(response => {
 
+                console.log(response)
                 if (response.data.status === 200) {
-                    location.reload()
+                    console.log('register successfully');
+                    {{-- location.reload() --}}
                     this.successMessage = 'Registration successful! You can now login.';
                     this.errors = {};
                     this.regform = false;  // Close the modal on success
@@ -343,7 +346,7 @@
         }"  x-init="csrfToken = document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')" x-cloak>
 
         <!-- Registration Form Popup -->
-        <div x-show="regform" @click.away="regform = false" class="popup-register bg-first_black rounded-md p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" >
+        <div x-show="registerForm" @click.away="registerForm = false" class="popup-register bg-first_black rounded-md p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" >
             <section class="">
                 <div class="text-center text-white space-y-5">
                     <h2 class="text-2xl font-normal">Create A New Account</h2>
@@ -432,7 +435,7 @@
             </section>
 
             <!-- Close Button -->
-            <button @click="regform = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor">
+            <button @click="registerForm = false" class="close-popup absolute top-3 right-3 p-3 hover:scale-90 duration-300 rounded-full bg-redcolor">
                 <img src="{{ URL::asset('frontend/images/x.svg') }}" alt="">
             </button>
         </div>

@@ -7,7 +7,7 @@
  <!-- login form section start -->
  <section class="p-10 w-full md:w-2/4 sm:w-1/4 mx-auto flex flex-col gap-10 mt-[50px] h-full">
     <div class="text-center text-white space-y-5">
-        <h2 class="text-2xl font-normal ">Login form</h2>
+        <h2 class="text-2xl font-normal ">Welcome to Silk Road Television </h2>
         <p class="opacity-50 text-sm">Enter following details to login.</p>
     </div>
     <form action="{{ URL::to('login') }}" class="flex gap-5 flex-col" method="post">

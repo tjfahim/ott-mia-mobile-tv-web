@@ -293,11 +293,11 @@ Route::get('logout', 'IndexController@logout');
 
 Route::get('settings', 'UserController@settings');
 
-// Route::get('dashboard', 'UserController@dashboard');
-// Route::get('profile', 'UserController@profile');
-// Route::post('profile', 'UserController@editprofile');
-// Route::get('membership_plan', 'UserController@membership_plan');
-// Route::get('payment_method/{plan_id}', 'UserController@payment_method');
+Route::get('dashboard', 'UserController@dashboard');
+Route::get('profile', 'UserController@profile');
+Route::post('profile', 'UserController@editprofile');
+Route::get('membership_plan', 'UserController@membership_plan');
+Route::get('payment_method/{plan_id}', 'UserController@payment_method');
 
 // Route::post('paypal', array('as' => 'addmoney.paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
 // Route::get('paypal', array('as' => 'payment.status','uses' => 'PaypalController@getPaymentStatus',));
@@ -434,6 +434,7 @@ Route::get('play/{slug}/{type}', [App\Http\Controllers\frontend\PlayController::
 
 
 Route::get('account/info', [App\Http\Controllers\frontend\user\AccountController::class, 'info'])->middleware('authUser');
+Route::post('account/update', [App\Http\Controllers\frontend\user\AccountController::class, 'updateProfile'])->middleware('authUser');
 Route::get('account/subscription', [App\Http\Controllers\frontend\user\AccountController::class, 'subscripbtion'])->middleware('authUser');
 Route::get('account/device', [App\Http\Controllers\frontend\user\AccountController::class, 'deviceInfo'])->middleware('authUser');
 Route::get('account/preferences', [App\Http\Controllers\frontend\user\AccountController::class, 'preferences'])->middleware('authUser');

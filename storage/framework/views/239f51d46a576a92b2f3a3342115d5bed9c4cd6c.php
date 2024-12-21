@@ -56,7 +56,7 @@
 
                             class="bg-second_black p-5 absolute -right-4 mt-4 w-[250px] rounded-md flex flex-col gap-2">
                             <div class="size-4 z-50 bg-second_black absolute -top-2 right-5 rotate-45 rounded-sm"></div>
-                            <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out">Account</a>
+                            <a href="<?php echo e(URL::to('account/info')); ?>" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out">Account</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Settings</a>
                             <a href="" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Contacts</a>
                             <a href="<?php echo e(URL::to('favorite')); ?>" class="py-2 px-3 text-md hover:scale-105 duration-300 ease-out ">Favorites</a>
@@ -74,7 +74,7 @@
                     Login
             </button>
             <button
-                    @click="regform = !regform"
+                    @click="registerForm = !registerForm"
                     class="btn-register"
             >Register</button>
             <?php endif; ?>

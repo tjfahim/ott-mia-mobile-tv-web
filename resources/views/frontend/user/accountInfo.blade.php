@@ -10,18 +10,21 @@
     <div class="bg-first_black rounded-md p-10  flex-1">
         <h2 class="text-2xl font-semibold text-white mb-5">Account Details</h2>
         <h3 class="text-white opacity-50">Manage your account details</h3>
-        <form action="" class="flex flex-col gap-5 my-10">
+        <form action="{{ URL::to('account/update') }}" class="flex flex-col gap-5 my-10" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="flex  gap-3 justify-start items-center" x-data="profileShow()">
 
                 <div class="rounded-full h-[200px] w-[200px]">
-                    <img class="w-full h-full rounded-full" :src="fileUrl ? fileUrl : './images/profile-pic.png'" alt="">
+                    {{-- <img class="w-full h-full rounded-full" :src="fileUrl ? fileUrl : './images/profile-pic.png'" alt=""> --}}
+                    <img src="{{  URL::to($user->user_image) }}"  class="w-full h-full rounded-full" />
                 </div>
                 <div>
-                    <label x-on for="file-input" class="cursor-pointer flex items-center gap-2 rounded-full bg-second_black px-3 py-2 w-full">
+                    {{-- <label x-on for="file-input" class="cursor-pointer flex items-center gap-2 rounded-full bg-second_black px-3 py-2 w-full">
                         <img class="size-4" src="./images/pen-icon.svg" alt="">
                         <span class="text-base text-white">Change Picture</span>
-                    </label>
-                   <input type="file" id="file-input" class="hidden"  @change="changeprofile">
+                    </label> --}}
+                   {{-- <input type="file" id="file-input" name="image" class="hidden"  @change="file = $event.target.files[0]; changeprofile"> --}}
+                   <input type="file" name="image" />
                 </div>
 
             </div>
@@ -32,11 +35,17 @@
                 <div class="flex flex-col gap-3 text-white w-full">
                     <label for="" class="text-base opacity-50">First Name</label>
                     <input type="text" name="firstname" value="{{ $user->name }}" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none " placeholder="Jone">
+                    @error('firstname')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-3 text-white w-full">
                     <label for="" class="text-base opacity-50">Last Name</label>
-                    <input type="text" name="firstname" value="{{ $user->last_name ?? '' }}" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none " placeholder="Jone">
+                    <input type="text" name="lastname" value="{{ $user->last_name ?? '' }}" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none " placeholder="Jone">
+                    @error('lastname')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
 
@@ -44,20 +53,26 @@
 
                 <div class="flex flex-col gap-3 text-white w-full">
                     <label for="" class="text-base opacity-50">Email</label>
-                    <input type="text" name="firstname" value="{{  $user->email }}" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none " placeholder="jone.doe@gmail.com">
+                    <input type="text" name="email" value="{{  $user->email }}" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none " placeholder="jone.doe@gmail.com">
+                    @error('email')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-3 text-white w-full">
                     <label for="" class="text-base opacity-50">Phone Number</label>
                     <div class="flex gap-2">
-                        <select name="color" id="color" class="bg-black">
+                        <select name="location" id="color" class="bg-black">
                             <option value=""><img class="h-[20px] w-[20px]" src="./images/f-ind.svg" alt="" /></option>
                             <option value="red">Red</option>
                             <option value="green">Green</option>
                             <option value="blue">Blue</option>
                         </select>
-                        <input x-mask="99999 999999" placeholder="99999 999999" value="{{ $user->phone ?? '' }}" name="firstname" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none ">
+                        <input x-mask="99999 999999" placeholder="99999 999999" value="{{ $user->phone ?? '' }}" name="phone" class=" bg-black rounded-md border border-second_black p-3 w-full focus:outline-none ">
                     </div>
+                    @error('phone')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
 
@@ -78,7 +93,7 @@
 
 
             <div>
-                <button class="bg-redcolor px-3 py-2 rounded text-white hover:opacity-50 hover:translate-x-1 duration-200">Edit Details</button>
+                <button type="submit" class="bg-redcolor px-3 py-2 rounded text-white hover:opacity-50 hover:translate-x-1 duration-200">Edit Details</button>
             </div>
         </form>
     </div>
