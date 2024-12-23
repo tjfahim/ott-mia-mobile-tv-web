@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\LiveBroadcastManageController;
 use App\Http\Controllers\Admin\UpcomingMovieSeriesController;
 use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
+use App\IpTVContent;
 use Illuminate\Support\Facades\Route;
 
 use Intervention\Image\Facades\Image;
@@ -468,5 +469,75 @@ Route::get('test', function(){
 
     return "image genrate successfully";
 });
+
+
+Route::get('/read', function () {
+    $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+
+    if (!file_exists($file)) {
+        die("The file does not exist.");
+    }
+
+    $result = [];
+    $handle = fopen($file, 'r');
+    if ($handle) {
+        $item = null;
+
+        while (($line = fgets($handle)) !== false) {
+            $line = trim($line);
+
+            if (str_starts_with($line, "#EXTINF")) {
+                $item = [];
+                preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
+
+                foreach ($matches[1] as $index => $key) {
+                    $item[$key] = $matches[2][$index];
+                }
+            } elseif ($item && !str_starts_with($line, "#")) {
+                $item['url'] = $line;
+                $result[] = $item;
+                $item = null;
+            }
+        }
+
+        fclose($handle);
+
+
+        foreach ($result as $item){
+            IpTVContent::create([
+                'tvg-id' => $item['id'],
+                'name' => $item['name'],
+                'title' => $item['title'],
+                'image' => $item['logo'],
+                'url' => $item['url'],
+            ]);
+        }
+
+        // Define the JSON file path
+        $jsonFilePath = __DIR__.'/../iptv/output.json';
+
+        // Save the data to a JSON file
+        file_put_contents($jsonFilePath, json_encode($result, JSON_PRETTY_PRINT));
+
+        return response()->json([
+            'message' => 'Data processed and saved to output.json',
+            'file_path' => $jsonFilePath,
+            'data' => $result,
+        ]);
+    } else {
+        die("Could not open the file.");
+    }
+});
+
+Route::get('info', function(){
+    return phpinfo();
+});
+
+// file open
+// file read
+// inarray
+// read everyline
+// and search every line
+
 
 // h
