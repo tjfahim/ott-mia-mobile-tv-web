@@ -18,11 +18,13 @@
 use App\Http\Controllers\Admin\BroadcastManageController;
 use App\Http\Controllers\Admin\ChannelManageController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\IptvContentController;
 use App\Http\Controllers\Admin\LiveBroadcastManageController;
 use App\Http\Controllers\Admin\UpcomingMovieSeriesController;
 use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
 use App\IpTVContent;
+use App\Jobs\InsertDataJob;
 use Illuminate\Support\Facades\Route;
 
 use Intervention\Image\Facades\Image;
@@ -31,6 +33,11 @@ Route::post('/reels/{id}/like', [ReelsController::class, 'postLike']);
 Route::get('/reels/{id}/likes', [ReelsController::class, 'ReelLike']);
 Route::post('/reels/{id}/comments', [ReelsController::class, 'postComment']);
 Route::get('/reels/{id}/comments', [ReelsController::class, 'ReelComment']);
+
+// admin controller h start
+Route::get('iptv/content', [IptvContentController::class, 'index']);
+// admin controller h end
+
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
@@ -419,8 +426,8 @@ Route::get('/lives', [App\Http\Controllers\frontend\LiveController::class, 'inde
 Route::post('contact', [App\Http\Controllers\frontend\ContactController::class, 'store']);
 Route::post('feedback', [App\Http\Controllers\frontend\ContactController::class, 'feedbackStore']);
 
-Route::get('movie/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
-Route::get('movie/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play']);
+Route::get('movie/{id}', [App\Http\Controllers\frontend\ContentController::class, 'show']);
+Route::get('movie/play/{id}', [App\Http\Controllers\frontend\ContentController::class, 'play']);
 
 Route::get('show/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'serise_show']);
 Route::get('show/play/{slug}', [App\Http\Controllers\frontend\ContentController::class, 'play_series']);
@@ -471,63 +478,78 @@ Route::get('test', function(){
 });
 
 
-Route::get('/read', function () {
-    $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+Route::get('/reads', function () {
+    $file = __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
 
     if (!file_exists($file)) {
-        die("The file does not exist.");
+        return response()->json(['message' => 'The file does not exist.'], 404);
     }
 
-    $result = [];
-    $handle = fopen($file, 'r');
-    if ($handle) {
-        $item = null;
 
-        while (($line = fgets($handle)) !== false) {
-            $line = trim($line);
+    // Dispatch the job to process the file asynchronously
+    InsertDataJob::dispatch($file);
 
-            if (str_starts_with($line, "#EXTINF")) {
-                $item = [];
-                preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
-
-                foreach ($matches[1] as $index => $key) {
-                    $item[$key] = $matches[2][$index];
-                }
-            } elseif ($item && !str_starts_with($line, "#")) {
-                $item['url'] = $line;
-                $result[] = $item;
-                $item = null;
-            }
-        }
-
-        fclose($handle);
-
-
-        foreach ($result as $item){
-            IpTVContent::create([
-                'tvg-id' => $item['id'],
-                'name' => $item['name'],
-                'title' => $item['title'],
-                'image' => $item['logo'],
-                'url' => $item['url'],
-            ]);
-        }
-
-        // Define the JSON file path
-        $jsonFilePath = __DIR__.'/../iptv/output.json';
-
-        // Save the data to a JSON file
-        file_put_contents($jsonFilePath, json_encode($result, JSON_PRETTY_PRINT));
-
-        return response()->json([
-            'message' => 'Data processed and saved to output.json',
-            'file_path' => $jsonFilePath,
-            'data' => $result,
-        ]);
-    } else {
-        die("Could not open the file.");
-    }
+    return response()->json(['message' => 'Processing started. The data will be processed in the background.']);
 });
+
+
+// Route::get('/read', function () {
+//     $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+
+//     if (!file_exists($file)) {
+//         die("The file does not exist.");
+//     }
+
+//     $result = [];
+//     $handle = fopen($file, 'r');
+//     if ($handle) {
+//         $item = null;
+
+//         while (($line = fgets($handle)) !== false) {
+//             $line = trim($line);
+
+//             if (str_starts_with($line, "#EXTINF")) {
+//                 $item = [];
+//                 preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
+
+//                 foreach ($matches[1] as $index => $key) {
+//                     $item[$key] = $matches[2][$index];
+//                 }
+//             } elseif ($item && !str_starts_with($line, "#")) {
+//                 $item['url'] = $line;
+//                 $result[] = $item;
+//                 $item = null;
+//             }
+//         }
+
+//         fclose($handle);
+
+
+//         foreach ($result as $item){
+//             IpTVContent::create([
+//                 'tvg-id' => $item['id'],
+//                 'name' => $item['name'],
+//                 'title' => $item['title'],
+//                 'image' => $item['logo'],
+//                 'url' => $item['url'],
+//             ]);
+//         }
+
+//         // Define the JSON file path
+//         $jsonFilePath = __DIR__.'/../iptv/output.json';
+
+//         // Save the data to a JSON file
+//         file_put_contents($jsonFilePath, json_encode($result, JSON_PRETTY_PRINT));
+
+//         return response()->json([
+//             'message' => 'Data processed and saved to output.json',
+//             'file_path' => $jsonFilePath,
+//             'data' => $result,
+//         ]);
+//     } else {
+//         die("Could not open the file.");
+//     }
+// });
 
 Route::get('info', function(){
     return phpinfo();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Genres;
 use App\Http\Controllers\Controller;
+use App\IpTVContent;
 use App\Movies;
 use App\Series;
 use App\LiveTV;
@@ -73,13 +74,21 @@ class VodController extends Controller
         }
 
 
-        $Netflix_Movies_all  = count($Netflix_Movies_all) > 5 ? array_slice($Netflix_Movies_all, 0, 5) :  $Netflix_Movies_all ;
-        $_4k_netflix_movies  = count($_4k_netflix_movies) > 5 ? array_slice($_4k_netflix_movies, 0, 5) :  $_4k_netflix_movies ;
-        $Disney_Kids_all  = count($Disney_Kids_all) > 5 ? array_slice($Disney_Kids_all, 0, 5) :  $Disney_Kids_all ;
-        $Disney_Movies_all  = count($Disney_Movies_all) > 5 ? array_slice($Disney_Movies_all, 0, 5) :  $Disney_Movies_all ;
-        $Gangster_Mafia_all  = count($Gangster_Mafia_all) > 5 ? array_slice($Gangster_Mafia_all, 0, 5) :  $Gangster_Mafia_all ;
-        $Apple_Movies_all  = count($Apple_Movies_all) > 5 ? array_slice($Apple_Movies_all, 0, 5) :  $Apple_Movies_all ;
+        // $Netflix_Movies_all  = count($Netflix_Movies_all) > 5 ? array_slice($Netflix_Movies_all, 0, 5) :  $Netflix_Movies_all ;
+        // $_4k_netflix_movies  = count($_4k_netflix_movies) > 5 ? array_slice($_4k_netflix_movies, 0, 5) :  $_4k_netflix_movies ;
+        // $Disney_Kids_all  = count($Disney_Kids_all) > 5 ? array_slice($Disney_Kids_all, 0, 5) :  $Disney_Kids_all ;
+        // $Disney_Movies_all  = count($Disney_Movies_all) > 5 ? array_slice($Disney_Movies_all, 0, 5) :  $Disney_Movies_all ;
+        // $Gangster_Mafia_all  = count($Gangster_Mafia_all) > 5 ? array_slice($Gangster_Mafia_all, 0, 5) :  $Gangster_Mafia_all ;
+        // $Apple_Movies_all  = count($Apple_Movies_all) > 5 ? array_slice($Apple_Movies_all, 0, 5) :  $Apple_Movies_all ;
 
+
+
+        $Netflix_Movies_all = IpTVContent::where('title', 'NETFLIX MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
+        $_4k_netflix_movies = IpTVContent::where('title', '4K NETFLIX MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
+        $Disney_Kids_all = IpTVContent::where('title', 'DISNEY+ KIDS')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
+        $Disney_Movies_all = IpTVContent::where('title', 'DISNEY+ MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
+        $Gangster_Mafia_all = IpTVContent::where('title', '|EN| GANGSTER & MAFIA')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
+        $Apple_Movies_all = IpTVContent::where('title', 'APPLE+ MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
 
         $sliders = Slider::all();
 
@@ -112,17 +121,17 @@ class VodController extends Controller
             case 'Apple Movies':
                 $genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
                 break;
-           
+
         }
 
-        
+
         $movies_all = Movies::all();
 
         $movies = [];
 
         foreach($movies_all as $movie){
             $genre_ids = explode(',', $movie->movie_genre_id);
-            
+
             foreach($genre_ids as $gen_id){
                 if($gen_id == $genre_id){
                     array_push($movies, $movie);
@@ -133,7 +142,7 @@ class VodController extends Controller
 
 
 
-    
+
         return view('frontend.vod.allMovies', compact('categorie', 'movies'));
     }
 
@@ -149,7 +158,7 @@ class VodController extends Controller
         $Apple_shows_genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
 
 
-        
+
         $Netflix_shows_all = [];
         $_4k_netflix_shows_all = [];
         $Disney_Kids_shows_all = [];
@@ -228,17 +237,17 @@ class VodController extends Controller
             case 'Apple Movies':
                 $genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
                 break;
-           
+
         }
 
-        
+
         $series_all = Series::all();
 
         $shows = [];
 
         foreach($series_all as $show){
             $genre_ids = explode(',', $show->series_genres);
-            
+
             foreach($genre_ids as $gen_id){
                 if($gen_id == $genre_id){
                     array_push($shows, $show);
@@ -249,7 +258,7 @@ class VodController extends Controller
 
 
 
-    
+
         return view('frontend.vod.allMovies', compact('categorie', 'shows'));
     }
 

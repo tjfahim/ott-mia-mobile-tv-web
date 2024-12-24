@@ -2,16 +2,16 @@
 
 @section('content')
 
-<section class="bg-cover relative w-full h-[650px]" style="background-image:  linear-gradient(0deg, rgba(20,20,20,0.4878151944371498) 0%, rgba(20,20,20,0.20770314961922265) 100%), url({{ URL::to( 'upload/source/'.$show->video_image_thumb )}})">
+<section class="bg-cover relative w-full h-[650px]" style="background-image:  linear-gradient(0deg, rgba(20,20,20,0.4878151944371498) 0%, rgba(20,20,20,0.20770314961922265) 100%), url({{ $show->image }})">
 
 
     <div class="absolute  bottom-0 left-0 right-0 text-white text-center p-10 space-y-5">
         <div class="flex flex-col gap-2">
-            <h2 class="text-xl font-semibold">{{ $show->video_title }}</h2>
+            <h2 class="text-xl font-semibold">{{ $show->name }}</h2>
             {{-- <p class="opacity-50">{{ $show->video_description }}</p> --}}
         </div>
         <div class="flex justify-center items-stretch gap-3">
-            <a href="{{  URL::to('movie/play/'. $show->video_slug) }}" class="bg-[#E50000] flex rounded gap-1 px-3 py-2 justify-center items-center text-md "><img src="{{ URL::asset('assets/frontend/images/play-Icon.svg') }}" alt=""><span>Play Now</span></a>
+            <a href="{{  URL::to('movie/play/'. $show->id) }}" class="bg-[#E50000] flex rounded gap-1 px-3 py-2 justify-center items-center text-md "><img src="{{ URL::asset('assets/frontend/images/play-Icon.svg') }}" alt=""><span>Play Now</span></a>
             {{-- <button class=" border-2 border-[#262626]  p-2 px-3 bg-[#0F0F0F] rounded" ><img  class="size-8" src="{{  URL::asset('assets/frontend/images/plus.svg') }}" alt=""></button> --}}
 
             <div x-data="{
@@ -79,14 +79,12 @@
     </div>
 </section>
 
-<section class="grid grid-cols-2 md:grid-cols-3 md:grid-rows-auto md:grid-flow-col py-[100px] gap-5 p-5">
-    <!-- description -->
+{{-- <section class="grid grid-cols-2 md:grid-cols-3 md:grid-rows-auto md:grid-flow-col py-[100px] gap-5 p-5">
+
     <div class="col-span-full md:col-start-1 md:col-end-3 bg-[#1A1A1A] p-5 border border-[#262626] rounded space-y-4">
         <h2 class="text-xl text-white  ">Description</h2>
         <div class="text-white opacity-50 w-4/5">{!! $show->video_description !!}</div>
-        {{-- <p class=" text-white opacity-50 w-4/5">A fiery young man clashes with an unflinching forest officer in a south Indian village where spirituality, fate and folklore rule the lands.</p> --}}
     </div>
-    <!-- cast -->
     <div class="col-start-1 col-end-3 bg-[#1A1A1A] p-5 border border-[#262626] rounded gap-5">
         <div class=" flex justify-between items-center space-y-5">
             <h2 class="text-white">Cast</h2>
@@ -101,7 +99,6 @@
             <img src="./images/cast2.png" alt="">
         </div>
     </div>
-    <!-- review -->
     <div class="col-span-full md:col-start-1 md:col-end-3 bg-[#1A1A1A] p-5 border border-[#262626] rounded">
         <div class=" flex justify-between items-center space-y-5">
             <h2 class="text-white">Reviews</h2>
@@ -178,7 +175,7 @@
         </div>
     </div>
 
-    <!-- information -->
+
     <div class="col-span-full md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-4 bg-[#1A1A1A] p-5 border border-[#262626] rounded space-y-5">
        <div class="space-y-1">
             <h2 class="flex justify-start items-center text-[#999999]"><img src="./images/calender.svg" alt="">Released Year</h2>
@@ -236,7 +233,7 @@
                 @foreach ($genres as $gen)
                     <a class="bg-[#141414] border border-[#262626] py-2 px-3 text-white text-md">{{ $gen }}</a>
                 @endforeach
-                {{-- <button class="bg-[#141414] border border-[#262626] py-2 px-3 text-white text-md">Adventure</button> --}}
+                <button class="bg-[#141414] border border-[#262626] py-2 px-3 text-white text-md">Adventure</button>
             </div>
         </div>
 
@@ -265,7 +262,7 @@
 
 
     </div>
-</section>
+</section> --}}
 
 
 @endsection

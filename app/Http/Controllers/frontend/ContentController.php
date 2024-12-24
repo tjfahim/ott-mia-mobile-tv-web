@@ -4,15 +4,22 @@ namespace App\Http\Controllers\frontend;
 
 use App\Genres;
 use App\Http\Controllers\Controller;
+use App\IpTVContent;
 use Illuminate\Http\Request;
 use App\Movies;
 use App\Series;
 
 class ContentController extends Controller
 {
-    public function show($slug)
+    public function show($id)
     {
-        $movie = Movies::where('video_slug', $slug)->first();
+
+        // $movie = Movies::where('video_slug', $slug)->first();
+
+        $movie = IpTVContent::find($id);
+
+
+
 
         if(!$movie){
             return redirect()->back();
@@ -44,24 +51,28 @@ class ContentController extends Controller
     }
 
 
-    public function play($slug)
+    public function play($id)
     {
-        $movie = Movies::where('video_slug', $slug)->first();
+        // $movie = Movies::where('video_slug', $slug)->first();
+
+        $movie = IpTVContent::where('id', $id)->first();
+
 
         if(!$movie){
             return redirect()->back();
         }
 
+
         return view('frontend.playMovies', [
             'video' => $movie,
-            'url' => $movie->video_url
+            'url' => $movie->url
         ]);
     }
 
 
 
 
-    // shows 
+    // shows
     public function serise_show($slug)
     {
         $show = Series::where('series_slug', $slug)->first();
@@ -100,7 +111,7 @@ class ContentController extends Controller
     {
         $show = Series::where('series_slug', $slug)->first();
 
-   
+
         if(!$show){
             return redirect()->back();
         }

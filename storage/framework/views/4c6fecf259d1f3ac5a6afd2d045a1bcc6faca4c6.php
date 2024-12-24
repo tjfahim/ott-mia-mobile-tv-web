@@ -6,7 +6,7 @@
         class="video-js w-full h-full"
         controls
         preload="auto"
-        poster=""
+        poster="<?php echo e($video->image ?? ''); ?>"
         data-setup="{}"
 
 >

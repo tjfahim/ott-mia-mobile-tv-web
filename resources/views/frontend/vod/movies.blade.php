@@ -84,9 +84,9 @@
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
 
                 @foreach ($Netflix_Movies_all as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
@@ -141,9 +141,9 @@
            </div>
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
                 @foreach ($_4k_netflix_movies as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
@@ -206,9 +206,9 @@
            </div>
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
                 @foreach ($Disney_Kids_all as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
@@ -272,9 +272,9 @@
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
 
                 @foreach ($Disney_Movies_all as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
@@ -337,9 +337,9 @@
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
 
                 @foreach ($Gangster_Mafia_all as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
@@ -402,9 +402,9 @@
            </div>
            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
                 @foreach ($Apple_Movies_all as $movie)
-                    <a href="{{ URL::to('movie/'.$movie->video_slug)}} ">
+                    <a href="{{ URL::to('movie/'.$movie->id)}} ">
                         <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                            <img class="w-full h-[300px] rounded-md" src="{{ URL::to( 'upload/source/'.$movie->video_image_thumb )}}" alt="">
+                            <img class="w-full h-[300px] rounded-md" src="{{  $movie->image }}" alt="">
                             <div class="text-white flex justify-between items-center text-sm">
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button>
                                 <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>

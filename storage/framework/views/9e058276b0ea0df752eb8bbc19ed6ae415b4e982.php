@@ -1,3 +1,8 @@
+<?php $__env->startSection('head_title', getcong('site_name') ); ?>
+
+<?php $__env->startSection('head_url', Request::url()); ?>
+
+
 <?php $__env->startSection('content'); ?>
 
 
@@ -9,7 +14,7 @@
             <div class="text-md font-normal text-white opacity-50">Let's drive into entertainment</div>
         </div>
     </div>
-   
+
 </div>
 
 
@@ -27,7 +32,7 @@
     <div>
         <div class="relative"  x-data="{open: false}" @click.away="open = false">
             <button @click="open = !open" class="p-4 bg-second_black rounded-full"><img class="size-5" src="<?php echo e(URL::asset('frontend/images/filter-icon.svg')); ?>" alt=""></button>
-            <div 
+            <div
                 x-show="open"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 scale-90"
@@ -45,18 +50,18 @@
                 <a href="" class="py-2 px-3 text-md hover:bg-third_black rounded-md duration-300 ease-out">Category 5</a>
             </div>
         </div>
-       
+
     </div>
  </div>
 
 <div class="border border-second_black p-10 " >
 
-  
+
 
 
     <!-- all movies  -->
     <section class="py-[50px]">
-      
+
        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
 
         <?php $__currentLoopData = $movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -71,13 +76,14 @@
             </a>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
            
-           
+
        </div>
     </section>
-  
+
 </div>
 
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('client_site.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\hadiuzzaman2\ott-mia-mobile-tv-web\resources\views/frontend/vod/allMovies.blade.php ENDPATH**/ ?>
+
+<?php echo $__env->make('client_site.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ott-mia\ott-mia-mobile-tv-web\resources\views/frontend/vod/allMovies.blade.php ENDPATH**/ ?>
