@@ -47,10 +47,10 @@
             <!-- <li><a href="{{ URL::to('admin/reels') }}" class="waves-effect {{classActivePath('reels')}}"><i class="ti-video-clapper"></i> <span> {{trans('words.reel_text')}}</span></a></li> -->
 
             <li class="has_sub">
-              <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-sliders"></i><span>{{trans('words.home')}} </span> <span class="menu-arrow"></span></a>
+              <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-sliders"></i><span>Site Manage</span> <span class="menu-arrow"></span></a>
               <ul class="list-unstyled">
                 <li class="{{classActivePath('slider')}}"><a href="{{ URL::to('admin/slider') }}" class="{{classActivePath('slider')}}"><i class="fa fa-sliders"></i> <span> {{trans('words.slider')}}</span></a></li>
-                <li class="{{classActivePath('home_section')}}"><a href="{{ URL::to('admin/home_section') }}" class="{{classActivePath('home_section')}}"><i class="fa fa-list"></i> <span> {{trans('words.home_section')}}</span></a></li>
+                <li class="{{classActivePath('home_section')}}"><a href="{{ URL::to('admin/home_section') }}" class="{{classActivePath('home_section')}}"><i class="fa fa-list"></i> <span>Page Content</span></a></li>
                </ul>
             </li>
             <li class="has_sub">

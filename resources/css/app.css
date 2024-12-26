@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+
+.btn-login {
+    @apply bg-second_black px-7 py-3 rounded-full text-white text-center inline-block leading-none font-manrope font-normal text-base hover:scale-x-110 hover:shadow-lg transform transition-all duration-300 ease-in-out;
+}
+
+.btn-register {
+    @apply bg-first_red px-7 py-3 rounded-full text-white text-center inline-block leading-none font-manrope font-normal text-base hover:scale-x-110 hover:shadow-lg transform transition-all duration-300 ease-in-out;
+}
+
+.btn-red{
+    @apply bg-first_red  px-7 py-5 rounded-full text-white text-center inline-block leading-none font-manrope font-normal text-base hover:scale-x-110 hover:shadow-lg transform transition-all duration-300 ease-in-out;
+}
+
+.scrollbar {
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: red transparent; /* Thumb and Track colors for Firefox */
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #ef4444; /* Tailwind's red-500 color */
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Transparent track */
+  }

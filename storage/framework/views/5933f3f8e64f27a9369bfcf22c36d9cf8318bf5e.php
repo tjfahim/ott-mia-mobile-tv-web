@@ -15,17 +15,12 @@
         <a href="<?php echo e(URL::to('vod/lives')); ?>" class="<?php echo e(request()->is('vod/lives') ? 'bg-redcolor' : 'hover:bg-redcolor'); ?> px-10 py-3 text-sm rounded-full text-gray-200 hover:bg-redcolor hover:translate-x-1 duration-300">Live</a>
     </div>
     <div class="text-center">
-        <h2 class="text-5xl font-bold text-white">Movies</h2>
+        <h2 class="text-5xl font-bold text-white">Live TV</h2>
         <div class="text-md font-normal text-white opacity-50">Let's drive into entertainment</div>
     </div>
 </div>
 
-<div class="main-slider container mx-auto py-10">
-    <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <img class="px-5 rounded-lg container mx-auto h-[600px]" src="<?php echo e(URL::to( 'upload/source/'.$slide->slider_image )); ?>" alt="">
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    
-</div>
+
 
 
 
@@ -34,17 +29,17 @@
      <!-- search option add  -->
      <div class="flex items-center gap-3 justify-end py-5">
         <div>
-            <form action="">
+            <form action="<?php echo e(route('lives.index')); ?>" method="get">
                 <div class="relative  bg-second_black text-white p-1 border-0  rounded-full flex gap-2 items-center">
-                    <img src="./images/search-icon.svg" class="size-4 ml-2" alt="">
-                    <input type="text" class="w-[300px] flex-1 p-2 bg-second_black focus:border-0 focus:outline-none rounded-full" placeholder="search">
+                    <img src="<?php echo e(URL::asset('frontend/images/search-icon.svg')); ?>" class="size-4 ml-2" alt="">
+                    <input type="text" value="<?php echo e(request()->input('search')); ?>" name="search" class="w-[300px] flex-1 p-2 bg-second_black focus:border-0 focus:outline-none rounded-full" placeholder="search">
                     <button class="absolute right-2 top-1/2 -translate-y-1/2 text-white font-normal px-5 py-1.5 bg-redcolor rounded-full  hover:scale-105 duration-200">Search</button>
                 </div>
             </form>
         </div>
         <div>
             <div class="relative"  x-data="{open: false}" @click.away="open = false">
-                <button @click="open = !open" class="p-4 bg-second_black rounded-full"><img class="size-5" src="./images/filter-icon.svg" alt=""></button>
+                <button @click="open = !open" class="p-4 bg-second_black rounded-full"><img  src="<?php echo e(URL::asset('frontend/images/filter-icon.svg')); ?>" class="size-5" alt=""></button>
                 <div
                     x-show="open"
                     x-transition:enter="transition ease-out duration-300"
@@ -69,325 +64,90 @@
 
  <div class="border border-second_black p-10 " >
 
-        <!-- Netflix Movies cart start -->
+
+        <!-- all movies  -->
         <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">Netflix Movies</h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
+
+             <?php $__currentLoopData = $paginatedLives; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $live): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                 <a href="<?php echo e(URL::to('movie/'.$live->id)); ?> ">
+                     <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
+                         <img class="w-full h-[300px] rounded-md" src="<?php echo e($live->image); ?>" alt="">
+                         <div class="text-white flex justify-between items-center text-sm">
+                             
+                         </div>
+                     </div>
+                 </a>
+             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
 
 
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+            <!-- Pagination Links -->
+            <!-- Pagination Links -->
+<?php if($paginatedLives->lastPage() > 1): ?>
+<div class="flex items-center justify-center py-20">
+    <nav role="navigation" aria-label="Pagination Navigation" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px border border-black bg-first_black">
+        <!-- Previous Page Link -->
+        <?php if($paginatedLives->onFirstPage()): ?>
+            <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-bg-third_black bg-second_black text-sm font-medium text-gray-500 cursor-not-allowed">
+                Previous
+            </span>
+        <?php else: ?>
+            <a href="<?php echo e($paginatedLives->previousPageUrl()); ?>" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-bg-third_black bg-second_black text-sm font-medium text-gray-500 hover:bg-gray-50">
+                Previous
+            </a>
+        <?php endif; ?>
 
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+        <!-- First Page Link -->
+        <?php if($paginatedLives->currentPage() > 3): ?>
+            <a href="<?php echo e($paginatedLives->url(1)); ?>" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium text-gray-500 hover:bg-gray-50">
+                First
+            </a>
+            <span class="px-2 py-2 text-sm">...</span>
+        <?php endif; ?>
 
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+        <!-- Page Links -->
+        <?php $__currentLoopData = $paginatedLives->getUrlRange(max(1, $paginatedLives->currentPage() - 2), min($paginatedLives->lastPage(), $paginatedLives->currentPage() + 2)); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($page == $paginatedLives->currentPage()): ?>
+                <span class="bg-redcolor text-white relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                    <?php echo e($page); ?>
 
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+                </span>
+            <?php else: ?>
+                <a href="<?php echo e($url); ?>" class="bg-second_black border-bg-third_black text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                    <?php echo e($page); ?>
 
+                </a>
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-           </div>
-        </section>
-       <!-- Netflix Movies card end -->
+        <!-- Last Page Link -->
+        <?php if($paginatedLives->currentPage() < $paginatedLives->lastPage() - 2): ?>
+            <span class="px-2 py-2 text-sm">...</span>
+            <a href="<?php echo e($paginatedLives->url($paginatedLives->lastPage())); ?>" class="relative inline-flex items-center px-4 py-2 border text-sm font-medium text-gray-500 hover:bg-gray-50">
+                Last
+            </a>
+        <?php endif; ?>
 
-       <!-- 4K Netflix Movies card start -->
-       <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">4K Netflix Movies</h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
+        <!-- Next Page Link -->
+        <?php if($paginatedLives->hasMorePages()): ?>
+            <a href="<?php echo e($paginatedLives->nextPageUrl()); ?>" class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-second_black text-sm font-medium text-gray-500 hover:bg-gray-50">
+                Next
+            </a>
+        <?php else: ?>
+            <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-second_black text-sm font-medium text-gray-500 cursor-not-allowed">
+                Next
+            </span>
+        <?php endif; ?>
+    </nav>
+</div>
+<?php endif; ?>
 
 
-           </div>
-        </section>
-       <!-- 4K Netflix Movies card end -->
 
 
-        <!-- Disney+ Kids card start -->
-       <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">Disney+ Kids</h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-           </div>
-        </section>
-       <!-- Disney+ Kids card end -->
-
-        <!-- Disney+ Movies card start -->
-        <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">Disney+ Movies</h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-           </div>
-        </section>
-       <!-- Disney+ Movies card end -->
-
-       <!-- [EN] Gangster & Mafia  card start -->
-       <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">[EN] Gangster & Mafia </h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-           </div>
-        </section>
-       <!-- [EN] Gangster & Mafia  card end -->
-
-
-       <!-- Apple+ Movies  card start -->
-       <section class="py-[50px]">
-           <div class="flex justify-between items-center text-white mb-10">
-               <h2 class="text-3xl font-bold ">Apple+ Movies </h2>
-               <a href="" class="text-xl text-[#ED2024] hover:underline hover:underline-offset-4">View All</a>
-           </div>
-           <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-               <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5 ">
-                   <img class="w-full  rounded-md" src="./images/youtube1.png" alt="">
-                   <div class="text-white flex justify-between items-center text-sm">
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>1h57min</span></button>
-                       <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
-                   </div>
-               </div>
-
-
-           </div>
-        </section>
-       <!-- Apple+ Movies  card end -->
+         </section>
 
 
  </div>

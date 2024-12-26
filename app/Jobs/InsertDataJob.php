@@ -51,6 +51,7 @@ class InsertDataJob implements ShouldQueue
                 if (str_starts_with($line, "#EXTINF")) {
                     $item = [];
                     preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
+                    $item['tag'] = trim(substr($line, strrpos($line, ',') + 1));
 
                     foreach ($matches[1] as $index => $key) {
                         $item[$key] = $matches[2][$index];
@@ -61,6 +62,7 @@ class InsertDataJob implements ShouldQueue
                         'tvg-id' => $item['id'] ?? null,
                         'name' => $item['name'] ?? null,
                         'title' => $item['title'] ?? null,
+                        'tag' => $item['tag'] ?? null,
                         'image' => $item['logo'] ?? null,
                         'url' => $item['url'] ?? null,
                     ];

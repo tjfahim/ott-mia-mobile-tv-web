@@ -13,6 +13,7 @@ class IpTVContent extends Model
         'tvg-id',
         'name',
        'title',
+       'tag',
         'image',
         'url',
     ];

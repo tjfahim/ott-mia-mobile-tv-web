@@ -8,9 +8,8 @@ class HomeSection extends Model
 {
     protected $table = 'home_section';
 
-    protected $fillable = ['section1_title','section1_type'];
+    protected $fillable = ['section1_title','section1_type', 'movies_categories', 'shows_categories', 'live_categories'];
 
 
-	public $timestamps = false; 	 
-	 
+	public $timestamps = false;
 }

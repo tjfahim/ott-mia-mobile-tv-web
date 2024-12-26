@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Genres;
+use App\HomeSection;
 use App\Http\Controllers\Controller;
+use App\IptvCategorie;
 use App\IpTVContent;
 use App\Movies;
 use App\Series;
@@ -16,134 +18,61 @@ class VodController extends Controller
 {
     public function movies()
     {
-        $recent_movies = Movies::latest()->get();
-        $movies = Movies::all();
-        $series = Series::all();
-        $recent_shows = Series::all();
-        $recent_lives = LiveBroadcastManage::all();
-        $liveTV = LiveTV::all();
 
 
-
-        $Netflix_Movies_genre_id = Genres::where('genre_slug', 'netflix-_movies')->get()->first()->id;
-        $_4k_netflix_movies_id = Genres::where('genre_slug', '4k-netflix-movies')->get()->first()->id;
-        $Disney_Kids_genre_id = Genres::where('genre_slug', 'disney-kids')->get()->first()->id;
-        $Disney_Movies_en_genre_id = Genres::where('genre_slug', 'disney-movies')->get()->first()->id;
-        $Gangster_Mafia_genre_id = Genres::where('genre_slug', 'en-gangster-mafia')->get()->first()->id;
-        $Apple_Movies_genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
+        $search = request()->input('search');
 
 
-        $Netflix_Movies_all = [];
-        $_4k_netflix_movies = [];
-        $Disney_Kids_all = [];
-        $Disney_Movies_all = [];
-        $Gangster_Mafia_all = [];
-        $Apple_Movies_all = [];
-
-
-
-        foreach($movies as $movie){
-            $genre_ids = explode(',', $movie->movie_genre_id);
-
-            // serach id matching or not
-            foreach($genre_ids as $gen_id){
-
-                switch($gen_id){
-                    case $Netflix_Movies_genre_id:
-                        array_push($Netflix_Movies_all, $movie);
-                        break;
-                    case $_4k_netflix_movies_id:
-                        array_push($_4k_netflix_movies, $movie);
-                        break;
-                    case $Disney_Kids_genre_id:
-                        array_push($Disney_Kids_all, $movie);
-                        break;
-                    case $Disney_Movies_en_genre_id:
-                        array_push($Disney_Movies_all, $movie);
-                        break;
-                    case $Gangster_Mafia_genre_id:
-                        array_push($Gangster_Mafia_all, $movie);
-                        break;
-                    case $Apple_Movies_genre_id:
-                            array_push($Apple_Movies_all, $movie);
-                            break;
-
-                }
-
-            }
-        }
-
-
-        // $Netflix_Movies_all  = count($Netflix_Movies_all) > 5 ? array_slice($Netflix_Movies_all, 0, 5) :  $Netflix_Movies_all ;
-        // $_4k_netflix_movies  = count($_4k_netflix_movies) > 5 ? array_slice($_4k_netflix_movies, 0, 5) :  $_4k_netflix_movies ;
-        // $Disney_Kids_all  = count($Disney_Kids_all) > 5 ? array_slice($Disney_Kids_all, 0, 5) :  $Disney_Kids_all ;
-        // $Disney_Movies_all  = count($Disney_Movies_all) > 5 ? array_slice($Disney_Movies_all, 0, 5) :  $Disney_Movies_all ;
-        // $Gangster_Mafia_all  = count($Gangster_Mafia_all) > 5 ? array_slice($Gangster_Mafia_all, 0, 5) :  $Gangster_Mafia_all ;
-        // $Apple_Movies_all  = count($Apple_Movies_all) > 5 ? array_slice($Apple_Movies_all, 0, 5) :  $Apple_Movies_all ;
-
-
-
-        $Netflix_Movies_all = IpTVContent::where('title', 'NETFLIX MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
-        $_4k_netflix_movies = IpTVContent::where('title', '4K NETFLIX MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
-        $Disney_Kids_all = IpTVContent::where('title', 'DISNEY+ KIDS')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
-        $Disney_Movies_all = IpTVContent::where('title', 'DISNEY+ MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
-        $Gangster_Mafia_all = IpTVContent::where('title', '|EN| GANGSTER & MAFIA')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
-        $Apple_Movies_all = IpTVContent::where('title', 'APPLE+ MOVIES')->whereNotNull('image')->where('image', '!=', '')->limit(5)->get();
 
         $sliders = Slider::all();
 
-        return view('frontend.vod.movies', compact('sliders', 'Netflix_Movies_all', '_4k_netflix_movies', 'Disney_Kids_all', 'Disney_Movies_all', 'Gangster_Mafia_all', 'Apple_Movies_all'));
+        $page_section = HomeSection::find(1);
+        $movies_cat = explode(',', $page_section->movies_categories);
+        $movies_cat = array_map(function($cat){
+            return IptvCategorie::find($cat)->name;
+        }, $movies_cat);
+
+
+        $movies = array_map(function($cat) use($search){
+            return [
+                'title' => $cat,
+                'content' => IpTVContent::where('title', $cat)
+                                ->when($search, function($query, $search){
+                                    return $query->where('name', 'like', '%'.$search.'%');
+                                })
+                                ->whereNotNull('image')
+                                ->where('image', '!=', '')->limit(5)->get()
+            ];
+        }, $movies_cat);
+
+
+        $iptv_cate = IptvCategorie::all();
+
+
+        return view('frontend.vod.movies', compact('sliders', 'movies', 'iptv_cate'));
+        // return view('frontend.vod.movies', compact('sliders', 'Netflix_Movies_all', '_4k_netflix_movies', 'Disney_Kids_all', 'Disney_Movies_all', 'Gangster_Mafia_all', 'Apple_Movies_all'));
     }
 
 
     public function allMovies()
     {
-        $categorie = request()->input('categorie');
+         $categorie = request()->input('categorie');
+         $search = request()->input('search');
 
 
 
-        switch($categorie){
-            case 'Netflix Movies':
-                $genre_id = Genres::where('genre_slug', 'netflix-_movies')->get()->first()->id;
-                break;
-            case '4K Netflix Movies':
-                $genre_id = Genres::where('genre_slug', '4k-netflix-movies')->get()->first()->id;
-                break;
-            case 'Disney Kids':
-                $genre_id = Genres::where('genre_slug', 'disney-kids')->get()->first()->id;
-                break;
-            case 'Disney Movies':
-                $genre_id = Genres::where('genre_slug', 'disney-movies')->get()->first()->id;
-                break;
-            case 'GangsterAndMafia':
-                $genre_id = Genres::where('genre_slug', 'en-gangster-mafia')->get()->first()->id;
-                break;
-            case 'Apple Movies':
-                $genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
-                break;
-
-        }
+        $movies = IpTVContent::where('title', 'like', '%' . $categorie . '%')
+        ->when($search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })
+        ->paginate(20)
+        ->appends(['categorie' => $categorie, 'search' => $search]);
 
 
-        $movies_all = Movies::all();
-
-        $movies = [];
-
-        foreach($movies_all as $movie){
-            $genre_ids = explode(',', $movie->movie_genre_id);
-
-            foreach($genre_ids as $gen_id){
-                if($gen_id == $genre_id){
-                    array_push($movies, $movie);
-                }
-            }
-
-        }
+        $iptv_cate = IptvCategorie::all();
 
 
-
-
-        return view('frontend.vod.allMovies', compact('categorie', 'movies'));
+        return view('frontend.vod.allMovies', compact('categorie', 'movies', 'iptv_cate'));
     }
 
     public function shows()
@@ -208,8 +137,27 @@ class VodController extends Controller
 
         $sliders = Slider::all();
 
+        $page_section = HomeSection::find(1);
+        $movies_cat = explode(',', $page_section->shows_categories);
+        $movies_cat = array_map(function($cat){
+            return IptvCategorie::find($cat)->name;
+        }, $movies_cat);
 
-         return view('frontend.vod.shows', compact('sliders', 'Netflix_shows_all', '_4k_netflix_shows_all', 'Disney_Kids_shows_all', 'Disney_shows_all', 'Gangster_Mafia_shows_all', 'Apple_shows_all'));
+
+        $movies = array_map(function($cat){
+            return [
+                'title' => $cat,
+                'content' => IpTVContent::where('title', $cat)
+                    ->whereNotNull('image')->where('image', '!=', '')->limit(5)->get()
+            ];
+        }, $movies_cat);
+
+
+
+        return view('frontend.vod.shows', compact('sliders', 'movies'));
+
+
+        //  return view('frontend.vod.shows', compact('sliders', 'Netflix_shows_all', '_4k_netflix_shows_all', 'Disney_Kids_shows_all', 'Disney_shows_all', 'Gangster_Mafia_shows_all', 'Apple_shows_all'));
     }
 
     public function allShows()
@@ -263,7 +211,54 @@ class VodController extends Controller
     }
 
     public function lives()
-    {
-        return view('frontend.vod.lives');
-    }
+{
+
+    $search = request()->input('search');
+
+
+    // Retrieve the data with pagination
+    $lives = IpTVContent::where('tvg-id', '!=', '')
+    ->when($search, function ($query, $search) {
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('tvg-id', 'like', '%' . $search . '%')
+            ->orWhere('title', 'like', '%' . $search . '%');
+    })
+    ->get();
+
+    // Function to extract base name (ignoring suffixes like "HD", "FHD", "HEVC", etc.)
+    $getBaseName = function($name) {
+        return preg_replace('/\s*(HD|FHD|HEVC)$/i', '', $name);
+    };
+
+    // Group the channels by base name and get the first channel from each group
+    $groupedLives = $lives->groupBy(function ($item) use ($getBaseName) {
+        return $getBaseName($item->name);
+    })->map(function ($group) {
+        return $group->first();
+    });
+
+    // Reset the keys after grouping
+    $groupedLives = $groupedLives->values();
+
+    // Paginate the grouped data
+    $paginatedLives = new \Illuminate\Pagination\LengthAwarePaginator(
+        $groupedLives->forPage(request()->get('page', 1), 20),  // Correct pagination per page and current page
+        $groupedLives->count(),
+        20,
+        request()->get('page', 1),
+        ['path' => url()->current()]
+    );
+
+    // Pass the paginated data to the view
+    return view('frontend.vod.lives', compact('paginatedLives'));
+}
+
+
+        //return $lives;
+
+
+
+
+
+
 }

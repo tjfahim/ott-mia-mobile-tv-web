@@ -25,7 +25,9 @@ use App\Http\Controllers\frontend\TvstationController as TvController;
 use App\Http\Controllers\ReelsController;
 use App\IpTVContent;
 use App\Jobs\InsertDataJob;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
 
 use Intervention\Image\Facades\Image;
 
@@ -413,11 +415,11 @@ Route::get('/', [App\Http\Controllers\frontend\HomeController::class, 'index']);
 Route::get('tvstation', [App\Http\Controllers\frontend\TvstationController::class, 'index']);
 
 
-Route::get('vod/movies', [App\Http\Controllers\frontend\VodController::class, 'movies']);
+Route::get('vod/movies', [App\Http\Controllers\frontend\VodController::class, 'movies'])->name('movies.index');
 Route::get('vod/shows', [App\Http\Controllers\frontend\VodController::class, 'shows']);
-Route::get('vod/lives', [App\Http\Controllers\frontend\VodController::class, 'lives']);
+Route::get('vod/lives', [App\Http\Controllers\frontend\VodController::class, 'lives'])->name('lives.index');
 
-Route::get('vod/movies/all', [App\Http\Controllers\frontend\VodController::class, 'allMovies']);
+Route::get('vod/movies/all', [App\Http\Controllers\frontend\VodController::class, 'allMovies'])->name('movies.all');
 Route::get('vod/shows/all', [App\Http\Controllers\frontend\VodController::class, 'allShows']);
 
 Route::get('/lives', [App\Http\Controllers\frontend\LiveController::class, 'index']);
@@ -477,6 +479,11 @@ Route::get('test', function(){
     return "image genrate successfully";
 });
 
+// ivtv content routers start
+
+Route::get('iptv/category/set', [IptvContentController::class, 'categoriSet']);
+
+// ivtv content routers end
 
 Route::get('/reads', function () {
     $file = __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
@@ -493,63 +500,75 @@ Route::get('/reads', function () {
 });
 
 
-// Route::get('/read', function () {
-//     $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+Route::get('/read', function () {
+    $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
 
-//     if (!file_exists($file)) {
-//         die("The file does not exist.");
-//     }
+    if (!file_exists($file)) {
+        die("The file does not exist.");
+    }
 
-//     $result = [];
-//     $handle = fopen($file, 'r');
-//     if ($handle) {
-//         $item = null;
+    $result = [];
+    $handle = fopen($file, 'r');
+    if ($handle) {
+        $item = null;
 
-//         while (($line = fgets($handle)) !== false) {
-//             $line = trim($line);
+        while (($line = fgets($handle)) !== false) {
+            $line = trim($line);
 
-//             if (str_starts_with($line, "#EXTINF")) {
-//                 $item = [];
-//                 preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
+            if (str_starts_with($line, "#EXTINF")) {
+                $item = [];
+                preg_match_all('/(\w+)=["](.*?)["]/', $line, $matches);
+                $item['tag'] = trim(substr($line, strrpos($line, ',') + 1));
 
-//                 foreach ($matches[1] as $index => $key) {
-//                     $item[$key] = $matches[2][$index];
-//                 }
-//             } elseif ($item && !str_starts_with($line, "#")) {
-//                 $item['url'] = $line;
-//                 $result[] = $item;
-//                 $item = null;
-//             }
-//         }
+                foreach ($matches[1] as $index => $key) {
+                    $item[$key] = $matches[2][$index];
+                }
+            } elseif ($item && !str_starts_with($line, "#")) {
+                $item['url'] = $line;
+                $result[] = $item;
+                $item = null;
+            }
+        }
 
-//         fclose($handle);
+        fclose($handle);
 
+        return $result;
 
-//         foreach ($result as $item){
-//             IpTVContent::create([
-//                 'tvg-id' => $item['id'],
-//                 'name' => $item['name'],
-//                 'title' => $item['title'],
-//                 'image' => $item['logo'],
-//                 'url' => $item['url'],
-//             ]);
-//         }
+        // foreach ($result as $item){
+        //     IpTVContent::create([
+        //         'tvg-id' => $item['id'],
+        //         'name' => $item['name'],
+        //         'title' => $item['title'],
+        //         'image' => $item['logo'],
+        //         'url' => $item['url'],
+        //     ]);
+        // }
 
-//         // Define the JSON file path
-//         $jsonFilePath = __DIR__.'/../iptv/output.json';
+        // Define the JSON file path
+        $jsonFilePath = __DIR__.'/../iptv/output.json';
 
-//         // Save the data to a JSON file
-//         file_put_contents($jsonFilePath, json_encode($result, JSON_PRETTY_PRINT));
+        // Save the data to a JSON file
+        file_put_contents($jsonFilePath, json_encode($result, JSON_PRETTY_PRINT));
 
-//         return response()->json([
-//             'message' => 'Data processed and saved to output.json',
-//             'file_path' => $jsonFilePath,
-//             'data' => $result,
-//         ]);
-//     } else {
-//         die("Could not open the file.");
-//     }
-// });
+        return response()->json([
+            'message' => 'Data processed and saved to output.json',
+            'file_path' => $jsonFilePath,
+            'data' => $result,
+        ]);
+    } else {
+        die("Could not open the file.");
+    }
+});
+
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('optimize:clear');
+    return "Cleared!";
+});
 
 Route::get('info', function(){
     return phpinfo();

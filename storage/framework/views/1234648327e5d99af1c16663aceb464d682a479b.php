@@ -55,6 +55,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
+        <link rel="stylesheet" href="/../../../css/app.css">
+
         <!-- Custom Styles -->
         <link rel="stylesheet" href="<?php echo e(URL::asset('frontend/style.css')); ?>">
 
