@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AndroidApiController;
+use App\IptvCategorie;
+use App\IpTVContent;
 use Illuminate\Http\Request;
 
 /*
@@ -133,4 +135,17 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::get('get_upcomming_data', 'AndroidApiController@get_upcomming_data');
     Route::get('get_channel_data', 'AndroidApiController@get_channel_data');
 
+
+
+
+});
+
+Route::group(['prefix' => 'v2','namespace' => 'API'], function(){
+    Route::get('movies', function(){
+        return response()->json([
+           'status' => true,
+           'message' => 'all movies are available',
+           'data' => IpTVContent::whereNull('tvg-id')->orWhere('tvg-id', '')->limit(100)->get()
+        ]);
+    });
 });

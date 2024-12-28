@@ -43,7 +43,6 @@ class ContentController extends Controller
 
 
 
-
         return view('frontend.singleMoviePage', [
             'show' => $movie,
             'genres' => $genres
@@ -53,19 +52,39 @@ class ContentController extends Controller
 
     public function play($id)
     {
-        // $movie = Movies::where('video_slug', $slug)->first();
-
         $movie = IpTVContent::where('id', $id)->first();
 
 
-        if(!$movie){
-            return redirect()->back();
+
+        if (!$movie) {
+            \Log::error("Movie not found for ID: " . $id);
+            return redirect()->back()->withErrors(['error' => 'Movie not found.']);
         }
+
+        // $url = str_replace('https://', 'http://', $movie->url);
+
+
+        $url = $movie->url;
+
+
+
+
+
+        // $client = new \GuzzleHttp\Client();
+
+        // $request = $client->get($url);
+
+        // $response = $request->getBody();
+
+
+
+        //  dd($response);
+
 
 
         return view('frontend.playMovies', [
             'video' => $movie,
-            'url' => $movie->url
+            'url' => $url
         ]);
     }
 

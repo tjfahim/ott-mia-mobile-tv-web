@@ -1,7 +1,7 @@
 @extends('site_app')
- 
 
-@if($tv_info->seo_title)
+
+{{-- @if($tv_info->seo_title)
     @section('head_title', stripslashes($tv_info->seo_title).' | '.getcong('site_name'))
 @else
     @section('head_title', stripslashes($tv_info->channel_name).' | '.getcong('site_name') )
@@ -14,7 +14,7 @@
 @endif
 
 @if($tv_info->seo_keyword)
-    @section('head_keywords', stripslashes($tv_info->seo_keyword)) 
+    @section('head_keywords', stripslashes($tv_info->seo_keyword))
 @endif
 
 
@@ -22,18 +22,18 @@
 
 @section('head_url', Request::url())
 
-@section('content')
-  
+@section('content') --}}
 
-@if(get_player_cong('player_style')!="")  
-  <link href="{{ URL::asset('site_assets/videojs_player/css/'.get_player_cong('player_style').'.min.css') }}" rel="stylesheet" type="text/css" />    
+
+@if(get_player_cong('player_style')!="")
+  <link href="{{ URL::asset('site_assets/videojs_player/css/'.get_player_cong('player_style').'.min.css') }}" rel="stylesheet" type="text/css" />
  @else
   <link href="{{ URL::asset('site_assets/videojs_player/css/videojs_style1.min.css') }}" rel="stylesheet" type="text/css" />
  @endif
 
- 
+
  <style type="text/css">
-   
+
   .videoWrapper {
   position: relative;
   padding-bottom: 56.25%; /* 16:9 */
@@ -46,7 +46,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-} 
+}
 
 .vjs-pip-control
 {
@@ -57,82 +57,83 @@
   @endif
 }
 
- </style> 
+ </style>
 
 <section class="single__movie padding-top-70 single__page">
     <div class="single__header">
         <div class="wrapper">
-            <h2 class="single__title">{{stripslashes($tv_info->channel_name)}}</h2>
+            <h2 class="single__title">working title</h2>
             <!-- <div class="tag">NR</div> -->
         </div>
     </div>
     <div class="single__body mb-5">
         <div class="wrapper">
             <div class="mb-4">
-               
+
                <main>
-                        
+
                          @if($tv_info->channel_url_type=="embed")
 
               {{-- <div class="videoWrapper">{!! $tv_info->channel_url!!}</div> --}}
 
-            @elseif($tv_info->channel_url_type=="hls")
-              
-              <div id="container">                   
+            @elseif("hls"=="hls")
+
+              <div id="container">
               <video id="v_player" class="video-js vjs-big-play-centered skin-blue vjs-16-9" controls preload="auto" playsinline crossorigin="anonymous" width="640" height="450" poster="{{URL::to('upload/source/'.$tv_info->channel_thumb)}}" data-setup="{}" @if(get_player_cong('autoplay')=="true")autoplay="true"@endif>
-                  
+
                   <!-- video source -->
-                  @if(isset($_GET['server']) AND $_GET['server']==2)
-                  <source src="{{$tv_info->channel_url2}}" type="application/x-mpegURL" /> 
+                  <source src="{{$url}}" type="application/x-mpegURL" />
+                  {{-- @if(isset($_GET['server']) AND $_GET['server']==2)
+                  <source src="{{$tv_info->channel_url2}}" type="application/x-mpegURL" />
                   @elseif(isset($_GET['server']) AND $_GET['server']==3)
-                  <source src="{{$tv_info->channel_url3}}" type="application/x-mpegURL" /> 
+                  <source src="{{$tv_info->channel_url3}}" type="application/x-mpegURL" />
                   @else
-                  <source src="{{$tv_info->channel_url}}" type="application/x-mpegURL" /> 
-                  @endif
-                   
-                  
-                 
+                  <source src="{{$tv_info->channel_url}}" type="application/x-mpegURL" />
+                  @endif --}}
+
+
+
 
                 <!-- worning text if needed -->
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
               </video>
             </div>
 
-            @elseif($tv_info->channel_url_type=="dash")
+            {{-- @elseif($tv_info->channel_url_type=="dash") --}}
 
-            <div id="container">                   
+            <div id="container">
               <video id="v_player" class="video-js vjs-big-play-centered skin-blue vjs-16-9" controls preload="auto" playsinline crossorigin="anonymous" width="640" height="450" poster="{{URL::to('upload/source/'.$tv_info->channel_thumb)}}" data-setup="{}" @if(get_player_cong('autoplay')=="true")autoplay="true"@endif>
-                  
+
                   <!-- video source -->
-                  @if(isset($_GET['server']) AND $_GET['server']==2)
-                  <source src="{{$tv_info->channel_url2}}" type="application/dash+xml" /> 
+                  {{-- @if(isset($_GET['server']) AND $_GET['server']==2)
+                  <source src="{{$tv_info->channel_url2}}" type="application/dash+xml" />
                   @elseif(isset($_GET['server']) AND $_GET['server']==3)
-                  <source src="{{$tv_info->channel_url3}}" type="application/dash+xml" /> 
+                  <source src="{{$tv_info->channel_url3}}" type="application/dash+xml" />
                   @else
-                  <source src="{{$tv_info->channel_url}}" type="application/dash+xml" /> 
-                  @endif
-                   
-                   
+                  <source src="{{$tv_info->channel_url}}" type="application/dash+xml" />
+                  @endif --}}
+
+
                 <!-- worning text if needed -->
                 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
               </video>
-            </div>  
+            </div>
 
             @else
-                <?php 
-                parse_str( parse_url( $tv_info->channel_url, PHP_URL_QUERY ), $my_array_of_vars );
+                <?php
+                // parse_str( parse_url( $tv_info->channel_url, PHP_URL_QUERY ), $my_array_of_vars );
 
-                $youtube_id=$my_array_of_vars['v'];
+                // $youtube_id=$my_array_of_vars['v'];
                 ?>
                 <div class="videoWrapper">
                   <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{$youtube_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>    
+                </div>
 
-            @endif  
-                        
-                      </main> 
+            @endif
 
-                      
+                      </main>
+
+
 
             </div>
             <div class="video__desc">
@@ -150,11 +151,11 @@
                             </div>
                             <div class="col-sm-8">
                                 <!-- <h2 class="season__title text-uppercase">Season 1 : E1</h2> -->
-                                <h2 class="part__title"> 
+                                <h2 class="part__title">
                                     {{$tv_info->channel_name}}
                                 </h2>
                                 <p class="part__desc">
-                                    
+
                                     {!!stripslashes($tv_info->channel_description)!!}
 
 
@@ -164,7 +165,7 @@
                     </div>
                     <div class="col-lg-5 mb-4 mb-lg-0">
                         <div class="icons">
-                            <!--             
+                            <!--
             <a href="#" class="icon">
                 <i class="fa-solid fa-thumbs-up"></i>
             </a>
@@ -222,17 +223,17 @@
 
 @if($tv_info->channel_url_type!="embed" AND $tv_info->channel_url_type!="youtube")
 
- 
+
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 
 <script src="{{ URL::asset('site_assets/videojs_player/js/videojs.min.js') }}"></script>
 
-<script src="{{ URL::asset('site_assets/videojs_player/plugins/videojs.pip.js') }}"></script> 
- 
+<script src="{{ URL::asset('site_assets/videojs_player/plugins/videojs.pip.js') }}"></script>
+
 <script src="{{ URL::asset('site_assets/videojs_player/plugins/videojs-chromecast.min.js') }}"></script>
-  
+
 <script>
-        
+
         var player = videojs('v_player',{techOrder:['chromecast','html5']});
 
         player.viavi({
@@ -249,49 +250,49 @@
             contextMenu: false,
             @if(get_player_cong('rewind_forward')=="ON")
             buttonRewind: true,
-            buttonForward: true,            
+            buttonForward: true,
             @else
             buttonRewind: false,
             buttonForward: false,
-            @endif            
+            @endif
             mousedisplay:true,
             textTrackSettings: false,
             @if(get_player_cong('theater_mode')=="ON")
-            theaterButton: true            
+            theaterButton: true
             @else
             theaterButton: false
-            @endif            
+            @endif
 
         });
 
         player.pip();
 
-        player.chromecast({ metatitle: '{{stripslashes($tv_info->channel_name)}}', metasubtitle: 'Live TV' }); 
-        
-        @if(get_player_cong('player_ad_on_off')=="ON")           
+        player.chromecast({ metatitle: '{{stripslashes($tv_info->channel_name)}}', metasubtitle: 'Live TV' });
+
+        @if(get_player_cong('player_ad_on_off')=="ON")
         player.vroll({src:"{{get_player_cong('ad_video_url')}}",type:"video/mp4",href:"{{get_player_cong('ad_web_url')}}",offset:"{{get_player_cong('ad_offset')}}",skip:"{{get_player_cong('ad_skip')}}",id:1});
         @endif
-          
+
 
         player.on('mode',function(event,mode) {
           if(mode=='large'){
             document.querySelector("#left_video_player").style.width='100%';
             document.querySelector("#right_sidebar_hide").style.display='none';
             document.querySelector("#theater_mode_width").style.width='66%';
-            
+
           }else{
             document.querySelector("#left_video_player").style.width='';
             document.querySelector("#right_sidebar_hide").style.display='block';
             document.querySelector("#theater_mode_width").style.width='100%';
           }
-        });  
-         
+        });
+
     </script>
 
-        
+
     <!-- hotkeys -->
     <script src="{{ URL::asset('site_assets/videojs_player/plugins/hotkeys/videojs.hotkeys.min.js') }}"></script>
-    <script>    
+    <script>
       player.ready(function() {
         this.hotkeys({
             volumeStep: 0.1,
@@ -301,8 +302,8 @@
       });
 
     </script>
-    <!-- End hotkeys --> 
- 
+    <!-- End hotkeys -->
+
  @endif
 
 @endsection

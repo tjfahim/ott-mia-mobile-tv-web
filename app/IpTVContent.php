@@ -16,5 +16,7 @@ class IpTVContent extends Model
        'tag',
         'image',
         'url',
+        'session',
+        'episode'
     ];
 }

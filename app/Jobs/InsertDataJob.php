@@ -10,7 +10,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
 
-
 class InsertDataJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -56,6 +55,19 @@ class InsertDataJob implements ShouldQueue
                     foreach ($matches[1] as $index => $key) {
                         $item[$key] = $matches[2][$index];
                     }
+
+                    if($item['name']) {
+                        // Match season and episode
+                        $pattern_s = '/S(\d{2})/';
+                        $pattern_e = '/E(\d{2})/';
+
+                        preg_match($pattern_s, $item['name'], $session);
+                        preg_match($pattern_e, $item['name'], $episod);
+
+                        // Extract matched season and episode
+                        $item['s'] = $session[1] ?? null; // Season number
+                        $item['e'] = $episod[1] ?? null;  // Episode number
+                    }
                 } elseif ($item && !str_starts_with($line, "#")) {
                     $item['url'] = $line;
                     $result[] = [
@@ -65,6 +77,8 @@ class InsertDataJob implements ShouldQueue
                         'tag' => $item['tag'] ?? null,
                         'image' => $item['logo'] ?? null,
                         'url' => $item['url'] ?? null,
+                        'session' => $item['s'] ?? null,
+                        'episode' => $item['e'] ?? null,
                     ];
                     $item = null;
 

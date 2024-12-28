@@ -501,7 +501,7 @@ Route::get('/reads', function () {
 
 
 Route::get('/read', function () {
-    $file =  __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+    $file =  __DIR__.'/../iptv/abc.m3u';
 
     if (!file_exists($file)) {
         die("The file does not exist.");
@@ -523,6 +523,8 @@ Route::get('/read', function () {
                 foreach ($matches[1] as $index => $key) {
                     $item[$key] = $matches[2][$index];
                 }
+
+
             } elseif ($item && !str_starts_with($line, "#")) {
                 $item['url'] = $line;
                 $result[] = $item;
@@ -567,6 +569,8 @@ Route::get('/clear', function () {
     Artisan::call('view:clear');
     Artisan::call('route:clear');
     Artisan::call('optimize:clear');
+
+
     return "Cleared!";
 });
 
