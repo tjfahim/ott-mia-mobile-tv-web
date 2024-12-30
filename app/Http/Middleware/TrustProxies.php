@@ -2,22 +2,30 @@
 
 namespace App\Http\Middleware;
 
-use Fideloper\Proxy\TrustProxies as Middleware;
 use Illuminate\Http\Request;
+use Closure; // Import Closure from the global namespace
+use Fideloper\Proxy\TrustProxies as Middleware;
 
 class TrustProxies extends Middleware
 {
-    /**
-     * The trusted proxies for this application.
-     *
-     * @var array|string
-     */
-    protected $proxies;
+    protected $proxies = '*';  // Trust all proxies or specify specific ones
+    protected $headers = Request::HEADER_X_FORWARDED_ALL;
 
     /**
-     * The headers that should be used to detect proxies.
+     * Handle the incoming request and modify the URL scheme based on the forwarded protocol.
      *
-     * @var int
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
-    protected $headers = Request::HEADER_X_FORWARDED_ALL;
+    public function handle(Request $request, Closure $next)
+    {
+        // Check if the request is behind a proxy and has the X-Forwarded-Proto header
+        if ($request->headers->has('X-Forwarded-Proto') && $request->headers->get('X-Forwarded-Proto') === 'http') {
+            // Ensure the scheme stays as http
+            $request->server->set('HTTPS', 'off');
+        }
+
+        return $next($request);
+    }
 }

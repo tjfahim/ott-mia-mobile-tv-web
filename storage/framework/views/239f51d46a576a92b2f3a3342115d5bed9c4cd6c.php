@@ -1,6 +1,6 @@
 <nav class="flex flex-col  sm:flex-row justify-between sm:items-center p-5 gap-5 h-[90px]">
     <a href="<?php echo e(URL::to('/')); ?>"><img src="<?php echo e(URL::asset('upload/source/'.getcong('site_logo'))); ?>" alt="logo"></a>
-    <div class="flex flex-col sm:flex-row p-1.5  sm:bg-first_black sm:rounded-full text-white font-manrope ">
+    <div class="hidden sm:flex flex-col sm:flex-row p-1.5  sm:bg-first_black sm:rounded-full text-white font-manrope ">
         <!-- active class css bg-second_black -->
 
         <a href="<?php echo e(URL::to('/')); ?>" class="<?php echo e(request()->is('/') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1">Home</a>
@@ -13,7 +13,7 @@
         <!-- <a href="<?php echo e(URL::to('account/info')); ?>" class="<?php echo e(request()->is('account*') ? 'bg-second_black translate-x-1' : ''); ?> px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a> -->
     </div>
     <div class="flex justify-between gap-3">
-        <div class="hidden sm:flex gap-1">
+        <div class="hidden md:flex gap-1">
             <div class="relative" x-data="{open: false}" @click.away="open = false" >
                 <button @click="open = !open" x-cloak class="p-3 bg-second_black rounded-full hover:scale-110 duration-300"><img src="<?php echo e(URL::asset('frontend/images/search-icon.svg')); ?>" alt=""></button>
                 <div
@@ -34,7 +34,7 @@
             </div>
             <button class="p-3 bg-second_black rounded-full hover:scale-110 duration-300" x-cloak ><img src="<?php echo e(URL::asset('frontend/images/notif-icon.svg')); ?>" alt=""></button>
         </div>
-        <div class="flex justify-center gap-3 sm:items-center">
+        <div class="hidden md:flex justify-center gap-3 sm:items-center">
 
             <?php if(auth()->guard()->check()): ?>
                 <div class="group flex gap-3 items-center cursor-pointer px-3 py-2 rounded-full bg-first_black ">

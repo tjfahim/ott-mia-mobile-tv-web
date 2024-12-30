@@ -19,9 +19,7 @@ class VodController extends Controller
     public function movies()
     {
 
-
         $search = request()->input('search');
-
 
 
         $sliders = Slider::all();

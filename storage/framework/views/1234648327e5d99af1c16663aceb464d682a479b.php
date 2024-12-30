@@ -35,6 +35,7 @@
         <!-- Video JS -->
         <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
         <script defer src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-http-streaming/2.15.2/videojs-http-streaming.min.js"></script>
 
         <!-- Alpine.js -->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -167,7 +168,7 @@
 
 
      <!-- login section start -->
-    <div x-cloak class="popup-login bg-first_black rounded-md  p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" x-show="loginform"
+    <div x-cloak class="popup-login bg-first_black rounded-md p-4 sm:p-10 absolute left-5 right-5 top-20 w-full lg:w-1/3  md:top-[120px] md:left-1/2 md:transform md:-translate-x-1/2" x-show="loginform"
         @click.away="loginform = false"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-90"
@@ -176,7 +177,7 @@
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-90"
         >
-        <section class="p-10 w-full ">
+        <section class="p-3 sm:p-10 w-full">
             <div class="text-center text-white space-y-5">
                 <h2 class="text-2xl font-normal ">Welcome to Silk Road Television </h2>
                 <p class="opacity-50 text-sm">Enter following details to login.</p>
@@ -267,12 +268,14 @@
                     <a href="" class="text-white text-center hover:underline hover:underline-offset-2 decoration-red-500">Registation</a>
                 </form>
             </div>
-            <div class="flex gap-2 opacity-70 mx-auto">
-                <a class=" bg-gray-300 opacity-90 p-2 rounded-full" href="">
-                    <img style="height: 24px; width: 24px;" src="./images/facebook-Icon.svg" alt="">
+            <div class="flex gap-4 opacity-70 pt-10 justify-center">
+                <a class="hover:scale-110 duration-300 hover:border bg-transparent opacity-90 p-2 rounded" href="<?php echo e(route('login.facebook')); ?>">
+                    <img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('frontend/images/facebook-Icon.svg')); ?>" alt="">
                 </a>
-                <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="./images/x-Icon.svg" alt=""></a>
-                <a class=" bg-dark p-2 rounded" href=""><img style="height: 24px; width: 24px;" src="./images/linkdin-icon.svg" alt=""></a>
+                <a class="hover:scale-110 duration-300 hover:border bg-transparent opacity-90 p-2 rounded" href="<?php echo e(route('login.google')); ?>">
+                    <img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('frontend/images/x-Icon.svg')); ?>" alt="">
+                </a>
+                
             </div>
         </section>
 
@@ -338,8 +341,8 @@
         }"  x-init="csrfToken = document.querySelector('meta[name=&quot;csrf-token&quot;]').getAttribute('content')" x-cloak>
 
         <!-- Registration Form Popup -->
-        <div x-show="registerForm" @click.away="registerForm = false" class="popup-register bg-first_black rounded-md p-10 absolute top-[120px] left-1/2 transform -translate-x-1/2" >
-            <section class="">
+        <div x-show="registerForm" @click.away="registerForm = false" class="popup-register bg-first_black rounded-md p-4 lg:p-10 w-5/6 lg:w-1/3 absolute top-[120px] left-1/2 transform -translate-x-1/2 " >
+            <section class="p-3 sm:p-10 w-full">
                 <div class="text-center text-white space-y-5">
                     <h2 class="text-2xl font-normal">Create A New Account</h2>
                     <p class="opacity-50 text-sm">Enter following details to Signup.</p>
@@ -348,8 +351,8 @@
                 <!-- Registration Form -->
                 <form @submit.prevent="submitForm" class="flex gap-5 flex-col">
                     <!-- First Name -->
-                    <div class="flex gap-4">
-                        <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                    <div class="flex flex-col sm:flex-row justify-between gap-4">
+                        <div class="border  w-full rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
                             <div class="border-r pr-3 border-[#FFFFFF1A]">
                                 <img class="text-black" src="./images/user.svg" alt="">
                             </div>
@@ -361,7 +364,7 @@
                         </div>
 
                         <!-- Last Name -->
-                        <div class="border rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
+                        <div class="border  w-full rounded-md p-3 border-[#FFFFFF1A] gap-3 flex items-center justify-start hover:border-[#ED2024]">
                             <div class="border-r pr-3 border-[#FFFFFF1A]">
                                 <img class="text-black" src="./images/user.svg" alt="">
                             </div>
@@ -422,7 +425,15 @@
                         Register
                     </button>
                 </form>
-
+                <div class="flex gap-4 opacity-70 pt-10 justify-center">
+                    <a class="hover:scale-110 duration-300 hover:border bg-transparent opacity-90 p-2 rounded" href="<?php echo e(route('login.facebook')); ?>">
+                        <img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('frontend/images/facebook-Icon.svg')); ?>" alt="">
+                    </a>
+                    <a class="hover:scale-110 duration-300 hover:border bg-transparent opacity-90 p-2 rounded" href="<?php echo e(route('login.google')); ?>">
+                        <img style="height: 24px; width: 24px;" src="<?php echo e(URL::asset('frontend/images/x-Icon.svg')); ?>" alt="">
+                    </a>
+                    
+                </div>
 
             </section>
 

@@ -290,10 +290,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 // Route::get('register', 'IndexController@register');
 // Route::post('login', 'IndexController@postLogin');
 
-Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('login.facebook');
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
-Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook');
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToFacebook')->name('login.google');
 Route::get('auth/facebook/callback', 'Auth\FacebookController@handleFacebookCallback');
 
 // Route::get('signup', 'IndexController@signup');

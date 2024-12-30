@@ -56,6 +56,8 @@ class ContentController extends Controller
 
 
 
+
+
         if (!$movie) {
             \Log::error("Movie not found for ID: " . $id);
             return redirect()->back()->withErrors(['error' => 'Movie not found.']);
@@ -72,6 +74,7 @@ class ContentController extends Controller
 
         // $client = new \GuzzleHttp\Client();
 
+
         // $request = $client->get($url);
 
         // $response = $request->getBody();
@@ -80,7 +83,13 @@ class ContentController extends Controller
 
         //  dd($response);
 
+        $extention = pathinfo($url, PATHINFO_EXTENSION);
 
+
+        // return view('frontend.iptv', [
+        //     'video' => $movie,
+        //     'url' => $url
+        // ]);
 
         return view('frontend.playMovies', [
             'video' => $movie,
