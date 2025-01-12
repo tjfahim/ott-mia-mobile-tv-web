@@ -1,5 +1,5 @@
-document.addEventListener('alpine:init', ()=>{
-    Alpine.data('contactUS', ()=> ({
+document.addEventListener('alpine:init', () => {
+    Alpine.data('contactUS', () => ({
         form: {
             first_name: '',
             last_name: '',
@@ -7,40 +7,44 @@ document.addEventListener('alpine:init', ()=>{
             message: '',
         },
         errors: {},
+        loading: false,
+        successMessage: '',
+        csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 
-        async submit(){
+        async submit() {
             this.errors = {};
+            this.loading = true;
 
-            axios.post('{{ URL::to('signup') }}', {
-                name: this.name,
-                last_name: this.last_name,
-                email: this.email,
-                password: this.password,
-                password_confirmation: this.password_confirmation
+            const signupUrl = "{{ route('signup') }}";
+
+            axios.post(signupUrl, {
+                first_name: this.form.first_name,
+                last_name: this.form.last_name,
+                email: this.form.email,
+                message: this.form.message,
             }, {
                 headers: {
                     'X-CSRF-TOKEN': this.csrfToken,
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
                 }
             })
             .then(response => {
-    
                 if (response.data.status === 200) {
-                    location.reload()
+                    location.reload();
                     this.successMessage = 'Registration successful! You can now login.';
                     this.errors = {};
-                    this.regform = false;  // Close the modal on success
-                    this.loading = false;
+                    this.regform = false;
                 }
             })
             .catch(error => {
                 if (error.response && error.response.data.errors) {
                     this.errors = error.response.data.errors;
-                    this.showModal = true;  // Open the error modal on error
                 }
+            })
+            .finally(() => {
                 this.loading = false;
             });
         }
     }));
-})
+});

@@ -13,7 +13,7 @@
         <!-- <a href="{{ URL::to('account/info') }}" class="{{ request()->is('account*') ? 'bg-second_black translate-x-1' : '' }} px-5 py-2  rounded-full duration-200 hover:translate-x-1 hover:bg-second_black">Account</a> -->
     </div>
     <div class="flex justify-between gap-3">
-        <div class="hidden md:flex gap-1">
+        <div class=" md:flex gap-1">
             <div class="relative" x-data="{open: false}" @click.away="open = false" >
                 <button @click="open = !open" x-cloak class="p-3 bg-second_black rounded-full hover:scale-110 duration-300"><img src="{{ URL::asset('frontend/images/search-icon.svg')}}" alt=""></button>
                 <div
@@ -34,7 +34,7 @@
             </div>
             <button class="p-3 bg-second_black rounded-full hover:scale-110 duration-300" x-cloak ><img src="{{ URL::asset('frontend/images/notif-icon.svg') }}" alt=""></button>
         </div>
-        <div class="hidden md:flex justify-center gap-3 sm:items-center">
+        <div class=" md:flex justify-center gap-3 sm:items-center">
 
             @auth
                 <div class="group flex gap-3 items-center cursor-pointer px-3 py-2 rounded-full bg-first_black ">
