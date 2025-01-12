@@ -70,7 +70,7 @@ class ContentController extends Controller
 
 
 
-
+     
 
         // $client = new \GuzzleHttp\Client();
 

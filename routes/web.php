@@ -486,7 +486,7 @@ Route::get('iptv/category/set', [IptvContentController::class, 'categoriSet']);
 // ivtv content routers end
 
 Route::get('/reads', function () {
-    $file = __DIR__.'/../iptv/tv_channels_e0icv722yr_plus.m3u';
+    $file = __DIR__.'/../iptv/tv_channels_718537b9f2_plus.m3u';
 
     if (!file_exists($file)) {
         return response()->json(['message' => 'The file does not exist.'], 404);
