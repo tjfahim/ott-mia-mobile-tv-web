@@ -101,6 +101,22 @@ class VodController extends Controller
         }, $shows_cat);
 
 
+        foreach ($shows as &$category) {
+            if (isset($category['content'])) {
+                foreach ($category['content'] as &$item) {
+                    // Modify the 'name' field, removing "Sxx Exx" pattern
+                    if (isset($item['name'])) {
+                        $item['name'] = preg_replace('/S\d{2}\sE\d{2}/', '', $item['name']);
+                        // Optionally trim extra spaces
+                        $item['name'] = trim($item['name']);
+
+                    }
+                }
+            }
+        }
+
+
+
 
         return view('frontend.vod.shows', compact('sliders', 'shows'));
 

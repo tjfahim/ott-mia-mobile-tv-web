@@ -86,7 +86,7 @@
                                 <img class="w-full h-[300px] rounded-md" src="{{  $item->image }}" alt="">
                                 <div class="text-white flex justify-between items-center text-sm">
                                     {{-- <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ }}</span></button> --}}
-                                    <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/eye2.svg" alt=""><span>2k</span></button>
+                                    <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black">{{ $item->name }}</button>
                                 </div>
                             </div>
                         </a>
