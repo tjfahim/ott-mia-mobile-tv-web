@@ -25,10 +25,12 @@ class VodController extends Controller
         $sliders = Slider::all();
 
         $page_section = HomeSection::find(1);
-        $movies_cat = explode(',', $page_section->movies_categories);
-        $movies_cat = array_map(function($cat){
+
+
+        $shows_cat = explode(',', $page_section->movies_categories);
+        $shows_cat = array_map(function($cat){
             return IptvCategorie::find($cat)->name;
-        }, $movies_cat);
+        }, $shows_cat);
 
 
         $movies = array_map(function($cat) use($search){
@@ -41,7 +43,7 @@ class VodController extends Controller
                                 ->whereNotNull('image')
                                 ->where('image', '!=', '')->limit(5)->get()
             ];
-        }, $movies_cat);
+        }, $shows_cat);
 
 
         $iptv_cate = IptvCategorie::all();
@@ -75,84 +77,32 @@ class VodController extends Controller
 
     public function shows()
     {
-        $shows = Series::all();
 
-        $Netflix_shows_genre_id = Genres::where('genre_slug', 'netflix-_movies')->get()->first()->id;
-        $_4k_netflix_shows_id = Genres::where('genre_slug', '4k-netflix-movies')->get()->first()->id;
-        $Disney_Kids_shows_genre_id = Genres::where('genre_slug', 'disney-kids')->get()->first()->id;
-        $Disney_shows_en_genre_id = Genres::where('genre_slug', 'disney-movies')->get()->first()->id;
-        $Gangster_Mafia_shows_genre_id = Genres::where('genre_slug', 'en-gangster-mafia')->get()->first()->id;
-        $Apple_shows_genre_id = Genres::where('genre_slug', 'apple-movies')->get()->first()->id;
-
-
-
-        $Netflix_shows_all = [];
-        $_4k_netflix_shows_all = [];
-        $Disney_Kids_shows_all = [];
-        $Disney_shows_all = [];
-        $Gangster_Mafia_shows_all = [];
-        $Apple_shows_all = [];
-
-
-        foreach($shows as $show){
-            $genre_ids = explode(',', $show->series_genres);
-
-            // serach id matching or not
-            foreach($genre_ids as $gen_id){
-
-                switch($gen_id){
-                    case $Netflix_shows_genre_id:
-                        array_push($Netflix_shows_all, $show);
-                        break;
-                    case $_4k_netflix_shows_id:
-                        array_push($_4k_netflix_shows_all, $show);
-                        break;
-                    case $Disney_Kids_shows_genre_id:
-                        array_push($Disney_Kids_shows_all, $show);
-                        break;
-                    case $Disney_shows_en_genre_id:
-                        array_push($Disney_shows_all, $show);
-                        break;
-                    case $Gangster_Mafia_shows_genre_id:
-                        array_push($Gangster_Mafia_shows_all, $show);
-                        break;
-                    case $Apple_shows_genre_id:
-                        array_push($Apple_shows_all, $show);
-                        break;
-
-                }
-
-            }
-        }
-
-        $Netflix_shows_all  = count($Netflix_shows_all) > 5 ? array_slice($Netflix_shows_all, 0, 5) :  $Netflix_shows_all ;
-        $_4k_netflix_shows_all  = count($_4k_netflix_shows_all) > 5 ? array_slice($_4k_netflix_shows_all, 0, 5) :  $_4k_netflix_shows_all ;
-        $Disney_Kids_shows_all  = count($Disney_Kids_shows_all) > 5 ? array_slice($Disney_Kids_shows_all, 0, 5) :  $Disney_Kids_shows_all ;
-        $Disney_shows_all  = count($Disney_shows_all) > 5 ? array_slice($Disney_shows_all, 0, 5) :  $Disney_shows_all ;
-        $Gangster_Mafia_shows_all  = count($Gangster_Mafia_shows_all) > 5 ? array_slice($Gangster_Mafia_shows_all, 0, 5) :  $Gangster_Mafia_shows_all ;
-        $Apple_shows_all  = count($Apple_shows_all) > 5 ? array_slice($Apple_shows_all, 0, 5) :  $Apple_shows_all ;
 
 
         $sliders = Slider::all();
 
         $page_section = HomeSection::find(1);
-        $movies_cat = explode(',', $page_section->shows_categories);
-        $movies_cat = array_map(function($cat){
+        $shows_cat = explode(',', $page_section->shows_categories);
+        $shows_cat = array_map(function($cat){
             return IptvCategorie::find($cat)->name;
-        }, $movies_cat);
+        }, $shows_cat);
 
 
-        $movies = array_map(function($cat){
+        $shows = array_map(function($cat){
             return [
                 'title' => $cat,
                 'content' => IpTVContent::where('title', $cat)
-                    ->whereNotNull('image')->where('image', '!=', '')->limit(5)->get()
+                    ->whereNotNull('image')->where('image', '!=', '')
+                    ->where('session' ,'01')
+                    ->where('episode', '01')
+                    ->limit(5)->get()
             ];
-        }, $movies_cat);
+        }, $shows_cat);
 
 
 
-        return view('frontend.vod.shows', compact('sliders', 'movies'));
+        return view('frontend.vod.shows', compact('sliders', 'shows'));
 
 
         //  return view('frontend.vod.shows', compact('sliders', 'Netflix_shows_all', '_4k_netflix_shows_all', 'Disney_Kids_shows_all', 'Disney_shows_all', 'Gangster_Mafia_shows_all', 'Apple_shows_all'));

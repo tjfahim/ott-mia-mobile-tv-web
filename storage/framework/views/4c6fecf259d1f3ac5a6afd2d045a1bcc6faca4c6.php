@@ -10,7 +10,12 @@
         data-setup="{}"
 
 >
-    <source src="<?php echo e($url); ?>" type="video/mp4">
+    <?php if($extention == 'live'): ?>{
+        <source src="<?php echo e($url); ?>" type="application/x-mpegURL">
+    }
+    <?php else: ?>
+        <source src="<?php echo e($url); ?>" type="video/mp4">
+    <?php endif; ?>
 
         
 </video>

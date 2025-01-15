@@ -70,7 +70,7 @@
 
  <div class="border border-second_black p-10 " >
 
-        @foreach ($movies as $movie)
+        @foreach ($shows as $movie)
 
 
 
@@ -81,7 +81,7 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
                     @foreach ($movie['content'] as $item)
-                        <a href="{{ URL::to('movie/'.$item->id)}} ">
+                        <a href="{{ URL::to('show/'.$item->id)}} ">
                             <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
                                 <img class="w-full h-[300px] rounded-md" src="{{  $item->image }}" alt="">
                                 <div class="text-white flex justify-between items-center text-sm">

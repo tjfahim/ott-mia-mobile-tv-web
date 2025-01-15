@@ -1,18 +1,16 @@
-@extends('client_site.layouts.app')
+<?php $__env->startSection('content'); ?>
 
-@section('content')
-
-<section class="bg-cover relative w-full h-[650px]" style="background-image:  linear-gradient(0deg, rgba(20,20,20,0.4878151944371498) 0%, rgba(20,20,20,0.20770314961922265) 100%), url({{ $show->image}})">
+<section class="bg-cover relative w-full h-[650px]" style="background-image:  linear-gradient(0deg, rgba(20,20,20,0.4878151944371498) 0%, rgba(20,20,20,0.20770314961922265) 100%), url(<?php echo e($show->image); ?>)">
 
 
     <div class="absolute  bottom-0 left-0 right-0 text-white text-center p-10 space-y-5">
         <div class="flex flex-col gap-2">
-            <h2 class="text-xl font-semibold">{{ $show->name }}</h2>
-            {{-- <p class="opacity-50">{{ $show->video_description }}</p> --}}
+            <h2 class="text-xl font-semibold"><?php echo e($show->name); ?></h2>
+            
         </div>
         <div class="flex justify-center items-stretch gap-3">
-            <a href="{{  URL::to('show/play/'. $show->id) }}" class="bg-redcolor flex rounded gap-1 px-3 py-2 justify-center items-center text-md "><img src="{{ URL::asset('assets/frontend/images/play-Icon.svg') }}" alt=""><span>Play Now</span></a>
-            {{-- <button class=" border-2 border-[#262626]  p-2 px-3 bg-[#0F0F0F] rounded" ><img  class="size-8" src="{{  URL::asset('assets/frontend/images/plus.svg') }}" alt=""></button> --}}
+            <a href="<?php echo e(URL::to('show/play/'. $show->id)); ?>" class="bg-redcolor flex rounded gap-1 px-3 py-2 justify-center items-center text-md "><img src="<?php echo e(URL::asset('assets/frontend/images/play-Icon.svg')); ?>" alt=""><span>Play Now</span></a>
+            
 
             <div x-data="{
                 form: {
@@ -23,7 +21,7 @@
                 async submit(){
 
                     try{
-                        const res = await axios.post('{{ URL::to('favorite') }}', this.form, {
+                        const res = await axios.post('<?php echo e(URL::to('favorite')); ?>', this.form, {
                             headers: {
                                 'X-CSRF-TOKEN': this.csrfToken,
                                 'Content-Type': 'application/json',
@@ -68,13 +66,13 @@
                     }
 
                 }
-            }"  x-init="form.favourite_id = {{ $show->id }}">
+            }"  x-init="form.favourite_id = <?php echo e($show->id); ?>">
                 <form @submit.prevent="submit" >
-                    {{-- <input type="text"  x-model="form.favourite_id" class="hidden" value="{{ $show->id }}" /> --}}
-                    <button type="submit" class=" border-2 border-[#262626]  p-2 px-3 bg-[#0F0F0F] rounded"><img  class="size-8" src="{{  URL::asset('assets/frontend/images/like.svg') }}" alt=""></button>
+                    
+                    <button type="submit" class=" border-2 border-[#262626]  p-2 px-3 bg-[#0F0F0F] rounded"><img  class="size-8" src="<?php echo e(URL::asset('assets/frontend/images/like.svg')); ?>" alt=""></button>
                 </form>
             </div>
-            {{-- <button class=" border-2 border-[#262626] p-2  px-3 bg-[#0F0F0F] rounded"><img  class="size-8" src="{{  URL::asset('assets/frontend/images/sound-icon.png') }}" alt=""></button> --}}
+            
         </div>
     </div>
 </section>
@@ -84,7 +82,7 @@
 
 
     <div class="flex justify-between items-center text-white mb-10 " style="margin-top: 100px">
-        <h2 class="text-3xl font-bold ">All Episode   ( {{ $show_name }} )</h2>
+        <h2 class="text-3xl font-bold ">All Episode   ( <?php echo e($show_name); ?> )</h2>
         
     </div>
 
@@ -93,20 +91,22 @@
 
 
 
-     @foreach ($episodes as $movie)
-         <a href="{{ URL::to('movie/'.$movie->id)}} ">
+     <?php $__currentLoopData = $episodes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+         <a href="<?php echo e(URL::to('movie/'.$movie->id)); ?> ">
              <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
-                 <img class="w-full h-[300px] rounded-md" src="{{ $movie->image }}" alt="">
+                 <img class="w-full h-[300px] rounded-md" src="<?php echo e($movie->image); ?>" alt="">
                  <div class="text-white flex justify-between items-center text-sm">
-                     {{-- <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><img src="./images/time-icon.png" alt=""><span>{{ $movie->duration }}</span></button> --}}
-                     <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black">{{ $movie->name }}</button>
+                     
+                     <button class="flex justify-center items-center gap-1 text-sm border border-third_black rounded-full px-2 py-1 bg-second_black"><?php echo e($movie->name); ?></button>
                  </div>
              </div>
          </a>
-     @endforeach
+     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
 </section>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('client_site.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ott-mia\ott-mia-mobile-tv-web\resources\views/frontend/singleShowPage.blade.php ENDPATH**/ ?>

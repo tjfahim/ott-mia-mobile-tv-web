@@ -67,7 +67,7 @@
 
  <div class="border border-second_black p-10 " >
 
-        <?php $__currentLoopData = $movies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $shows; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 
 
@@ -78,7 +78,7 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-[50px]">
                     <?php $__currentLoopData = $movie['content']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <a href="<?php echo e(URL::to('movie/'.$item->id)); ?> ">
+                        <a href="<?php echo e(URL::to('show/'.$item->id)); ?> ">
                             <div class="border border-third_black bg-first_black min-h-[350px] flex flex-col justify-between p-3 rounded-md space-y-5">
                                 <img class="w-full h-[300px] rounded-md" src="<?php echo e($item->image); ?>" alt="">
                                 <div class="text-white flex justify-between items-center text-sm">

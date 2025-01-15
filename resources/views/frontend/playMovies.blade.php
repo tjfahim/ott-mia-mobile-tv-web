@@ -12,7 +12,12 @@
         data-setup="{}"
 
 >
-    <source src="{{ $url }}" type="video/mp4">
+    @if($extention == 'live'){
+        <source src="{{ $url }}" type="application/x-mpegURL">
+    }
+    @else
+        <source src="{{ $url }}" type="video/mp4">
+    @endif
 
         {{-- <source src="http://185.243.7.43:80/live/play/YUhkWmJXNTZNRnB0Y1N0eVpEQTNaR1ZMZHpJemRtMVpTV2xLUm5sWVNIUndjRmxGYTFoWFMwbzBPRDA9/1575056" type="video/mp4" /> --}}
 </video>

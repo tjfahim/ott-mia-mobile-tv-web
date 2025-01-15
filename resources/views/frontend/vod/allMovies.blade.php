@@ -61,7 +61,7 @@
     </div>
  </div>
 
-<div class="border border-second_black p-10 " >
+<div class="border border-second_black p-10 ">
 
 
 
